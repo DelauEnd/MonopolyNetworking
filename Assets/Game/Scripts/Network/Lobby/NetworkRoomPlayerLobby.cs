@@ -119,6 +119,8 @@ namespace Assets.Game.Scripts.Network.Lobby
         {
             if (Room.RoomPlayers[0].connectionToClient != connectionToClient)
                 return;
+
+            Room.StartGame();
         }
     }
 }

@@ -441,6 +441,7 @@ MonoBehaviour:
   minPlayers: 2
   menuScene: Assets/Scenes/Scene_MainMenu.unity
   roomPlayerPrefab: {fileID: 6641250278399528246, guid: 071333284f0a21b468ff76c326f4aa41, type: 3}
+  gamePlayerPrefab: {fileID: 6641250278399528246, guid: ed34522bbf474c848a0ecb1e029f70a1, type: 3}
 --- !u!4 &1588284489
 Transform:
   m_ObjectHideFlags: 0
