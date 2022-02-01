@@ -32,22 +32,22 @@ public class DiceCheck : MonoBehaviour
             switch (obj.gameObject.name)
             {
                 case "side1":
-                    dice.rolledNumber = 2;
-                    break;
-                case "side2":
-                    dice.rolledNumber = 1;
-                    break;
-                case "side3":
-                    dice.rolledNumber = 5;
-                    break;
-                case "side4":
                     dice.rolledNumber = 6;
                     break;
-                case "side5":
+                case "side2":
+                    dice.rolledNumber = 5;
+                    break;
+                case "side3":
+                    dice.rolledNumber = 4;
+                    break;
+                case "side4":
                     dice.rolledNumber = 3;
                     break;
+                case "side5":
+                    dice.rolledNumber = 2;
+                    break;
                 case "side6":
-                    dice.rolledNumber = 4;
+                    dice.rolledNumber = 1;
                     break;
             }
         }

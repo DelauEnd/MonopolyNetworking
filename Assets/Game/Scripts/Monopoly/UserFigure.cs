@@ -61,7 +61,7 @@ public class UserFigure : MonoBehaviour
             gameField.fieldUnits[currentPosition].lockedPoints++;
 
             var previousUnitIndex = currentPosition == 0 ?
-                currentPosition = gameField.fieldUnits.Count - 1 :
+                gameField.fieldUnits.Count - 1 :
                 currentPosition - 1;
             gameField.fieldUnits[previousUnitIndex].lockedPoints--;
         }
