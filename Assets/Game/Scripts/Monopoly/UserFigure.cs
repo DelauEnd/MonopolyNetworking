@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class UserFigure : MonoBehaviour
 {
-    public GameField gameField;
+    public GameField gameField = null;
     public int currentPosition = 0;
     public int steps;
     public uint userMoney = 1500;
@@ -16,9 +16,9 @@ public class UserFigure : MonoBehaviour
 
     float anim;
 
-    private void Start()
+    private void Update()
     {
-        gameField = FindObjectOfType<GameField>();
+        gameField ??= FindObjectOfType<GameField>();
     }
 
     private void FixedUpdate()

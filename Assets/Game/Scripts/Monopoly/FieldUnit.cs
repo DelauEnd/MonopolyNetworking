@@ -10,7 +10,7 @@ public class FieldUnit : MonoBehaviour
 
     public int lockedPoints = 0;
 
-    private void Start()
+    private void Awake()
     {
         InitPoint();
     }
@@ -23,4 +23,6 @@ public class FieldUnit : MonoBehaviour
 
     public Vector3 GetAvailablePoint()
         => stopPoints[lockedPoints].position;
+
+
 }

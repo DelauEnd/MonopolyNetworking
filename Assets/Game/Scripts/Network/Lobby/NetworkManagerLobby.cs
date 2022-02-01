@@ -19,9 +19,11 @@ namespace Assets.Game.Scripts.Network.Lobby
        
         [Header("Game")]
         [SerializeField] private NetworkGamePlayerLobby gamePlayerPrefab = null;
+        [SerializeField] private GameObject playerSpawnSystem = null;
 
         public static event Action OnClientConnected;
         public static event Action OnClientDisconnected;
+        public static event Action<NetworkConnection> OnServerReadied;
 
         public List<NetworkRoomPlayerLobby> RoomPlayers { get; }
             = new List<NetworkRoomPlayerLobby>();
@@ -134,14 +136,29 @@ namespace Assets.Game.Scripts.Network.Lobby
                 var conn = RoomPlayers[i].connectionToClient;
                 var gameplayerInstance = Instantiate(gamePlayerPrefab);
                 gameplayerInstance.SetDisplayName(RoomPlayers[i].DisplayName);
-
                 NetworkServer.Destroy(conn.identity.gameObject);
 
                 NetworkServer.ReplacePlayerForConnection(conn, gameplayerInstance.gameObject);
             }
 
-
             base.ServerChangeScene(newSceneName);
+        }
+
+        public override void OnServerSceneChanged(string sceneName)
+        {
+            if(sceneName.StartsWith("Scene"))
+            {
+                GameObject spawnSystemInstance = Instantiate(playerSpawnSystem);
+                NetworkServer.Spawn(spawnSystemInstance);               
+            }
+        }
+
+        public override void OnServerReady(NetworkConnection conn)
+        {
+            base.OnServerReady(conn);
+
+            OnServerReadied?.Invoke(conn);
+            GameManager.InitGame();
         }
     }
 }

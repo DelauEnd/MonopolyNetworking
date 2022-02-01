@@ -3,20 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Game : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public LinkedList<UserFigure> users = null;
-    public LinkedListNode<UserFigure> currentUser = null;
-    public LinkedListNode<UserFigure> previousUser = null;
+    public static LinkedList<UserFigure> users = null;
+    public static LinkedListNode<UserFigure> currentUser = null;
+    public static LinkedListNode<UserFigure> previousUser = null;
 
     public DiceCheck dices;
 
     private void Start()
     {
+        dices = GetComponentInChildren<DiceCheck>();
+    }
+
+    public static void InitGame()
+    {
         users = new LinkedList<UserFigure>(FindObjectsOfType<UserFigure>());
         currentUser = users.First;
         previousUser = users.Last;
-        dices = GetComponentInChildren<DiceCheck>();
     }
 
     private void Update()

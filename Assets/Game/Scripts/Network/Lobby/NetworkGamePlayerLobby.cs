@@ -14,6 +14,7 @@ namespace Assets.Game.Scripts.Network.Lobby
     public class NetworkGamePlayerLobby : NetworkBehaviour
     {
         [SyncVar]
+        [SerializeField]
         private string DisplayName = "Loading...";
 
         private NetworkManagerLobby room;
@@ -26,8 +27,6 @@ namespace Assets.Game.Scripts.Network.Lobby
                 return room = NetworkManager.singleton as NetworkManagerLobby;
             }
         }
-
-       
 
         public override void OnStartClient()
         {

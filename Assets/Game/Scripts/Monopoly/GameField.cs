@@ -1,3 +1,4 @@
+using Assets.Game.Scripts.Network.Lobby;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +9,16 @@ public class GameField : MonoBehaviour
     Transform[] gameObjects;
     public List<FieldUnit> fieldUnits = new List<FieldUnit>();
 
-    private void Start()
+    private void Awake()
     {
         FillNodes();
+
+        SpawnManager.AddSpawnPoints(fieldUnits[0].stopPoints);
+        fieldUnits[0].lockedPoints = SpawnManager.usedPoints;
     }
+
+    private void OnDestroy()
+        => SpawnManager.ClearSpawnPoint();
 
     /// <summary>
     /// Draws game field route
