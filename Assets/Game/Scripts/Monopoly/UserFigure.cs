@@ -1,4 +1,5 @@
 using Assets.Game.Scripts.Utils;
+using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -83,9 +84,7 @@ public class UserFigure : MonoBehaviour
 
     bool ShouldMoveToNext(Vector3 goal)
     {
-        anim += Time.fixedDeltaTime;
-
-        transform.position = Vector3Move.MoveAlongParabola(transform.position, goal, 0.7f, anim / 2);
+        transform.position = Vector3.MoveTowards(transform.position, goal, Time.fixedDeltaTime);
 
         return goal != transform.position;
     }

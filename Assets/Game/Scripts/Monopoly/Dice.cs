@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dice : MonoBehaviour
+public class Dice : NetworkBehaviour
 {
     Rigidbody rigid;
     public Vector3 diceVelocity;

@@ -14,9 +14,9 @@ public class DiceCheck : MonoBehaviour
     public int rolledSum 
         => dices.Sum(dice => dice.rolledNumber);
 
-    private void Start()
+    private void Awake()
     {
-        dices = new List<Dice>(transform.parent.parent.GetComponentsInChildren<Dice>().Where(dice => dice.transform != this.transform));
+        dices = new List<Dice>(FindObjectsOfType<Dice>());
     }
 
     private void FixedUpdate()
