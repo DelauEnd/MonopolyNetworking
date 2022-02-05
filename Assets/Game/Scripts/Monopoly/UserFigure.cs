@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UserFigure : MonoBehaviour
+public class UserFigure : NetworkBehaviour
 {
     public GameField gameField = null;
     public int currentPosition = 0;
@@ -20,6 +20,11 @@ public class UserFigure : MonoBehaviour
     private void Update()
     {
         gameField ??= FindObjectOfType<GameField>();
+        if(hasAuthority && Input.GetButton(KeyCode.Space.ToString()))
+        {
+            shouldMove = true;
+            steps = 2;
+        }
     }
 
     private void FixedUpdate()
