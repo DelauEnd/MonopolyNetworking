@@ -25,20 +25,20 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !dices.dicesRolled && !currentUser.Value.isMoving && !previousUser.Value.isMoving)
-        {
-            dices.ClearRolledNumbers();
-            dices.RollAllDices();
-        }
+        //if (Input.GetKeyDown(KeyCode.Space) && !dices.dicesRolled && !currentUser.Value.isMoving && !previousUser.Value.isMoving)
+        //{
+        //    dices.ClearRolledNumbers();
+        //    dices.RollAllDices();
+        //}
 
-        if (dices.isNumbersCalculated && dices.dicesRolled)
-        {
-            dices.dicesRolled = false;
-            currentUser.Value.steps = dices.rolledSum;
-            Debug.Log("Dice rolled: " + currentUser.Value.steps);
-            currentUser.Value.shouldMove = true;
-            NextUser();
-        }
+        //if (dices.isNumbersCalculated && dices.dicesRolled)
+        //{
+        //    dices.dicesRolled = false;
+        //    currentUser.Value.steps = dices.rolledSum;
+        //    Debug.Log("Dice rolled: " + currentUser.Value.steps);
+        //    currentUser.Value.shouldMove = true;
+        //    NextUser();
+        //}
     }
 
     public void NextUser()

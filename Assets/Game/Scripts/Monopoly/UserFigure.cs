@@ -3,33 +3,39 @@ using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UserFigure : NetworkBehaviour
-{
-    public GameField gameField = null;
+{  
+    public GameField field = null;
+
+    [SyncVar(hook = nameof(SyncCurrentPos))] 
     public int currentPosition = 0;
-    public int steps;
+    private int clientPosition = 0;
+
+    public bool shouldMove;
+    public int steps = 0;
     public uint userMoney = 1500;
     public bool isMoving;
-    public bool shouldMove;
     public bool moveEnded;
 
-    float anim;
+    //TODO: Store all player figures into the Gamefield as static List<UserFigure>. After sync update value in list via userlist[current] == this
+
+    private void Start()
+    {
+        field = FindObjectOfType<GameField>();
+    }
 
     private void Update()
     {
-        gameField ??= FindObjectOfType<GameField>();
-        if(hasAuthority && Input.GetButton(KeyCode.Space.ToString()))
+        if (Input.GetKeyDown(KeyCode.Space) && hasAuthority)
         {
             shouldMove = true;
-            steps = 2;
+            steps = 1;
         }
-    }
 
-    private void FixedUpdate()
-    {
-        if (shouldMove)
+        if (shouldMove && hasAuthority)
         {
             moveEnded = false;
             StartCoroutine(Move());
@@ -48,33 +54,67 @@ public class UserFigure : NetworkBehaviour
 
         while (steps > 0)
         {
-            currentPosition++;
-            currentPosition %= gameField.fieldUnits.Count;
+            clientPosition++;
+            clientPosition %= GameField.fieldUnits.Count;
 
-            if (currentPosition == 0)
+            if (clientPosition == 0)
                 LoopPased();
 
-            var nextPos = gameField.fieldUnits[currentPosition].GetAvailablePoint();
+            var nextPos = field.GetAvailablePointForField(clientPosition);
             while (ShouldMoveToNext(nextPos))
             {
                 yield return null;
             }
 
             yield return new WaitForSeconds(0.1f);
-            anim = 0;
+
             steps--;
-
-            gameField.fieldUnits[currentPosition].lockedPoints++;
-
-            var previousUnitIndex = currentPosition == 0 ?
-                gameField.fieldUnits.Count - 1 :
-                currentPosition - 1;
-            gameField.fieldUnits[previousUnitIndex].lockedPoints--;
         }
 
+        CmdChangeCurrentPos(clientPosition);
         MoveOver();
         isMoving = false;
     }
+
+
+    #region CurrentPositionHandle
+    /// <summary>
+    /// Method that sends command from client to server to set new value for currentPosition
+    /// </summary>
+    /// <remarks>
+    /// this method used to sync currentPosition value between all users after player over his turn
+    /// </remarks>
+    /// <param name="newPos">new currentPosition value</param>
+    [Command]
+    private void CmdChangeCurrentPos(int newPos)
+    {
+        Debug.Log("CurrentPos changed by Command to server");
+        this.currentPosition = newPos;
+    }
+
+    /// <summary>
+    /// (SyncVar Hook)
+    /// Called on server after changing currentPosition value on any player
+    /// </summary>
+    /// <param name="oldValue">currenetPosition value before change</param>
+    /// <param name="newValue">currenetPosition value after change</param>
+    void SyncCurrentPos(int oldValue, int newValue)
+    {
+        Debug.Log("Sync currentPos");
+        RpcChangeCurrentPos(newValue);
+    }
+
+    /// <summary>
+    /// Sends rpc to clients to set new value for currentPosition
+    /// </summary>
+    /// <param name="newPos"></param>
+    [ClientRpc]
+    private void RpcChangeCurrentPos(int newPos)
+    {
+        Debug.Log("CurrentPos changed by Rpc from server");
+        this.currentPosition = newPos;
+    } 
+    #endregion
 
     private void MoveOver()
     {
@@ -89,7 +129,7 @@ public class UserFigure : NetworkBehaviour
 
     bool ShouldMoveToNext(Vector3 goal)
     {
-        transform.position = Vector3.MoveTowards(transform.position, goal, Time.fixedDeltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, goal, Time.fixedDeltaTime * 5);
 
         return goal != transform.position;
     }

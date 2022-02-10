@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SceneMap01.unity
     guid: da57daf79cb17d74586323d3c4cae0f1
+  - enabled: 0
+    path: Assets/Mirror/Examples/Tanks/Scenes/Scene.unity
+    guid: 83f9d2fb76f5742448c6e51f258327a2
   m_configObjects: {}

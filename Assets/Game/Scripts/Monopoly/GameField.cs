@@ -1,20 +1,26 @@
 using Assets.Game.Scripts.Network.Lobby;
+using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GameField : MonoBehaviour
+public class GameField : NetworkBehaviour
 {
-    Transform[] gameObjects;
-    public List<FieldUnit> fieldUnits = new List<FieldUnit>();
+    public static List<FieldUnit> fieldUnits = new List<FieldUnit>();
+    public static List<GameObject> playersOnField = new List<GameObject>();
 
-    private void Awake()
+    public override void OnStartClient()
     {
         FillNodes();
+        base.OnStartClient();
+    }
 
+    public override void OnStartServer()
+    {
+        FillNodes();
         SpawnManager.AddSpawnPoints(fieldUnits[0].stopPoints);
-        fieldUnits[0].lockedPoints = SpawnManager.usedPoints;
     }
 
     private void OnDestroy()
@@ -45,5 +51,25 @@ public class GameField : MonoBehaviour
     private void FillNodes()
     {
         fieldUnits = new List<FieldUnit>(GetComponentsInChildren<FieldUnit>());
+    }
+
+    public Vector3 GetAvailablePointForField(int unitNumber)
+    {
+        UpdateUsersOnField();
+        var usersOnUnit = GetPlayersOnUnit(unitNumber);
+        fieldUnits[unitNumber].lockedPoints = usersOnUnit.Count;
+
+        return fieldUnits[unitNumber].GetAvailablePoint();
+    }
+
+    public List<GameObject> GetPlayersOnUnit(int unitNumber)
+    {
+        return playersOnField.Where(player => player.GetComponent<UserFigure>().currentPosition == unitNumber).ToList();
+    }
+
+    public static void UpdateUsersOnField()
+    {
+        playersOnField.Clear();
+        playersOnField.AddRange(FindObjectsOfType<UserFigure>().Select(x=>x.transform.gameObject));
     }
 }

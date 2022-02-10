@@ -373,7 +373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  virtualCamera: {fileID: 0}
+  virtualCamera: {fileID: 8354604006530201474}
 --- !u!114 &8948609257157988887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,14 +386,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed4a14ca598e6444a5c1afdf09e4f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
+  syncMode: 1
   syncInterval: 0.1
-  gameField: {fileID: 0}
+  field: {fileID: 0}
+  UserObject: {fileID: 7027552364489432733}
   currentPosition: 0
+  shouldMove: 0
   steps: 0
   userMoney: 1500
   isMoving: 0
-  shouldMove: 0
   moveEnded: 0
 --- !u!114 &6606686321850607438
 MonoBehaviour:
@@ -409,7 +410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 0
+  clientAuthority: 1
   sendInterval: 0.05
   syncPosition: 1
   syncRotation: 1

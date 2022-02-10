@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Mirror;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -15,6 +16,16 @@ public class FieldUnit : MonoBehaviour
         InitPoint();
     }
 
+    //public override void OnStartClient()
+    //{
+    //    InitPoint();
+    //}
+
+    //public override void OnStartServer()
+    //{
+    //    InitPoint();
+    //}
+
     private void InitPoint()
     {
         gameField = GetComponentInParent<GameField>();
@@ -23,6 +34,4 @@ public class FieldUnit : MonoBehaviour
 
     public Vector3 GetAvailablePoint()
         => stopPoints[lockedPoints].position;
-
-
 }
