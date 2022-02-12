@@ -51,7 +51,7 @@ namespace Assets.Game.Scripts.Network.Lobby
             }
 
             GameObject playerInstance = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
-            NetworkServer.Spawn(playerInstance, conn);
+            NetworkServer.Spawn(playerInstance, conn);          
 
             usedPoints++;
         }

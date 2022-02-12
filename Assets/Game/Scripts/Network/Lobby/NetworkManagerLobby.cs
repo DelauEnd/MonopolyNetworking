@@ -16,10 +16,17 @@ namespace Assets.Game.Scripts.Network.Lobby
 
         [Header("Room")]
         [SerializeField] private NetworkRoomPlayerLobby roomPlayerPrefab = null;
-       
+
         [Header("Game")]
         [SerializeField] private NetworkGamePlayerLobby gamePlayerPrefab = null;
         [SerializeField] private GameObject playerSpawnSystem = null;
+        [SerializeField] public int PlayersCount = 0;
+        [SerializeField] public int CurrentUserInd = 0;
+
+        public List<UserFigure> UserFigures
+            = new List<UserFigure>();
+        public UserFigure CurrentPlayer 
+            => UserFigures[CurrentUserInd];
 
         public static event Action OnClientConnected;
         public static event Action OnClientDisconnected;
@@ -30,9 +37,12 @@ namespace Assets.Game.Scripts.Network.Lobby
 
         public List<NetworkGamePlayerLobby> GamePlayers { get; }
             = new List<NetworkGamePlayerLobby>();
-
+     
         public override void OnStartServer()
             => spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
+
+        public bool ReadyToStart()
+            => UserFigures.Count == GamePlayers.Count;
 
         public override void OnStartClient()
         {
@@ -149,7 +159,7 @@ namespace Assets.Game.Scripts.Network.Lobby
             if(sceneName.StartsWith("Scene"))
             {
                 GameObject spawnSystemInstance = Instantiate(playerSpawnSystem);
-                NetworkServer.Spawn(spawnSystemInstance);               
+                NetworkServer.Spawn(spawnSystemInstance);
             }
         }
 
@@ -158,7 +168,6 @@ namespace Assets.Game.Scripts.Network.Lobby
             base.OnServerReady(conn);
 
             OnServerReadied?.Invoke(conn);
-            GameManager.InitGame();
         }
     }
 }

@@ -14,19 +14,32 @@ namespace Assets.Game.Scripts.Controls
         [Header("Camera")]
         [SerializeField] private CinemachineFreeLook virtualCamera = null;
 
+        [Header("UI")]
+        [SerializeField] public Canvas userUI = null;
+
         public override void OnStartAuthority()
         {
             virtualCamera.gameObject.SetActive(true);
+            userUI.gameObject.SetActive(true);
+
+            var camera = FindObjectOfType<Camera>();
+            userUI.worldCamera = camera;
 
             enabled = true;
         }
 
         [ClientCallback]
         private void OnEnable()
-            => virtualCamera.enabled = true;
+        { 
+            virtualCamera.enabled = true;
+            userUI.enabled = true;
+        }
 
         [ClientCallback]
         private void OnDisable()
-            => virtualCamera.enabled = false;
+        {
+            virtualCamera.enabled = false;
+            userUI.enabled = false;
+        }
     }
 }

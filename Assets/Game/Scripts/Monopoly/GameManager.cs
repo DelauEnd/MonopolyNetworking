@@ -1,54 +1,100 @@
+using Assets.Game.Scripts.Network.Lobby;
+using Assets.Game.Scripts.Utils.Extensions;
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
-    public static LinkedList<UserFigure> users = null;
-    public static LinkedListNode<UserFigure> currentUser = null;
-    public static LinkedListNode<UserFigure> previousUser = null;
+    private NetworkManagerLobby room;
+    public NetworkManagerLobby Room
+    {
+        get
+        {
+            if (room != null)
+                return room;
+            return room = NetworkManager.singleton as NetworkManagerLobby;
+        }
+    }
 
     public DiceCheck dices;
 
-    private void Start()
+    [SyncVar] public int rolledNumber;
+    [SyncVar] public bool readyToMove;
+
+    //unused
+    [ClientRpc]
+    public void RpcSetReadyToMove(bool ready)
     {
-        dices = GetComponentInChildren<DiceCheck>();
+        Debug.Log($"Ready to move setted to {ready}");
+        readyToMove = ready;
     }
 
-    public static void InitGame()
+    [Command(requiresAuthority = false)]
+    public void CmdSetReadyToMove(bool ready)
     {
-        users = new LinkedList<UserFigure>(FindObjectsOfType<UserFigure>());
-        currentUser = users.First;
-        previousUser = users.Last;
+        readyToMove = ready;
+        RpcSetReadyToMove(ready);
+    }
+
+    //unused
+    [ClientRpc]
+    public void RpcSetRolledNumber(int number)
+    {
+        Debug.Log($"Rolled number setted to {number}");
+        rolledNumber = number;
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdSetRolledNumber(int number)
+    {
+        rolledNumber = number;
+        RpcSetRolledNumber(number);
+    }
+
+    private void Start()
+    {
+        dices = FindObjectOfType<DiceCheck>();
     }
 
     private void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.Space) && !dices.dicesRolled && !currentUser.Value.isMoving && !previousUser.Value.isMoving)
-        //{
-        //    dices.ClearRolledNumbers();
-        //    dices.RollAllDices();
-        //}
+    {     
+        if (Room.CurrentPlayer.playerThrowDice && !dices.dicesRolled /*&& !currentUser.Value.isMoving && !previousUser.Value.isMoving*/)
+        {
+            Debug.Log($"Dices rolled by user on field");
+            dices.ClearRolledNumbers();
+            dices.RollAllDices();
+        }
 
-        //if (dices.isNumbersCalculated && dices.dicesRolled)
-        //{
-        //    dices.dicesRolled = false;
-        //    currentUser.Value.steps = dices.rolledSum;
-        //    Debug.Log("Dice rolled: " + currentUser.Value.steps);
-        //    currentUser.Value.shouldMove = true;
-        //    NextUser();
-        //}
+        if (dices.isNumbersCalculated && dices.dicesRolled)
+        {
+            //change to use server commands except of direct changes            
+            RpcSetDicesRolled(false);
+            rolledNumber = dices.rolledSum;
+            readyToMove = true;
+        }
     }
 
-    public void NextUser()
+    [ClientRpc]
+    public void RpcSetDicesRolled(bool rolled)
     {
-        previousUser = currentUser;
-        currentUser = currentUser.Next ?? users.First;     
+        dices.dicesRolled = rolled;
     }
 
-    private void FixedUpdate()
-    {
-        
-    }
+    //[Server]
+    //public void NextUser()
+    //{
+    //    Debug.Log("To next user by server");
+    //    ToNextUser();
+    //    //RpcNextUser();
+    //}
+
+    //[ClientRpc]
+    //public void RpcNextUser()
+    //{
+    //    Debug.Log("To next user by rpc");
+    //    ToNextUser();
+    //}
 }
