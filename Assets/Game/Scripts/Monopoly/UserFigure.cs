@@ -9,10 +9,9 @@ using UnityEngine;
 
 public class UserFigure : NetworkBehaviour
 {  
+    [Header("Game additions")]
     public GameField Field = null;
     public GameManager Game = null;
-
-    public PlayerUIHandler UIHandler = null;
 
     private NetworkManagerLobby room;
     public NetworkManagerLobby Room
@@ -25,31 +24,39 @@ public class UserFigure : NetworkBehaviour
         }
     }
 
-    [SyncVar(hook = nameof(SyncCurrentPos))] 
-    public int currentPosition = 0;
-    private int clientPosition = 0;
+    [Header("User handlers")]
+    public PlayerUIHandler UIHandler = null;
+    public UIController UIController = null;
 
+    [Header("User info")]
+    [SyncVar(hook = nameof(SyncCurrentPos))] public int currentPosition = 0;
+    [SyncVar(hook = nameof(ChangeUserMoney))] public int userMoney = 0;
     [SyncVar] public bool shouldMove;
+    [SyncVar] public bool playerThrowDice = false;
+
+    private int clientPosition = 0;
     public int steps = 0;
-    [SyncVar(hook = nameof(ChangeUserMoney))] 
-    public uint userMoney = 0;
     public bool isMoving;
     public bool moveEnded;
     public bool frezeFigure;
 
-    [SyncVar] 
-    public bool playerThrowDice = false;
 
-    //TODO: Store all player figures into the Gamefield as static List<UserFigure>. After sync update value in list via userlist[current] == this
+    //TODO: Add color select, user figure will outlined with selected color
 
     public override void OnStartClient()
     {
         Field = FindObjectOfType<GameField>();
         Game = FindObjectOfType<GameManager>();
+
         Room.UserFigures.Add(this);
         Room.PlayersCount++;
 
         CmdSetUserMoney(1500);
+    }
+
+    public override void OnStartAuthority()
+    {
+        UIController.LockCursor();
     }
 
     private void Update()
@@ -79,10 +86,6 @@ public class UserFigure : NetworkBehaviour
             StartCoroutine(Move());
             shouldMove = false;
             moveEnded = true;
-
-            //var newInd = GetNextPlayerIndex();
-            //Debug.Log($"New user ind {newInd}");
-            //CmdCurrentPlayerToNext(newInd);
         }
     }
 
@@ -118,23 +121,25 @@ public class UserFigure : NetworkBehaviour
         isMoving = false;
 
         UIHandler.BuyUnitPanel.SetActive(true);
+        UIController.UnlockCursor();
         frezeFigure = true;
     }
 
     [Command]
-    public void CmdSetUserMoney(uint money)
+    public void CmdSetUserMoney(int money)
     {
         userMoney = money;       
         RpcSetUserMoney(money);
     }
 
-    private void ChangeUserMoney(uint oldValue, uint newValue)
+    private void ChangeUserMoney(int oldValue, int newValue)
     {
-        UIHandler.DrawUserMoney(newValue); 
+        UIHandler.DrawUserMoney(newValue);
+        Debug.Log($"Draw money changed to {newValue}");
     }
 
     [ClientRpc]
-    public void RpcSetUserMoney(uint money)
+    public void RpcSetUserMoney(int money)
     {
         userMoney = money;
     }
@@ -216,7 +221,7 @@ public class UserFigure : NetworkBehaviour
 
     private void LoopPased()
     {
-        userMoney += 200;
+        CmdSetUserMoney(userMoney+200);
         Debug.Log("Loop pased, user money:" + userMoney);
     }
 

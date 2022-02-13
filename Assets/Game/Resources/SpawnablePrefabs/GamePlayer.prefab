@@ -705,6 +705,7 @@ GameObject:
   - component: {fileID: 8891165177008439361}
   - component: {fileID: 2480325283125158103}
   - component: {fileID: 8948609257157988887}
+  - component: {fileID: 1821162180540768226}
   - component: {fileID: 4427575886359267287}
   - component: {fileID: 6606686321850607438}
   m_Layer: 0
@@ -782,14 +783,30 @@ MonoBehaviour:
   Field: {fileID: 0}
   Game: {fileID: 0}
   UIHandler: {fileID: 4427575886359267287}
+  UIController: {fileID: 1821162180540768226}
   currentPosition: 0
-  shouldMove: 0
-  steps: 0
   userMoney: 0
+  shouldMove: 0
+  playerThrowDice: 0
+  steps: 0
   isMoving: 0
   moveEnded: 0
   frezeFigure: 0
-  playerThrowDice: 0
+--- !u!114 &1821162180540768226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5313374078119318432}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4882e823e7f2d64fb2e00e94531abd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  virtualCamera: {fileID: 8354604006530201474}
 --- !u!114 &4427575886359267287
 MonoBehaviour:
   m_ObjectHideFlags: 0

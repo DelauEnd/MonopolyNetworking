@@ -24,12 +24,13 @@ public class PlayerUIHandler : MonoBehaviour
 
         var newInd = Player.GetNextPlayerIndex();
         Debug.Log($"New user ind {newInd}");
-        Player.CmdCurrentPlayerToNext(newInd);
 
+        Player.CmdCurrentPlayerToNext(newInd);
         Player.frezeFigure = false;
+        Player.UIController.LockCursor();
     }
 
-    public void DrawUserMoney(uint money)
+    public void DrawUserMoney(int money)
     {
         Debug.Log($"changed money value to {money}");
         moneyText.text = $"Money {money}";

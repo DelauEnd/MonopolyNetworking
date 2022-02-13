@@ -62,7 +62,7 @@ public class DiceCheck : MonoBehaviour
         dicesRolled = true;
         foreach (var dice in dices)
         {
-            dice.RollDice();
+            dice.RollDice(0);
         }
     }
 
@@ -73,4 +73,6 @@ public class DiceCheck : MonoBehaviour
             dice.rolledNumber = 0;
         }
     }
+
+
 }

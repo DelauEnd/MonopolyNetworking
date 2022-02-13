@@ -6,24 +6,24 @@
             "id": "edc35e3b-3e97-4cb7-be84-a397a5929a90",
             "actions": [
                 {
-                    "name": "Look",
-                    "type": "Value",
-                    "id": "5305201e-e5c0-45eb-baec-7a6664965408",
-                    "expectedControlType": "Vector2",
+                    "name": "UnlockCursor",
+                    "type": "Button",
+                    "id": "5e966c8e-4467-4f70-a8f1-ccb5bc6d9ee6",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "6e2179db-3303-45d7-9477-6e304ecdc4a5",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
+                    "id": "e75c0fb7-6767-4bb3-ad46-c1473af32860",
+                    "path": "<Keyboard>/alt",
+                    "interactions": "Hold(duration=0.1,pressPoint=1.401298E-45)",
                     "processors": "",
                     "groups": "Keyboard and mouse",
-                    "action": "Look",
+                    "action": "UnlockCursor",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
