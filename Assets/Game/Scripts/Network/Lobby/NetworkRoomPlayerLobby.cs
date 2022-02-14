@@ -15,14 +15,17 @@ namespace Assets.Game.Scripts.Network.Lobby
     {
         [Header("UI")]
         [SerializeField] private GameObject lobbyUI = null;
-        [SerializeField] private TMP_Text[] playersNameTexts = new TMP_Text[4];
-        [SerializeField] private TMP_Text[] playerReadyTexts = new TMP_Text[4];
+        [SerializeField] private TMP_Text[] playersNameTexts = new TMP_Text[5];
+        [SerializeField] private TMP_Text[] playerReadyTexts = new TMP_Text[5];
+        [SerializeField] private RawImage[] playerColorImages = new RawImage[5];
         [SerializeField] private Button startGameButton = null;
 
         [SyncVar(hook = nameof(HandleDisplayNameChanged))]
         public string DisplayName = "Loading...";
         [SyncVar(hook = nameof(HandleReadyStatusChanged))]
         public bool IsReady = false;
+        [SyncVar(hook = nameof(HandleUserColorChanged))]
+        public Color DisplayColor = Color.white;
 
         private bool isLeader = false;
         public bool IsLeader
@@ -48,6 +51,7 @@ namespace Assets.Game.Scripts.Network.Lobby
         public override void OnStartAuthority()
         {
             CmdSetDisplayName(PlayerNameInput.DisplayName);
+            CmdSetDisplayColor(PlayerNameInput.DisplayColor);
 
             lobbyUI.SetActive(true);
         }
@@ -68,7 +72,9 @@ namespace Assets.Game.Scripts.Network.Lobby
 
         public void HandleReadyStatusChanged(bool oldValue, bool newValue) => UpdateDisplay();
         public void HandleDisplayNameChanged(string oldValue, string newValue) => UpdateDisplay();
-        
+        public void HandleUserColorChanged(Color oldValue, Color newValue) => UpdateDisplay();
+
+
         private void UpdateDisplay()
         {
             if(!hasAuthority)
@@ -81,6 +87,7 @@ namespace Assets.Game.Scripts.Network.Lobby
             {
                 playersNameTexts[i].text = "Waiting for player...";
                 playerReadyTexts[i].text = string.Empty;
+                playerColorImages[i].gameObject.SetActive(false);
             }
 
             for (int i = 0; i < Room.RoomPlayers.Count; i++)
@@ -89,6 +96,8 @@ namespace Assets.Game.Scripts.Network.Lobby
                 playerReadyTexts[i].text = Room.RoomPlayers[i].IsReady ?
                     "<color=green>Ready</color>" :
                     "<color=red>Not ready</color>";
+                playerColorImages[i].gameObject.SetActive(true);
+                playerColorImages[i].color = Room.RoomPlayers[i].DisplayColor;
             }
         }
 
@@ -104,6 +113,12 @@ namespace Assets.Game.Scripts.Network.Lobby
         private void CmdSetDisplayName(string name)
         {
             DisplayName = name;
+        }
+
+        [Command]
+        private void CmdSetDisplayColor(Color color)
+        {
+            DisplayColor = color;
         }
 
         [Command]

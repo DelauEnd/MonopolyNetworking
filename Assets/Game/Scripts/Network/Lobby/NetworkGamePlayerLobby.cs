@@ -17,6 +17,10 @@ namespace Assets.Game.Scripts.Network.Lobby
         [SerializeField]
         private string DisplayName = "Loading...";
 
+        [SyncVar]
+        [SerializeField]
+        private Color DisplayColor = Color.white;
+
         private NetworkManagerLobby room;
         public NetworkManagerLobby Room
         {
@@ -44,6 +48,12 @@ namespace Assets.Game.Scripts.Network.Lobby
         public void SetDisplayName(string name)
         {
             this.DisplayName = name;
+        }
+
+        [Server]
+        public void SetDisplayColor(Color color)
+        {
+            this.DisplayColor = color;
         }
     }
 }
