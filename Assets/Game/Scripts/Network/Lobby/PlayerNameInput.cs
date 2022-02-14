@@ -1,3 +1,4 @@
+using Assets.Game.Scripts.Utils;
 using System;
 using System.Linq;
 using TMPro;
@@ -12,16 +13,11 @@ public class PlayerNameInput : MonoBehaviour
     [SerializeField] private Button continueButton = null;
     [SerializeField] private MenuUserInfo menuUserInfo = null;
 
-    public static string DisplayName { get; private set; }
-    public static Color DisplayColor { get; private set; }
+    public static string DisplayName { get; set; }
+    public static Color DisplayColor { get; set; }
 
     private const string PlayerPrefsNameKey = "PlayerName";
-    private readonly string[] PlayerPrefsColorKeys = new string[3]
-    {
-        "PlayerColorR",
-        "PlayerColorG",
-        "PlayerColorB",
-    };
+    
 
     private void Start()
     {
@@ -30,7 +26,7 @@ public class PlayerNameInput : MonoBehaviour
 
     private void SetUserColor()
     {
-        if (!PlayerPrefs.HasKey(PlayerPrefsColorKeys[0]))
+        if (!PlayerPrefsExtensions.HasWritenColor)
             SetRandomColor();
         else
             SetColorFromPlayerPrefs();
@@ -46,11 +42,7 @@ public class PlayerNameInput : MonoBehaviour
 
     private void SetColorFromPlayerPrefs()
     {
-        var colorR = PlayerPrefs.GetFloat(PlayerPrefsColorKeys[0]);
-        var colorG = PlayerPrefs.GetFloat(PlayerPrefsColorKeys[1]);
-        var colorB = PlayerPrefs.GetFloat(PlayerPrefsColorKeys[2]);
-
-        var color = new Color(colorR, colorG, colorB);
+        var color = PlayerPrefsExtensions.GetColor();
         DisplayColor = color;
     }
 
@@ -63,22 +55,28 @@ public class PlayerNameInput : MonoBehaviour
 
         nameInputField.text = defaultName;
 
-        SetPlayerName();
+        TextUpdated();
     }
 
-    public void SetPlayerName()
+    public void TextUpdated()
     {
         continueButton.interactable = !string.IsNullOrEmpty(nameInputField.text);
     }
 
     public void SavePlayerName()
     {
-        DisplayName = nameInputField.text;
-
-        PlayerPrefs.SetString(PlayerPrefsNameKey, DisplayName);
+        var name = nameInputField.text;
+        SetDisplayName(name);
 
         SetUserColor();
         SetDisplayInfo();
+    }
+
+    public static void SetDisplayName(string name)
+    {
+        DisplayName = name;
+
+        PlayerPrefs.SetString(PlayerPrefsNameKey, DisplayName);
     }
 
     private void SetDisplayInfo()

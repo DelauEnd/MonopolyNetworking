@@ -8,6 +8,7 @@ public class MenuUserInfo : MonoBehaviour
 {
     [SerializeField] RawImage UserColorImage;
     [SerializeField] TMP_Text UserNameText;
+    [SerializeField] UserInfoSettings playerSettings;
 
     public void SetDisplayUsername(string username)
     {
@@ -25,5 +26,10 @@ public class MenuUserInfo : MonoBehaviour
         color.a = 1;
 
         UserColorImage.color = color;
+    }
+
+    public void OpenSettings()
+    {
+        playerSettings.OpenSettings();
     }
 }
