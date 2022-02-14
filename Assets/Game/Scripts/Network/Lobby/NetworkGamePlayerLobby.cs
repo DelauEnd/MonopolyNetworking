@@ -15,11 +15,11 @@ namespace Assets.Game.Scripts.Network.Lobby
     {
         [SyncVar]
         [SerializeField]
-        private string DisplayName = "Loading...";
+        public string DisplayName = "Loading...";
 
         [SyncVar]
         [SerializeField]
-        private Color DisplayColor = Color.white;
+        public Color DisplayColor = Color.white;
 
         private NetworkManagerLobby room;
         public NetworkManagerLobby Room

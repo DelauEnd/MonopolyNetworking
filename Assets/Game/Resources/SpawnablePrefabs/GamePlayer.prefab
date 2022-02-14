@@ -996,7 +996,9 @@ MonoBehaviour:
   Game: {fileID: 0}
   UIHandler: {fileID: 4427575886359267287}
   UIController: {fileID: 1821162180540768226}
+  UserOutline: {fileID: 6408042439840376251}
   currentPosition: 0
+  clientPosition: 0
   userMoney: 0
   shouldMove: 0
   playerThrowDice: 0
@@ -1451,6 +1453,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3804597568996716218}
+  - component: {fileID: 6408042439840376251}
+  - component: {fileID: 6287590174315751868}
   m_Layer: 0
   m_Name: Figure
   m_TagString: Untagged
@@ -1474,6 +1478,36 @@ Transform:
   m_Father: {fileID: 7765822303104740562}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6408042439840376251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7027552364489432733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0.0990566, b: 0.0990566, a: 1}
+  outlineWidth: 7
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &6287590174315751868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7027552364489432733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af9c60c0e8962ed41ba60b73c737843a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7266330113883951497
 GameObject:
   m_ObjectHideFlags: 0

@@ -44,7 +44,8 @@ public class UIController : NetworkBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        virtualCamera.gameObject.SetActive(false);
+        if (hasAuthority)
+            virtualCamera.gameObject.SetActive(false);
     }
 
     public void LockCursor()
@@ -53,6 +54,7 @@ public class UIController : NetworkBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        virtualCamera.gameObject.SetActive(true);
+        if(hasAuthority)
+            virtualCamera.gameObject.SetActive(true);
     }
 }

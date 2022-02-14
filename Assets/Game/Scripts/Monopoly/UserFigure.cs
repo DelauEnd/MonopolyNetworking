@@ -27,12 +27,13 @@ public class UserFigure : NetworkBehaviour
     [Header("User handlers")]
     public PlayerUIHandler UIHandler = null;
     public UIController UIController = null;
+    public Outline UserOutline = null;
 
     [Header("User info")]
     [SyncVar(hook = nameof(SyncCurrentPos))] public int currentPosition = 0;
     [SerializeField] private int clientPosition = 0;
 
-    [SyncVar(hook = nameof(ChangeUserMoney))] public int userMoney = 0;
+    [SyncVar] public int userMoney = 0;
     [SyncVar] public bool shouldMove;
     [SyncVar] public bool playerThrowDice = false;
 
@@ -40,6 +41,7 @@ public class UserFigure : NetworkBehaviour
     public bool isMoving;
     public bool moveEnded;
     public bool frezeFigure;
+    private bool inited;
 
     //TODO: Add color select, user figure will outlined with selected color
 
@@ -50,8 +52,6 @@ public class UserFigure : NetworkBehaviour
 
         Room.UserFigures.Add(this);
         Room.PlayersCount++;
-
-        CmdSetUserMoney(1500);
     }
 
     public override void OnStartAuthority()
@@ -64,6 +64,8 @@ public class UserFigure : NetworkBehaviour
         if (!hasAuthority)
             return;
 
+        InitPlayer();
+
         if (frezeFigure)
             return;
 
@@ -73,7 +75,6 @@ public class UserFigure : NetworkBehaviour
             CmdPlayerThrowDice(true);
             Debug.Log("Try to roll dices");
             shouldMove = true;
-                //steps = 1;
         }
 
         if (Room.CurrentPlayer == this && Game.readyToMove && shouldMove)
@@ -89,8 +90,20 @@ public class UserFigure : NetworkBehaviour
         }
     }
 
+    private void InitPlayer()
+    {
+        if (inited)
+            return;
+        inited = true;
+
+        CmdSetUserMoney(1500);
+        SetFigureOutline();
+    }
+
     IEnumerator Move()
     {
+
+
         if (isMoving)
         {
             yield break;
@@ -139,10 +152,6 @@ public class UserFigure : NetworkBehaviour
     {
         userMoney = money;       
         RpcSetUserMoney(money);
-    }
-
-    private void ChangeUserMoney(int oldValue, int newValue)
-    {
     }
 
     [ClientRpc]
@@ -241,4 +250,33 @@ public class UserFigure : NetworkBehaviour
 
         return goal != transform.position;
     }
+
+    #region Outline handle
+    private void SetFigureOutline()
+    {
+        var color = Room.GamePlayers.FirstOrDefault(x => x.connectionToClient == this.connectionToClient).DisplayColor;
+
+        CmdSetFigureOutline(color);
+    }
+
+    [Command]
+    private void CmdSetFigureOutline(Color color)
+    {
+        Debug.Log("setted outline by cmd");
+        SetOutline(color);
+        RpcSetFigureOutline(color);
+    }
+
+    [ClientRpc]
+    private void RpcSetFigureOutline(Color color)
+    {
+        Debug.Log("setted outline by rpc");
+        SetOutline(color);
+    }
+
+    private void SetOutline(Color color)
+    {
+        UserOutline.OutlineColor = color;
+    } 
+    #endregion
 }
