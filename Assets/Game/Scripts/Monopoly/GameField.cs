@@ -8,18 +8,16 @@ using UnityEngine;
 
 public class GameField : NetworkBehaviour
 {
-    public static List<FieldUnit> fieldUnits = new List<FieldUnit>();
+    [SerializeField] public List<FieldUnitBase> fieldUnits;
     public static List<GameObject> playersOnField = new List<GameObject>();
 
     public override void OnStartClient()
     {
-        FillNodes();
         base.OnStartClient();
     }
 
     public override void OnStartServer()
     {
-        FillNodes();
         SpawnManager.AddSpawnPoints(fieldUnits[0].stopPoints);
     }
 
@@ -48,11 +46,7 @@ public class GameField : NetworkBehaviour
     /// <summary>
     /// Add field units to unit list
     /// </summary>
-    private void FillNodes()
-    {
-        fieldUnits = new List<FieldUnit>(GetComponentsInChildren<FieldUnit>());
-    }
-
+    
     public Vector3 GetAvailablePointForField(int unitNumber)
     {
         UpdateUsersOnField();

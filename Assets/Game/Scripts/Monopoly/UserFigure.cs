@@ -30,16 +30,16 @@ public class UserFigure : NetworkBehaviour
 
     [Header("User info")]
     [SyncVar(hook = nameof(SyncCurrentPos))] public int currentPosition = 0;
+    [SerializeField] private int clientPosition = 0;
+
     [SyncVar(hook = nameof(ChangeUserMoney))] public int userMoney = 0;
     [SyncVar] public bool shouldMove;
     [SyncVar] public bool playerThrowDice = false;
 
-    private int clientPosition = 0;
     public int steps = 0;
     public bool isMoving;
     public bool moveEnded;
     public bool frezeFigure;
-
 
     //TODO: Add color select, user figure will outlined with selected color
 
@@ -67,10 +67,10 @@ public class UserFigure : NetworkBehaviour
         if (frezeFigure)
             return;
 
-        PlayerThrowDice(false);
+        CmdPlayerThrowDice(false);
         if (Input.GetKeyDown(KeyCode.Space) && Room.CurrentPlayer == this)
         {
-            PlayerThrowDice(true);
+            CmdPlayerThrowDice(true);
             Debug.Log("Try to roll dices");
             shouldMove = true;
                 //steps = 1;
@@ -100,7 +100,7 @@ public class UserFigure : NetworkBehaviour
         while (steps > 0)
         {
             clientPosition++;
-            clientPosition %= GameField.fieldUnits.Count;
+            clientPosition %= Field.fieldUnits.Count;
 
             if (clientPosition == 0)
                 LoopPased();
@@ -120,9 +120,18 @@ public class UserFigure : NetworkBehaviour
         MoveOver();
         isMoving = false;
 
-        UIHandler.BuyUnitPanel.SetActive(true);
+        ShowBuyMenu();
         UIController.UnlockCursor();
         frezeFigure = true;
+    }
+
+    private void ShowBuyMenu()
+    {
+        UIHandler.BuyUnitPanel.SetActive(true);
+        if (Field.fieldUnits[clientPosition].owner == null)
+            UIHandler.buyUnitButton.gameObject.SetActive(true);
+        else
+            UIHandler.buyUnitButton.gameObject.SetActive(false);
     }
 
     [Command]
@@ -134,14 +143,15 @@ public class UserFigure : NetworkBehaviour
 
     private void ChangeUserMoney(int oldValue, int newValue)
     {
-        UIHandler.DrawUserMoney(newValue);
-        Debug.Log($"Draw money changed to {newValue}");
     }
 
     [ClientRpc]
     public void RpcSetUserMoney(int money)
     {
         userMoney = money;
+
+        UIHandler.DrawUserMoney(money);
+        Debug.Log($"Draw money changed to {money}");
     }
 
     #region Current turn player handle
@@ -209,7 +219,7 @@ public class UserFigure : NetworkBehaviour
     #endregion
 
     [Command]
-    public void PlayerThrowDice(bool throwed)
+    public void CmdPlayerThrowDice(bool throwed)
     {
         playerThrowDice = throwed;
     }

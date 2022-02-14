@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Mirror;
+using System;
 
-public class PlayerUIHandler : MonoBehaviour
+public class PlayerUIHandler : NetworkBehaviour
 {
     public Canvas UserUI = null;
     [SerializeField] private UserFigure Player = null;
@@ -16,6 +18,7 @@ public class PlayerUIHandler : MonoBehaviour
 
     [Header("Buy unit")]
     [SerializeField] public GameObject BuyUnitPanel = null;
+    [SerializeField] public Button buyUnitButton;
     [SerializeField] private Button endTurnButton;
 
     public void EndTurn()
@@ -36,4 +39,22 @@ public class PlayerUIHandler : MonoBehaviour
         moneyText.text = $"Money {money}";
     }
 
+    [Command]
+    public void CmdBuyCurrentField()
+    {
+        var field = Player.Field.fieldUnits[Player.currentPosition];
+        field.owner = Player;
+
+        RpcBuyCurrentField();
+    }
+
+    [ClientRpc]
+    private void RpcBuyCurrentField()
+    {
+        var field = Player.Field.fieldUnits[Player.currentPosition];
+        field.owner = Player;
+
+        Player.CmdSetUserMoney(Player.userMoney - field.initialCost);
+        EndTurn();
+    }
 }

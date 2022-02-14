@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class FieldUnit : MonoBehaviour
+public class FieldUnitBase : NetworkBehaviour
 {
     public GameField gameField = null;
 
     public List<Transform> stopPoints;
+
+    public UserFigure owner = null;
+    public int initialCost = 100;
 
     public int lockedPoints = 0;
 
@@ -15,16 +18,6 @@ public class FieldUnit : MonoBehaviour
     {
         InitPoint();
     }
-
-    //public override void OnStartClient()
-    //{
-    //    InitPoint();
-    //}
-
-    //public override void OnStartServer()
-    //{
-    //    InitPoint();
-    //}
 
     private void InitPoint()
     {
