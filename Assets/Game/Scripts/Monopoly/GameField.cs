@@ -11,11 +11,6 @@ public class GameField : NetworkBehaviour
     [SerializeField] public List<FieldUnitBase> fieldUnits;
     public static List<GameObject> playersOnField = new List<GameObject>();
 
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-    }
-
     public override void OnStartServer()
     {
         SpawnManager.AddSpawnPoints(fieldUnits[0].stopPoints);
@@ -65,5 +60,10 @@ public class GameField : NetworkBehaviour
     {
         playersOnField.Clear();
         playersOnField.AddRange(FindObjectsOfType<UserFigure>().Select(x=>x.transform.gameObject));
+    }
+
+    public void IsFieldBuyable()
+    {
+
     }
 }

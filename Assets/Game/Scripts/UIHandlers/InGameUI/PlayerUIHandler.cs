@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using Mirror;
 using System;
+using Assets.Game.Scripts.Network.Lobby;
 
 public class PlayerUIHandler : NetworkBehaviour
 {
@@ -21,6 +22,23 @@ public class PlayerUIHandler : NetworkBehaviour
     [SerializeField] public Button buyUnitButton;
     [SerializeField] private Button endTurnButton;
 
+    public override void OnStartAuthority()
+    {
+        this.enabled = true;
+    }
+
+    [ClientCallback]
+    private void OnEnable()
+    {
+        UserUI.enabled = true;
+    }
+
+    [ClientCallback]
+    private void OnDisable()
+    {
+        UserUI.enabled = false;
+    }
+
     public void EndTurn()
     {
         BuyUnitPanel.SetActive(false);
@@ -36,25 +54,21 @@ public class PlayerUIHandler : NetworkBehaviour
     public void DrawUserMoney(int money)
     {
         Debug.Log($"changed money value to {money}");
-        moneyText.text = $"Money {money}";
+        moneyText.text = $"{money}<sprite index= 0>";
     }
 
     [Command]
     public void CmdBuyCurrentField()
     {
-        var field = Player.Field.fieldUnits[Player.currentPosition];
-        field.owner = Player;
+        Player.Field.fieldUnits[Player.currentPosition].BuyByUser(Player);
 
-        RpcBuyCurrentField();
+        RpcBuyCurrentField(Player.GetUserInfo());
     }
 
     [ClientRpc]
-    private void RpcBuyCurrentField()
+    private void RpcBuyCurrentField(NetworkGamePlayerLobby newOwner)
     {
-        var field = Player.Field.fieldUnits[Player.currentPosition];
-        field.owner = Player;
-
-        Player.CmdSetUserMoney(Player.userMoney - field.initialCost);
+        Player.Field.fieldUnits[Player.currentPosition].ChangeOwner(newOwner);
         EndTurn();
     }
 }

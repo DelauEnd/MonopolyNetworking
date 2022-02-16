@@ -251,10 +251,20 @@ public class UserFigure : NetworkBehaviour
         return goal != transform.position;
     }
 
+    /// <summary>
+    /// Returns gameplayer object assigned to current figure
+    /// </summary>
+    /// <remarks>
+    /// Dont use on client Rpc
+    /// </remarks>
+    /// <returns></returns>
+    public NetworkGamePlayerLobby GetUserInfo()
+        => Room.GamePlayers.FirstOrDefault(x => x.connectionToClient == this.connectionToClient);
+
     #region Outline handle
     private void SetFigureOutline()
     {
-        var color = Room.GamePlayers.FirstOrDefault(x => x.connectionToClient == this.connectionToClient).DisplayColor;
+        var color = GetUserInfo().DisplayColor;
 
         CmdSetFigureOutline(color);
     }

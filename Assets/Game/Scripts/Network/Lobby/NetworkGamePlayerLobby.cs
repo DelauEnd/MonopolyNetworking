@@ -44,6 +44,16 @@ namespace Assets.Game.Scripts.Network.Lobby
             Room.GamePlayers.Remove(this);
         }
 
+        /// <summary>
+        /// Returns user figure object assigned to current player
+        /// </summary>
+        /// <remarks>
+        /// Dont use on client Rpc
+        /// </remarks>
+        /// <returns></returns>
+        public UserFigure GetUserFugure()
+            => Room.UserFigures.FirstOrDefault(x => x.connectionToClient == this.connectionToClient);
+
         [Server]
         public void SetDisplayName(string name)
         {
