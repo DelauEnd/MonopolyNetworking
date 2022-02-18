@@ -1,3 +1,4 @@
+using Assets.Game.Scripts.Monopoly.FieldUnits;
 using Assets.Game.Scripts.Network.Lobby;
 using Assets.Game.Scripts.Utils;
 using Mirror;
@@ -133,19 +134,29 @@ public class UserFigure : NetworkBehaviour
         MoveOver();
         isMoving = false;
 
-        ShowBuyMenu();
+        OnTurnEnded();
         UIController.UnlockCursor();
         frezeFigure = true;
     }
 
-    private void ShowBuyMenu()
+    private void OnTurnEnded()
     {
-        UIHandler.BuyUnitPanel.SetActive(true);
-        if (Field.fieldUnits[clientPosition].owner == null)
-            UIHandler.buyUnitButton.gameObject.SetActive(true);
-        else
-            UIHandler.buyUnitButton.gameObject.SetActive(false);
-    }
+        UIHandler.buyUnitButton.gameObject.SetActive(false);
+        UIHandler.FieldInfoPanel.SetActive(true);
+
+        GetCurrentUnit().OnPlayerStop(this);
+
+        //if (GetCurrentUnit().IsBuyable())
+        //    UIHandler.buyUnitButton.gameObject.SetActive(true);
+        //else if(GetCurrentUnit().IsImproveableForUser(this))
+        //    throw new NotImplementedException(); //User owns unit and can improve it
+        //else if(GetCurrentUnit().IsUserShouldPayRenta(this))
+        //    throw new NotImplementedException(); //Unit alredy in ownership by other player
+
+    }   
+
+    public IFieldUnit GetCurrentUnit()
+        => Field.fieldUnits[clientPosition];
 
     [Command]
     public void CmdSetUserMoney(int money)

@@ -42,8 +42,8 @@ GameObject:
   - component: {fileID: 6505064828551215802}
   - component: {fileID: 5425063289532411573}
   - component: {fileID: 9165225468229939767}
-  - component: {fileID: 264434083902338458}
   - component: {fileID: 7347148431407495204}
+  - component: {fileID: 8323772488317545186}
   m_Layer: 0
   m_Name: routeNode
   m_TagString: Untagged
@@ -133,31 +133,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &264434083902338458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5294593747482939445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8b998d4dbafe684a86dfdd1a9309ebf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  gameField: {fileID: 0}
-  stopPoints: []
-  lockedPoints: 0
-  color: 0
-  ownerCard: {fileID: 5760823146278951752}
-  buyable: 1
-  owner: {fileID: 0}
-  maxImproveLevel: 1
-  currentImproveLevel: 0
-  improvePrices: 64000000
-  rentalPrices: 14000000
 --- !u!114 &7347148431407495204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +150,22 @@ MonoBehaviour:
   visible: 0
   m_AssetId: 49faba7a53fdec84c9648141d797e0cc
   hasSpawned: 0
+--- !u!114 &8323772488317545186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5294593747482939445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c81a9aaab6984b419ec22620640058b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  payAmount: 100
+  owner: {fileID: 0}
+  ownerCard: {fileID: 5760823146278951752}
+  unitPrice: 100
 --- !u!1 &5949293468481862024
 GameObject:
   m_ObjectHideFlags: 0

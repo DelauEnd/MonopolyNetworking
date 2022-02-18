@@ -18,7 +18,7 @@ public class PlayerUIHandler : NetworkBehaviour
     [SerializeField] private TMP_Text moneyText;
 
     [Header("Buy unit")]
-    [SerializeField] public GameObject BuyUnitPanel = null;
+    [SerializeField] public GameObject FieldInfoPanel = null;
     [SerializeField] public Button buyUnitButton;
     [SerializeField] private Button endTurnButton;
 
@@ -41,7 +41,7 @@ public class PlayerUIHandler : NetworkBehaviour
 
     public void EndTurn()
     {
-        BuyUnitPanel.SetActive(false);
+        FieldInfoPanel.SetActive(false);
 
         var newInd = Player.GetNextPlayerIndex();
         Debug.Log($"New user ind {newInd}");
@@ -60,15 +60,15 @@ public class PlayerUIHandler : NetworkBehaviour
     [Command]
     public void CmdBuyCurrentField()
     {
-        Player.Field.fieldUnits[Player.currentPosition].BuyByUser(Player);
+        ((BuyableFieldUnit)Player.Field.fieldUnits[Player.currentPosition]).BuyByUser(Player);
 
-        RpcBuyCurrentField(Player.GetUserInfo());
+        RpcBuyCurrentField(Player.GetUserInfo(), Player);
     }
 
     [ClientRpc]
-    private void RpcBuyCurrentField(NetworkGamePlayerLobby newOwner)
+    private void RpcBuyCurrentField(NetworkGamePlayerLobby newOwner, UserFigure newOwnerFigure)
     {
-        Player.Field.fieldUnits[Player.currentPosition].ChangeOwner(newOwner);
+        ((BuyableFieldUnit)Player.Field.fieldUnits[Player.currentPosition]).ChangeOwner(newOwner, newOwnerFigure);
         EndTurn();
     }
 }

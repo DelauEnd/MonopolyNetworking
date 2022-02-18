@@ -11,9 +11,6 @@ public class Dice : NetworkBehaviour
 
     public int rolledNumber = 0;
 
-    private int Force = 0;
-
-    // Start is called before the first frame update
     void Start()
     {
         rigid = GetComponent<Rigidbody>();
@@ -41,9 +38,8 @@ public class Dice : NetworkBehaviour
         diceThrowed = false;
     }
 
-    public void RollDice(int force)
+    public void RollDice()
     {
         diceThrowed = true;
-        Force = force;
     }
 }

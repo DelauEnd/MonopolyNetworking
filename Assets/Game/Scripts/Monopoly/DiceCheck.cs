@@ -8,10 +8,10 @@ public class DiceCheck : MonoBehaviour
     List<Dice> dices;
     List<Vector3> diceVelosities;
     public bool dicesRolled;
-    public bool isNumbersCalculated
+    public bool IsNumbersCalculated
         => !dices.Any(dice => dice.rolledNumber == 0);
 
-    public int rolledSum 
+    public int RolledSum 
         => dices.Sum(dice => dice.rolledNumber);
 
     private void Awake()
@@ -62,7 +62,7 @@ public class DiceCheck : MonoBehaviour
         dicesRolled = true;
         foreach (var dice in dices)
         {
-            dice.RollDice(0);
+            dice.RollDice();
         }
     }
 

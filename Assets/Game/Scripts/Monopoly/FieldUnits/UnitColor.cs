@@ -12,6 +12,7 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits
         Brown,
         White,
         Purple,
-        Orange
+        Orange,
+        Communal
     }
 }

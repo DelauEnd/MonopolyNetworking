@@ -1173,7 +1173,7 @@ MonoBehaviour:
   Player: {fileID: 8948609257157988887}
   UserInfoPanel: {fileID: 5102464210224676757}
   moneyText: {fileID: 7068061199178162605}
-  BuyUnitPanel: {fileID: 7473925029613205845}
+  FieldInfoPanel: {fileID: 7473925029613205845}
   buyUnitButton: {fileID: 2489277834342412038}
   endTurnButton: {fileID: 2356958382783270922}
 --- !u!114 &6606686321850607438

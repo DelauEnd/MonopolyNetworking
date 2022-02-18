@@ -68,11 +68,11 @@ public class GameManager : NetworkBehaviour
             dices.RollAllDices();
         }
 
-        if (dices.isNumbersCalculated && dices.dicesRolled)
+        if (dices.IsNumbersCalculated && dices.dicesRolled)
         {
             //change to use server commands except of direct changes            
             RpcSetDicesRolled(false);
-            rolledNumber = dices.rolledSum;
+            rolledNumber = dices.RolledSum;
             readyToMove = true;
         }
     }

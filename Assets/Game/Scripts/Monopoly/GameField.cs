@@ -1,3 +1,4 @@
+using Assets.Game.Scripts.Monopoly.FieldUnits;
 using Assets.Game.Scripts.Network.Lobby;
 using Mirror;
 using System;
@@ -13,40 +14,17 @@ public class GameField : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        SpawnManager.AddSpawnPoints(fieldUnits[0].stopPoints);
+        SpawnManager.AddSpawnPoints(fieldUnits[0].StopPoints);
     }
 
     private void OnDestroy()
         => SpawnManager.ClearSpawnPoint();
-
-    /// <summary>
-    /// Draws game field route
-    /// </summary>
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.red;
-
-    //    for (int i = 0; i < fieldUnits.Count; i++)
-    //    {
-    //        var curUnitPos = fieldUnits[i].GetAvailablePoint();
-
-    //        if (i > 0)
-    //        {
-    //            var prevUnitPos = fieldUnits[i - 1].GetAvailablePoint();
-    //            Gizmos.DrawLine(prevUnitPos, curUnitPos);
-    //        }
-    //    }
-    //}
-
-    /// <summary>
-    /// Add field units to unit list
-    /// </summary>
     
     public Vector3 GetAvailablePointForField(int unitNumber)
     {
         UpdateUsersOnField();
         var usersOnUnit = GetPlayersOnUnit(unitNumber);
-        fieldUnits[unitNumber].lockedPoints = usersOnUnit.Count;
+        fieldUnits[unitNumber].LockedPoints = usersOnUnit.Count;
 
         return fieldUnits[unitNumber].GetAvailablePoint();
     }
@@ -60,10 +38,5 @@ public class GameField : NetworkBehaviour
     {
         playersOnField.Clear();
         playersOnField.AddRange(FindObjectsOfType<UserFigure>().Select(x=>x.transform.gameObject));
-    }
-
-    public void IsFieldBuyable()
-    {
-
     }
 }
