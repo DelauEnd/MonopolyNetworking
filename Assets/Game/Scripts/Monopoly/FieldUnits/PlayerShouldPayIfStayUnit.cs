@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Game.Scripts.Monopoly.FieldUnits
 {
     public class PlayerShouldPayIfStayUnit : FieldUnitBase
     {
-        protected int basePayAmount = 0;
+        [SerializeField] protected int basePayAmount = 0;
 
         public override void OnPlayerStop(UserFigure figure)
         {
-            throw new NotImplementedException();
+            ShowPayMenu(figure);
+        }
+
+        protected void ShowPayMenu(UserFigure figure)
+        {
+            figure.UIHandler.endTurnButton.interactable = false;
+            figure.UIHandler.payRentaButton.gameObject.SetActive(true);
         }
 
         protected virtual int GetPayAmount()
@@ -20,7 +27,19 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits
 
         public virtual void PayByPlayer(UserFigure figure)
         {
-            figure.CmdSetUserMoney(figure.userMoney - GetPayAmount());
+            var payAmount = GetPayAmount();
+            if(figure.userMoney < payAmount)
+            {
+                UserHasNoMoney();
+                return;
+            }
+            figure.CmdSetUserMoney(figure.userMoney - payAmount);
+            figure.UIHandler.payRentaButton.gameObject.SetActive(false);
+        }
+
+        protected void UserHasNoMoney()
+        {
+            throw new NotImplementedException();
         }
     }
 }

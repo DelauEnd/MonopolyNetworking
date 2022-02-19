@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Mirror;
 using System;
 using Assets.Game.Scripts.Network.Lobby;
+using Assets.Game.Scripts.Monopoly.FieldUnits;
 
 public class PlayerUIHandler : NetworkBehaviour
 {
@@ -20,7 +21,8 @@ public class PlayerUIHandler : NetworkBehaviour
     [Header("Buy unit")]
     [SerializeField] public GameObject FieldInfoPanel = null;
     [SerializeField] public Button buyUnitButton;
-    [SerializeField] private Button endTurnButton;
+    [SerializeField] public Button payRentaButton;
+    [SerializeField] public Button endTurnButton;
 
     public override void OnStartAuthority()
     {
@@ -60,7 +62,7 @@ public class PlayerUIHandler : NetworkBehaviour
     [Command]
     public void CmdBuyCurrentField()
     {
-        ((BuyableFieldUnit)Player.Field.fieldUnits[Player.currentPosition]).BuyByUser(Player);
+        ((BuyableFieldUnitBase)Player.Field.fieldUnits[Player.currentPosition]).BuyByUser(Player);
 
         RpcBuyCurrentField(Player.GetUserInfo(), Player);
     }
@@ -68,7 +70,13 @@ public class PlayerUIHandler : NetworkBehaviour
     [ClientRpc]
     private void RpcBuyCurrentField(NetworkGamePlayerLobby newOwner, UserFigure newOwnerFigure)
     {
-        ((BuyableFieldUnit)Player.Field.fieldUnits[Player.currentPosition]).ChangeOwner(newOwner, newOwnerFigure);
+        ((BuyableFieldUnitBase)Player.Field.fieldUnits[Player.currentPosition]).ChangeOwner(newOwner, newOwnerFigure);
         EndTurn();
+    }
+
+    public void PayRenta()
+    {
+        ((PlayerShouldPayIfStayUnit)Player.Field.fieldUnits[Player.currentPosition]).PayByPlayer(Player);
+        endTurnButton.interactable = true;
     }
 }

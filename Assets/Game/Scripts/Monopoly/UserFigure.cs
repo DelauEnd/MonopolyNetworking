@@ -142,6 +142,7 @@ public class UserFigure : NetworkBehaviour
     private void OnTurnEnded()
     {
         UIHandler.buyUnitButton.gameObject.SetActive(false);
+        UIHandler.payRentaButton.gameObject.SetActive(false);
         UIHandler.FieldInfoPanel.SetActive(true);
 
         GetCurrentUnit().OnPlayerStop(this);
