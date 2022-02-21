@@ -1,4 +1,5 @@
 ﻿using Assets.Game.Scripts.Monopoly.FieldUnits;
+using Assets.Game.Scripts.Monopoly.FieldUnits.OwnershipCards;
 using Assets.Game.Scripts.Network.Lobby;
 using Mirror;
 using System;
@@ -10,10 +11,19 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
 {
     public UserFigure owner = null;
     public UnitColor color;
-    public OwnerCard ownerCard;
+    public string unitName;
+    public OwnershipCardBase ownerCard = null;
     public int unitPrice = 0;
+    public int mortgageValue = 0;
     public bool AvailableToBuy
         => owner == null;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        if (ownerCard!=null)
+            ownerCard.InitCard(this);
+    }
 
     public abstract override void OnPlayerStop(UserFigure figure);
 
@@ -36,8 +46,8 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
     public void ChangeOwner(NetworkGamePlayerLobby newOwner, UserFigure newOwnerFigure)
     {
         owner = newOwnerFigure;
-        ownerCard.SetOwnerInfo(newOwner);
-        ownerCard.gameObject.SetActive(true);
+        if (ownerCard != null)
+            ownerCard.SetVisible(true);
     }
 
     public override void PayByPlayer(UserFigure figure)
@@ -49,16 +59,12 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
             return;
         }
         figure.CmdSetUserMoney(figure.userMoney - payAmount);
-        owner.CmdSetUserMoney(owner.userMoney + payAmount);
+        figure.Room.UserFigures.FirstOrDefault(figure => owner).CmdSetUserMoney(owner.userMoney + payAmount);
+
+        figure.UIHandler.payRentaButton.gameObject.SetActive(false);
     }
 
     protected abstract override int GetPayAmount();
-    //{
-    //    var ownedCount = GetUnitsWithSameColor().Count(unit => ((BuyableFieldUnit)unit).owner = this.owner);
-    //    var priceMultiplayer = (int)Math.Pow(2, ownedCount - 1);
-
-    //    return basePayAmount * priceMultiplayer;
-    //}
 
     protected IEnumerable<IFieldUnit> GetUnitsWithSameColor()
         => Field.fieldUnits.Where(unit => unit is BuyableFieldUnitBase && ((BuyableFieldUnitBase) unit).color == this.color).ToList(); 

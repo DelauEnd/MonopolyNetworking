@@ -16,7 +16,7 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits
 
         public int LockedPoints { get; set; }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             Field = GetComponentInParent<GameField>();
             StopPoints = new List<Transform>(GetComponentsInChildren<Transform>()).Where(obj => obj != this.transform).ToList();

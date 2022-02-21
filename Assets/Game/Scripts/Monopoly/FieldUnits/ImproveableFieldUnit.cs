@@ -5,8 +5,9 @@ public class ImproveableFieldUnit : BuyableFieldUnitBase
 {
     public int maxImproveLevel;
     public int currentImproveLevel = 0;
-    public int[] improvePrices;
-    public int[] rentalPrices;
+    public int houseCost;
+    public int hotelCost;
+    public int[] improvedRentalPrices = new int[5];
 
     public bool UserCanImproveField(UserFigure figure)
         => (owner == figure && GetUnitsWithSameColor().All(unit => ((BuyableFieldUnitBase)unit).owner == owner));
@@ -24,9 +25,14 @@ public class ImproveableFieldUnit : BuyableFieldUnitBase
     protected override int GetPayAmount()
     {
         if (currentImproveLevel == 0)
-            return basePayAmount;
+        {
+            if (GetUnitsWithSameColor().All(unit => ((BuyableFieldUnitBase)unit).owner == owner))
+                return basePayAmount * 2;
+            else
+                return basePayAmount;
+        }
         else
-            return rentalPrices[currentImproveLevel - 1];
+            return improvedRentalPrices[currentImproveLevel - 1];
     }
 
 

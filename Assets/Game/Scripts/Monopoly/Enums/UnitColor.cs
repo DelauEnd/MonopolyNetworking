@@ -13,6 +13,7 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits
         White,
         Purple,
         Orange,
+        Railroad,
         Communal
     }
 }

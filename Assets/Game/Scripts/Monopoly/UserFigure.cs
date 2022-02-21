@@ -159,7 +159,7 @@ public class UserFigure : NetworkBehaviour
     public IFieldUnit GetCurrentUnit()
         => Field.fieldUnits[clientPosition];
 
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdSetUserMoney(int money)
     {
         userMoney = money;       

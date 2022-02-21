@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class UtlityFieldUnit : BuyableFieldUnitBase
+public class UtilityFieldUnit : BuyableFieldUnitBase
 {
     public override void OnPlayerStop(UserFigure figure)
     {

@@ -1,0 +1,18 @@
+﻿using Mirror;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
+
+namespace Assets.Game.Scripts.Monopoly.FieldUnits
+{
+    public class GoToJailFieldUnit : FieldUnitBase
+    {
+        public override void OnPlayerStop(UserFigure figure)
+        {
+
+        }
+    }
+}

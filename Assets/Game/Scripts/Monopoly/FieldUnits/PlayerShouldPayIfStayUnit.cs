@@ -9,7 +9,7 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits
 {
     public class PlayerShouldPayIfStayUnit : FieldUnitBase
     {
-        [SerializeField] protected int basePayAmount = 0;
+        [SerializeField] public int basePayAmount = 0;
 
         public override void OnPlayerStop(UserFigure figure)
         {
