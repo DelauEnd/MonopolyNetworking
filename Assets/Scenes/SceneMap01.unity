@@ -12589,18 +12589,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 12
   owner: {fileID: 0}
   color: 6
   unitName: VIRGINIA AVE.
   ownerCard: {fileID: 849622150}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 160
+  mortgageValue: 80
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 80
+  improvedRentalPrices: 3c000000b4000000f4010000bc02000084030000
 --- !u!114 &5299078399558671580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12615,18 +12613,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 6
   owner: {fileID: 0}
   color: 5
   unitName: ORIENTAL AVE.
   ownerCard: {fileID: 1786165250}
   unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  mortgageValue: 50
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 50
+  improvedRentalPrices: 1e0000005a0000000e0100009001000026020000
 --- !u!114 &5299078399560692646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12641,18 +12637,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 26
   owner: {fileID: 0}
   color: 2
   unitName: NORTH CAROLINA AVE.
   ownerCard: {fileID: 1088104701}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 300
+  mortgageValue: 150
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 200
+  improvedRentalPrices: 8200000086010000840300004c040000fb040000
 --- !u!114 &5299078399593985745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12667,18 +12661,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 50
   owner: {fileID: 0}
   color: 3
   unitName: BOARDWALK
   ownerCard: {fileID: 1295729120}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 400
+  mortgageValue: 200
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 200
+  improvedRentalPrices: af000000f40100004c040000a4060000d0070000
 --- !u!114 &5299078399635477187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12693,18 +12685,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 22
   owner: {fileID: 0}
   color: 1
   unitName: ATLANTIC AVE.
   ownerCard: {fileID: 80511435}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 260
+  mortgageValue: 130
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 150
+  improvedRentalPrices: 6e0000004a01000020030000cf0300007e040000
 --- !u!114 &5299078399849395305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12719,18 +12709,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 10
   owner: {fileID: 0}
   color: 6
   unitName: STATES AVE.
   ownerCard: {fileID: 915600899}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 140
+  mortgageValue: 70
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 100
+  improvedRentalPrices: 3200000096000000c201000071020000bc020000
 --- !u!114 &5299078399929506647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12745,18 +12733,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 14
   owner: {fileID: 0}
   color: 7
   unitName: ST. JAMES PLACE
   ownerCard: {fileID: 1936087608}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 180
+  mortgageValue: 90
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 100
+  improvedRentalPrices: 46000000c800000026020000ee02000084030000
 --- !u!114 &5299078400291560535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12771,18 +12757,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 18
   owner: {fileID: 0}
   color: 0
   unitName: INDIANA AVE.
   ownerCard: {fileID: 1648618504}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 220
+  mortgageValue: 110
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 150
+  improvedRentalPrices: 5a000000fa000000bc0200006b0300001a040000
 --- !u!114 &5299078400368133255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12797,18 +12781,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 6
   owner: {fileID: 0}
   color: 5
   unitName: VERMONT AVE.
   ownerCard: {fileID: 1427260632}
   unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  mortgageValue: 50
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 50
+  improvedRentalPrices: 1e0000005a0000000e0100009001000026020000
 --- !u!114 &5299078400476505519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12823,18 +12805,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 20
   owner: {fileID: 0}
   color: 0
   unitName: ILLINOIS AVE.
   ownerCard: {fileID: 692489221}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 240
+  mortgageValue: 120
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 150
+  improvedRentalPrices: 640000002c010000ee0200009d0300004c040000
 --- !u!114 &5299078400577490296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12849,18 +12829,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 24
   owner: {fileID: 0}
   color: 1
   unitName: MARVIN GARDENS
   ownerCard: {fileID: 1988325193}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 280
+  mortgageValue: 140
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 150
+  improvedRentalPrices: 78000000680100005203000001040000b0040000
 --- !u!114 &5299078400796419187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12875,18 +12853,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 35
   owner: {fileID: 0}
   color: 3
   unitName: PARK PLACE
   ownerCard: {fileID: 1609639795}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 350
+  mortgageValue: 175
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 200
+  improvedRentalPrices: af000000f40100004c04000014050000dc050000
 --- !u!114 &5299078400958405313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12901,18 +12877,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 16
   owner: {fileID: 0}
   color: 7
   unitName: NEW YORK AVE.
   ownerCard: {fileID: 951272610}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 200
+  mortgageValue: 100
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 100
+  improvedRentalPrices: 50000000dc0000005802000020030000e8030000
 --- !u!114 &5299078401011464734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12927,18 +12901,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 18
   owner: {fileID: 0}
   color: 0
   unitName: KENTUCKY AVE.
   ownerCard: {fileID: 1224431216}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 220
+  mortgageValue: 110
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 150
+  improvedRentalPrices: 5a000000fa000000bc0200006b0300001a040000
 --- !u!114 &5299078401169833001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12953,18 +12925,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 14
   owner: {fileID: 0}
   color: 7
   unitName: TENNESSEE AVE.
   ownerCard: {fileID: 2034857430}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 180
+  mortgageValue: 90
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 100
+  improvedRentalPrices: 46000000c800000026020000ee020000b6030000
 --- !u!114 &5299078401174600845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12979,18 +12949,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 22
   owner: {fileID: 0}
   color: 1
   unitName: VENTINOR AVE.
   ownerCard: {fileID: 934557883}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 260
+  mortgageValue: 130
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 150
+  improvedRentalPrices: 6e0000004a01000020030000cf0300007e040000
 --- !u!114 &5299078401284530677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13005,18 +12973,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 10
   owner: {fileID: 0}
   color: 6
   unitName: ST. CHARLES PLACE
   ownerCard: {fileID: 764176528}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 140
+  mortgageValue: 70
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 100
+  improvedRentalPrices: 3200000096000000c201000071020000ee020000
 --- !u!114 &5299078401315057227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13031,18 +12997,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 4
   owner: {fileID: 0}
   color: 4
   unitName: BALTIC AVE.
   ownerCard: {fileID: 1531434211}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 60
+  mortgageValue: 30
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 50
+  improvedRentalPrices: 140000003c000000b400000040010000c2010000
 --- !u!114 &5299078401341820179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13057,18 +13021,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 26
   owner: {fileID: 0}
   color: 2
   unitName: PACIFIC AVE.
   ownerCard: {fileID: 1137875289}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 300
+  mortgageValue: 150
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 200
+  improvedRentalPrices: 8200000086010000840300004c040000fb040000
 --- !u!114 &5299078401483181593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13083,18 +13045,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 8
   owner: {fileID: 0}
   color: 5
   unitName: CONNECTICUT AVE.
   ownerCard: {fileID: 1582358127}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 120
+  mortgageValue: 60
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 50
+  improvedRentalPrices: 28000000640000002c010000c201000058020000
 --- !u!114 &5299078401504824493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13109,18 +13069,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 26
   owner: {fileID: 0}
   color: 2
   unitName: PENSILVANIA AVE.
   ownerCard: {fileID: 1547533454}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 320
+  mortgageValue: 160
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 200
+  improvedRentalPrices: 960000008601000084030000b004000078050000
 --- !u!4 &5361349563124474427
 Transform:
   m_ObjectHideFlags: 0
@@ -15486,18 +15444,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 25
+  basePayAmount: 2
   owner: {fileID: 0}
   color: 4
   unitName: MEDITERRANEAN AVE.
   ownerCard: {fileID: 4190673278781394004}
-  unitPrice: 100
-  mortgageValue: 0
-  maxImproveLevel: 0
+  unitPrice: 60
+  mortgageValue: 30
   currentImproveLevel: 0
-  houseCost: 0
-  hotelCost: 0
-  improvedRentalPrices: 0000000000000000000000000000000000000000
+  improveCost: 50
+  improvedRentalPrices: 0a0000001e0000005a000000a0000000fa000000
 --- !u!4 &8528051506777709704
 Transform:
   m_ObjectHideFlags: 0

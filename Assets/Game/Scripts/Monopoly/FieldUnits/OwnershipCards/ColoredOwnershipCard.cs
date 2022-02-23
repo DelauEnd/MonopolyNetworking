@@ -27,11 +27,10 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits.OwnershipCards
             {
                 valueTexts[i + 2].text = $"{((ImproveableFieldUnit)fieldUnit).improvedRentalPrices[i]}.";
             }
-
             valueTexts[6].text = $"With HOTEL ${((ImproveableFieldUnit)fieldUnit).improvedRentalPrices[4]}.";
             valueTexts[7].text = $"Mortgage Value ${((ImproveableFieldUnit)fieldUnit).mortgageValue}.";
-            valueTexts[8].text = $"Houses Cost ${((ImproveableFieldUnit)fieldUnit).houseCost}. each";
-            valueTexts[9].text = $"Hotels, ${((ImproveableFieldUnit)fieldUnit).hotelCost}. plus 4 houses";
+            valueTexts[8].text = $"Houses Cost ${((ImproveableFieldUnit)fieldUnit).improveCost}. each";
+            valueTexts[9].text = $"Hotels, ${((ImproveableFieldUnit)fieldUnit).improveCost}. plus 4 houses";
         }
 
         public override void SetVisible(bool visible)

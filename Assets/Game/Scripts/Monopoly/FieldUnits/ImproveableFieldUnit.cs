@@ -3,10 +3,9 @@ using System.Linq;
 
 public class ImproveableFieldUnit : BuyableFieldUnitBase
 {
-    public int maxImproveLevel;
+    public readonly int MaxImproveLevel = 5;
     public int currentImproveLevel = 0;
-    public int houseCost;
-    public int hotelCost;
+    public int improveCost;
     public int[] improvedRentalPrices = new int[5];
 
     public bool UserCanImproveField(UserFigure figure)
