@@ -1,6 +1,7 @@
 using Assets.Game.Scripts.Monopoly.FieldUnits;
 using Assets.Game.Scripts.Network.Lobby;
 using Assets.Game.Scripts.Utils;
+using Assets.Game.Scripts.Utils.Extensions;
 using Mirror;
 using System;
 using System.Collections;
@@ -9,7 +10,7 @@ using System.Linq;
 using UnityEngine;
 
 public class UserFigure : NetworkBehaviour
-{  
+{
     [Header("Game additions")]
     public GameField Field = null;
     public GameManager Game = null;
@@ -32,17 +33,20 @@ public class UserFigure : NetworkBehaviour
 
     [Header("User info")]
     [SyncVar(hook = nameof(SyncCurrentPos))] public int currentPosition = 0;
-    [SerializeField] private int clientPosition = 0;
+    [SerializeField] public int clientPosition = 0;
 
     [SyncVar] public int userMoney = 0;
     [SyncVar] public bool shouldMove;
     [SyncVar] public bool playerThrowDice = false;
+    [SyncVar] public int prisonRemained = 0;
 
     public int steps = 0;
     public bool isMoving;
     public bool moveEnded;
     public bool frezeFigure;
     private bool inited;
+    public int lastThrowedDiceNumber;
+
 
     //TODO: Add color select, user figure will outlined with selected color
 
@@ -80,7 +84,8 @@ public class UserFigure : NetworkBehaviour
 
         if (Room.CurrentPlayer == this && Game.readyToMove && shouldMove)
         {
-            steps = Game.rolledNumber;
+            lastThrowedDiceNumber = Game.rolledNumber;
+            steps = lastThrowedDiceNumber;
             Game.CmdSetRolledNumber(0);
             Game.CmdSetReadyToMove(false);
 
@@ -103,8 +108,6 @@ public class UserFigure : NetworkBehaviour
 
     IEnumerator Move()
     {
-
-
         if (isMoving)
         {
             yield break;
@@ -139,6 +142,12 @@ public class UserFigure : NetworkBehaviour
         frezeFigure = true;
     }
 
+    public void PayToUser(UserFigure figure, int amount)
+    {
+        this.CmdSetCurrentPlayerInd(userMoney - amount);
+        this.CmdSetCurrentPlayerInd(figure.userMoney + amount);
+    }
+
     private void OnTurnEnded()
     {
         UIHandler.buyUnitButton.gameObject.SetActive(false);
@@ -146,15 +155,7 @@ public class UserFigure : NetworkBehaviour
         UIHandler.FieldInfoPanel.SetActive(true);
 
         GetCurrentUnit().OnPlayerStop(this);
-
-        //if (GetCurrentUnit().IsBuyable())
-        //    UIHandler.buyUnitButton.gameObject.SetActive(true);
-        //else if(GetCurrentUnit().IsImproveableForUser(this))
-        //    throw new NotImplementedException(); //User owns unit and can improve it
-        //else if(GetCurrentUnit().IsUserShouldPayRenta(this))
-        //    throw new NotImplementedException(); //Unit alredy in ownership by other player
-
-    }   
+    }
 
     public IFieldUnit GetCurrentUnit()
         => Field.fieldUnits[clientPosition];
@@ -162,7 +163,7 @@ public class UserFigure : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void CmdSetUserMoney(int money)
     {
-        userMoney = money;       
+        userMoney = money;
         RpcSetUserMoney(money);
     }
 
@@ -175,17 +176,41 @@ public class UserFigure : NetworkBehaviour
         Debug.Log($"Draw money changed to {money}");
     }
 
-    #region Current turn player handle
     [Command]
-    public void CmdCurrentPlayerToNext(int ind)
+    public void CmdSetPlayerPrisonRemained(int remained)
     {
-        Debug.Log("To next user by command" + ind);
-        Room.CurrentUserInd = ind;
-        RpcCurrentPlayerToNext(ind);
+        prisonRemained = remained;
+        RpcSetPlayerPrisonRemained(remained);
     }
 
     [ClientRpc]
-    public void RpcCurrentPlayerToNext(int ind)
+    public void RpcSetPlayerPrisonRemained(int remained)
+    {
+        prisonRemained = remained;
+    }
+
+    #region Current turn player handle
+    [Command]
+    public void CmdSetCurrentPlayerInd(int ind)
+    {
+        Debug.Log("To next user by command" + ind);
+
+        if(ind == 0)
+        {
+            HandleLapPassed();
+        }
+
+        Room.CurrentUserInd = ind;
+        RpcSetCurrentPlayerInd(ind);
+    }
+
+    private void HandleLapPassed()
+    {
+        Room.UserFigures.Where(figure => figure.prisonRemained > 0).ForEach(figure => figure.CmdSetPlayerPrisonRemained(figure.prisonRemained - 1));
+    }
+
+    [ClientRpc]
+    public void RpcSetCurrentPlayerInd(int ind)
     {
         Debug.Log("To next user by rpc" + ind);
         Room.CurrentUserInd = ind;
@@ -193,11 +218,32 @@ public class UserFigure : NetworkBehaviour
 
     public int GetNextPlayerIndex()
     {
+        if (Room.UserFigures.All(figure => figure.prisonRemained > 0))
+        {
+            return GetMinPrisonRemainedUserInd();
+        }
+
         var ind = Room.CurrentUserInd;
-        if (ind + 1 == Room.UserFigures.Count)
-            return ind - 1;
-        return ind + 1;
-    } 
+
+        do
+        {
+            ind++;
+            ind %= Room.UserFigures.Count;
+        }
+        while (Room.UserFigures[ind].prisonRemained != 0);
+        
+        return ind;
+    }
+
+    private int GetMinPrisonRemainedUserInd()
+    {
+        var minPrisonRemainedUser = Room.UserFigures.FirstOrDefault(figure 
+            => figure.prisonRemained == Room.UserFigures.Min(figure => figure.prisonRemained));
+
+        Room.UserFigures.Where(figure => figure.prisonRemained > 0).ForEach(figure => figure.CmdSetPlayerPrisonRemained(figure.prisonRemained - minPrisonRemainedUser.prisonRemained));
+
+        return Room.UserFigures.FindIndex(user => minPrisonRemainedUser);
+    }
     #endregion
 
     #region Current position handle

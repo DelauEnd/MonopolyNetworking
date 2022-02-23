@@ -47,7 +47,10 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
     {
         owner = newOwnerFigure;
         if (ownerCard != null)
+        {
             ownerCard.SetVisible(true);
+            ownerCard.SetNewOwner(newOwnerFigure);
+        }
     }
 
     public override void PayByPlayer(UserFigure figure)
@@ -58,8 +61,7 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
             UserHasNoMoney();
             return;
         }
-        figure.CmdSetUserMoney(figure.userMoney - payAmount);
-        figure.Room.UserFigures.FirstOrDefault(figure => owner).CmdSetUserMoney(owner.userMoney + payAmount);
+        figure.PayToUser(owner, payAmount);
 
         figure.UIHandler.payRentaButton.gameObject.SetActive(false);
     }

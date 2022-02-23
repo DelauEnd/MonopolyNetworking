@@ -25,6 +25,7 @@ namespace Assets.Game.Scripts.Network.Lobby
 
         public List<UserFigure> UserFigures
             = new List<UserFigure>();
+
         public UserFigure CurrentPlayer 
             => UserFigures[CurrentUserInd];
 

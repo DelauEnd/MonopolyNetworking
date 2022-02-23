@@ -10,12 +10,12 @@ public class UIController : NetworkBehaviour
     [Header("User camera")]
     [SerializeField] private CinemachineFreeLook virtualCamera = null;
 
-    private Controls controls;
-    public Controls Controls
+    private Controllers controls;
+    public Controllers Controls
     {
         get
         {
-            return controls ??= controls = new Controls();
+            return controls ??= controls = new Controllers();
         }
     }
 

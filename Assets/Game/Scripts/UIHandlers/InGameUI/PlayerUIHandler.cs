@@ -48,7 +48,7 @@ public class PlayerUIHandler : NetworkBehaviour
         var newInd = Player.GetNextPlayerIndex();
         Debug.Log($"New user ind {newInd}");
 
-        Player.CmdCurrentPlayerToNext(newInd);
+        Player.CmdSetCurrentPlayerInd(newInd);
         Player.frezeFigure = false;
         Player.UIController.LockCursor();
     }

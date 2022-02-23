@@ -35,6 +35,15 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InspectItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""47c64a2f-cd40-4dcc-8ba0-eb6191dae6c9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -46,6 +55,17 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard and mouse"",
                     ""action"": ""UnlockCursor"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""996551fd-de96-48db-9680-df0c72036725"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InspectItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -74,6 +94,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_UnlockCursor = m_Player.FindAction("UnlockCursor", throwIfNotFound: true);
+        m_Player_InspectItem = m_Player.FindAction("InspectItem", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -134,11 +155,13 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_UnlockCursor;
+    private readonly InputAction m_Player_InspectItem;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
         public PlayerActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @UnlockCursor => m_Wrapper.m_Player_UnlockCursor;
+        public InputAction @InspectItem => m_Wrapper.m_Player_InspectItem;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -151,6 +174,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @UnlockCursor.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnlockCursor;
                 @UnlockCursor.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnlockCursor;
                 @UnlockCursor.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnlockCursor;
+                @InspectItem.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInspectItem;
+                @InspectItem.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInspectItem;
+                @InspectItem.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInspectItem;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -158,6 +184,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @UnlockCursor.started += instance.OnUnlockCursor;
                 @UnlockCursor.performed += instance.OnUnlockCursor;
                 @UnlockCursor.canceled += instance.OnUnlockCursor;
+                @InspectItem.started += instance.OnInspectItem;
+                @InspectItem.performed += instance.OnInspectItem;
+                @InspectItem.canceled += instance.OnInspectItem;
             }
         }
     }
@@ -174,5 +203,6 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnUnlockCursor(InputAction.CallbackContext context);
+        void OnInspectItem(InputAction.CallbackContext context);
     }
 }

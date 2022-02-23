@@ -22,7 +22,7 @@ namespace Assets.Game.Scripts.Controls
             virtualCamera.gameObject.SetActive(true);
             userUI.gameObject.SetActive(true);
 
-            var camera = FindObjectOfType<Camera>();
+            var camera = GameObject.Find("UI Camera").GetComponent<Camera>();
             userUI.worldCamera = camera;
 
             enabled = true;
