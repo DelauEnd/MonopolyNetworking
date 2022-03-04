@@ -11,9 +11,9 @@ public class UtilityFieldUnit : BuyableFieldUnitBase
     public override void OnPlayerStop(UserFigure figure)
     {
         if (AvailableToBuy)
-            figure.UIHandler.buyUnitButton.gameObject.SetActive(true);
+            figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.ShowUI();
         else
-            ShowPayMenu(figure);
+            figure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.ShowUI();
     }
 
     protected override int GetPayAmount()
@@ -23,9 +23,6 @@ public class UtilityFieldUnit : BuyableFieldUnitBase
             6 :
             10;
 
-        //rolled dice amount * multiplayer
-        throw new NotImplementedException();
-
-        return basePayAmount * priceMultiplayer;
+        return  GameManager.LastRolledNumber * priceMultiplayer;
     }
 }

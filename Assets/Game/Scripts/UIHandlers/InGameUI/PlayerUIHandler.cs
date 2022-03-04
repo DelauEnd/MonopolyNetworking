@@ -8,75 +8,36 @@ using System;
 using Assets.Game.Scripts.Network.Lobby;
 using Assets.Game.Scripts.Monopoly.FieldUnits;
 
-public class PlayerUIHandler : NetworkBehaviour
+namespace Assets.Game.Scripts.UIHandlers.InGameUI
 {
-    public Canvas UserUI = null;
-    [SerializeField] private UserFigure Player = null;
-
-    [Header("UI blocks")]
-    [Header("User info")]
-    [SerializeField] public GameObject UserInfoPanel = null;
-    [SerializeField] private TMP_Text moneyText;
-
-    [Header("Buy unit")]
-    [SerializeField] public GameObject FieldInfoPanel = null;
-    [SerializeField] public Button buyUnitButton;
-    [SerializeField] public Button payRentaButton;
-    [SerializeField] public Button endTurnButton;
-
-    public override void OnStartAuthority()
+    public class PlayerUIHandler : NetworkBehaviour
     {
-        this.enabled = true;
-    }
+        public Canvas UserUI = null;
+        [HideInInspector] public PlayerInfoUI PlayerInfoUI = null;
+        [HideInInspector] public GameUnitsPlayerUI GameUnitsPlayerUI = null;
 
-    [ClientCallback]
-    private void OnEnable()
-    {
-        UserUI.enabled = true;
-    }
+        private void Awake()
+        {
+            PlayerInfoUI = UserUI.GetComponent<PlayerInfoUI>();
+            GameUnitsPlayerUI = UserUI.GetComponent<GameUnitsPlayerUI>();
+        }
 
-    [ClientCallback]
-    private void OnDisable()
-    {
-        UserUI.enabled = false;
-    }
+        public override void OnStartAuthority()
+        {
+            this.enabled = true;
+        }
 
-    public void EndTurn()
-    {
-        FieldInfoPanel.SetActive(false);
+        [ClientCallback]
+        private void OnEnable()
+        {
+            UserUI.enabled = true;
+        }
 
-        var newInd = Player.GetNextPlayerIndex();
-        Debug.Log($"New user ind {newInd}");
+        [ClientCallback]
+        private void OnDisable()
+        {
+            UserUI.enabled = false;
+        }
 
-        Player.CmdSetCurrentPlayerInd(newInd);
-        Player.frezeFigure = false;
-        Player.UIController.LockCursor();
-    }
-
-    public void DrawUserMoney(int money)
-    {
-        Debug.Log($"changed money value to {money}");
-        moneyText.text = $"{money}<sprite index= 0>";
-    }
-
-    [Command]
-    public void CmdBuyCurrentField()
-    {
-        ((BuyableFieldUnitBase)Player.Field.fieldUnits[Player.currentPosition]).BuyByUser(Player);
-
-        RpcBuyCurrentField(Player.GetUserInfo(), Player);
-    }
-
-    [ClientRpc]
-    private void RpcBuyCurrentField(NetworkGamePlayerLobby newOwner, UserFigure newOwnerFigure)
-    {
-        ((BuyableFieldUnitBase)Player.Field.fieldUnits[Player.currentPosition]).ChangeOwner(newOwner, newOwnerFigure);
-        EndTurn();
-    }
-
-    public void PayRenta()
-    {
-        ((PlayerShouldPayIfStayUnit)Player.Field.fieldUnits[Player.currentPosition]).PayByPlayer(Player);
-        endTurnButton.interactable = true;
     }
 }

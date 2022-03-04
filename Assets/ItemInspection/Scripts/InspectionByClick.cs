@@ -18,7 +18,7 @@ namespace Assets.ItemInspection.Scripts
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    if (Inspection.gameObject.FindComponents<Collider>().Any(col => col == hit.collider))
+                    if (Inspection.gameObject.FindComponents<Collider>().Any(col => col == hit.collider) && Inspection.CanInspect)
                         Inspection.SetEnableInspecting(true);
                 }
             }

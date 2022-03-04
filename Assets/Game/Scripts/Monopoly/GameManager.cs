@@ -24,6 +24,8 @@ public class GameManager : NetworkBehaviour
     [SyncVar] public int rolledNumber;
     [SyncVar] public bool readyToMove;
 
+    public static int LastRolledNumber;
+
     //unused
     [ClientRpc]
     public void RpcSetReadyToMove(bool ready)

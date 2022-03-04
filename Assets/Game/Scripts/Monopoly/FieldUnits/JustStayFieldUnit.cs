@@ -12,7 +12,7 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits
     {
         public override void OnPlayerStop(UserFigure figure)
         {
-
+            figure.UIHandler.GameUnitsPlayerUI.JustStayUnitUI.ShowUI();
         }
     }
 }

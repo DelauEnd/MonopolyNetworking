@@ -11,7 +11,8 @@ namespace Assets.ItemInspection
 {
     public class InspectorGui : MonoBehaviour
     {
-        private Camera playerCamera;
+        public GameObject InspectableObject = null;
+
         [SerializeField] private Canvas BaseInspectingCanvas;
         [SerializeField] private GameObject ItemToInspect;
 
@@ -40,7 +41,8 @@ namespace Assets.ItemInspection
 
         public void SetAdditionalGui(GameObject addGui)
         {
-            addGui.transform.SetParent(BaseInspectingCanvas.gameObject.transform);
+            addGui.transform.SetParent(this.transform);
+            addGui.GetComponent<Canvas>().worldCamera = BaseInspectingCanvas.worldCamera;
             addGui.transform.localPosition = Vector3.zero;
         }
 
@@ -55,8 +57,6 @@ namespace Assets.ItemInspection
             item.gameObject.ChangeObjectLayer(LayerMask.NameToLayer("UI"));
         }
 
-        //Works fine
-        //TODO Add camera for UI
         private void SetupInspectableItemScale(GameObject item)
         {
             var bounds = MeshAdditions.GetRenderBounds(item);
@@ -82,14 +82,5 @@ namespace Assets.ItemInspection
             if (BaseInspectingCanvas.worldCamera == null)
                 BaseInspectingCanvas.worldCamera = camera;
         }
-
-        //private void Update()
-        //{
-        //    ItemToExplore.transform.position = new Vector3(0, 0, 40);
-        //    ItemToExplore.transform.localPosition = new Vector3(0, 0, 40);
-        //    ItemToExplore.transform.localRotation = Quaternion.identity;
-        //    ItemToExplore.transform.rotation = Quaternion.identity;
-        //    SetupInspectableItemScale(ItemToExplore);
-        //}
     }
 }

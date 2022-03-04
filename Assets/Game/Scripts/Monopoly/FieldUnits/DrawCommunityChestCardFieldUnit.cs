@@ -9,23 +9,16 @@ using UnityEngine;
 
 namespace Assets.Game.Scripts.Monopoly.FieldUnits
 {
-    public class DrawCommunityChestCardFieldUnit : FieldUnitBase, IDrawCard
+    public class DrawCommunityChestCardFieldUnit : DrawCardFieldBase
     {
-        public IEnumerable<IDrawableCard> DrawableCards => throw new NotImplementedException();
-
-        public IDrawableCard GetRandomCard()
+        protected override void Awake()
         {
-            throw new NotImplementedException();
-        }
-
-        public void InitCards()
-        {
-            throw new NotImplementedException();
+            base.Awake();
         }
 
         public override void OnPlayerStop(UserFigure figure)
         {
-
+            figure.UIHandler.GameUnitsPlayerUI.DrawCardUI.ShowUI();
         }
     }
 }

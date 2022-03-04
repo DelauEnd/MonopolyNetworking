@@ -16,6 +16,5 @@ namespace Assets.ItemInspection.Scripts
             if(Input.GetKeyDown(closeKey))
                 Inspection.SetEnableInspecting(false);
         }
-
     }
 }

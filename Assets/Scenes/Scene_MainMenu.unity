@@ -5811,7 +5811,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1282446178}
         m_TargetAssemblyTypeName: PlayerNameInput, Assembly-CSharp
-        m_MethodName: SetPlayerName
+        m_MethodName: TextUpdated
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

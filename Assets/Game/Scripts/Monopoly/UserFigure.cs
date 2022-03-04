@@ -1,5 +1,6 @@
 using Assets.Game.Scripts.Monopoly.FieldUnits;
 using Assets.Game.Scripts.Network.Lobby;
+using Assets.Game.Scripts.UIHandlers.InGameUI;
 using Assets.Game.Scripts.Utils;
 using Assets.Game.Scripts.Utils.Extensions;
 using Mirror;
@@ -32,6 +33,7 @@ public class UserFigure : NetworkBehaviour
     public Outline UserOutline = null;
 
     [Header("User info")]
+    [SyncVar] public NetworkGamePlayerLobby UserInfo = null;
     [SyncVar(hook = nameof(SyncCurrentPos))] public int currentPosition = 0;
     [SerializeField] public int clientPosition = 0;
 
@@ -40,15 +42,13 @@ public class UserFigure : NetworkBehaviour
     [SyncVar] public bool playerThrowDice = false;
     [SyncVar] public int prisonRemained = 0;
 
-    public int steps = 0;
     public bool isMoving;
     public bool moveEnded;
     public bool frezeFigure;
     private bool inited;
     public int lastThrowedDiceNumber;
 
-
-    //TODO: Add color select, user figure will outlined with selected color
+    private bool colored = false;
 
     public override void OnStartClient()
     {
@@ -61,11 +61,29 @@ public class UserFigure : NetworkBehaviour
 
     public override void OnStartAuthority()
     {
-        UIController.LockCursor();
+        UIController.LockCursor();        
     }
+
+    #region UserInfoHandle
+    [Command]
+    private void CmdInitUserInfo(NetworkGamePlayerLobby userInfo)
+    {
+        UserInfo = userInfo;
+        RpcInitUserInfo(userInfo, this);
+    }
+
+    [ClientRpc]
+    private void RpcInitUserInfo(NetworkGamePlayerLobby userInfo, UserFigure userFigure)
+    {
+        UserInfo = userInfo;
+        UserInfo.userFigure = userFigure;
+    } 
+    #endregion
 
     private void Update()
     {
+        ColorFigure();
+
         if (!hasAuthority)
             return;
 
@@ -84,16 +102,22 @@ public class UserFigure : NetworkBehaviour
 
         if (Room.CurrentPlayer == this && Game.readyToMove && shouldMove)
         {
-            lastThrowedDiceNumber = Game.rolledNumber;
-            steps = lastThrowedDiceNumber;
+            GameManager.LastRolledNumber = Game.rolledNumber;
             Game.CmdSetRolledNumber(0);
             Game.CmdSetReadyToMove(false);
 
             moveEnded = false;
-            StartCoroutine(Move());
+            StartCoroutine(MoveAlongField(/*GameManager.LastRolledNumber*/7));
             shouldMove = false;
             moveEnded = true;
         }
+    }
+
+    private void ColorFigure()
+    {
+        if (UserInfo == null || colored)
+            return;
+        UserOutline.OutlineColor = UserInfo.DisplayColor;
     }
 
     private void InitPlayer()
@@ -103,10 +127,35 @@ public class UserFigure : NetworkBehaviour
         inited = true;
 
         CmdSetUserMoney(1500);
-        SetFigureOutline();
+        var userInfo = Room.GamePlayers.FirstOrDefault(user => user.hasAuthority);
+        CmdInitUserInfo(userInfo);
     }
 
-    IEnumerator Move()
+    public IEnumerator MoveAlongField(int unitCount)
+    {
+        for (int i = Math.Abs(unitCount); i > 0; i--)
+        {
+            clientPosition += unitCount / Math.Abs(unitCount);
+            clientPosition %= Field.fieldUnits.Count;
+
+            var nextPos = Field.GetAvailablePointForField(clientPosition);
+            yield return Move(nextPos);
+            yield return new WaitForSeconds(0.1f);
+        }
+        AfterMoveFigure();
+        yield break;
+    }
+
+    public void MoveToUnit(int unitIndex)
+    {
+        var unitsBeforeGoal = unitIndex > clientPosition?
+            unitIndex-clientPosition:
+            Field.fieldUnits.Count + unitIndex - currentPosition;
+
+        StartCoroutine(MoveAlongField(unitsBeforeGoal));
+    }
+
+    public IEnumerator Move(Vector3 goal)
     {
         if (isMoving)
         {
@@ -114,51 +163,47 @@ public class UserFigure : NetworkBehaviour
         }
         isMoving = true;
 
-        while (steps > 0)
+        while ((transform.position = Vector3.MoveTowards(transform.position, goal, Time.fixedDeltaTime * 10)) != goal)
         {
-            clientPosition++;
-            clientPosition %= Field.fieldUnits.Count;
-
-            if (clientPosition == 0)
-                LoopPased();
-
-            var nextPos = Field.GetAvailablePointForField(clientPosition);
-            while (ShouldMoveToNext(nextPos))
-            {
-                yield return null;
-            }
-
-            yield return new WaitForSeconds(0.1f);
-
-            steps--;
+            yield return null;
         }
 
+        isMoving = false;
+    }
+
+    public void BeforeMoveFigure()
+    {
+
+    }
+
+    public void OnMoveFigure()
+    {
+
+    }
+
+    public void AfterMoveFigure()
+    {
         CmdChangeCurrentPos(clientPosition);
         MoveOver();
         isMoving = false;
-
         OnTurnEnded();
         UIController.UnlockCursor();
         frezeFigure = true;
     }
 
-    public void PayToUser(UserFigure figure, int amount)
-    {
-        this.CmdSetCurrentPlayerInd(userMoney - amount);
-        this.CmdSetCurrentPlayerInd(figure.userMoney + amount);
-    }
-
     private void OnTurnEnded()
     {
-        UIHandler.buyUnitButton.gameObject.SetActive(false);
-        UIHandler.payRentaButton.gameObject.SetActive(false);
-        UIHandler.FieldInfoPanel.SetActive(true);
-
         GetCurrentUnit().OnPlayerStop(this);
     }
 
     public IFieldUnit GetCurrentUnit()
         => Field.fieldUnits[clientPosition];
+
+    public void PayToUser(UserFigure figure, int amount)
+    {
+        this.CmdSetUserMoney(userMoney - amount);
+        figure.CmdSetUserMoney(figure.userMoney + amount);
+    }
 
     [Command(requiresAuthority = false)]
     public void CmdSetUserMoney(int money)
@@ -172,7 +217,7 @@ public class UserFigure : NetworkBehaviour
     {
         userMoney = money;
 
-        UIHandler.DrawUserMoney(money);
+        UIHandler.PlayerInfoUI.DrawUserMoney(money);
         Debug.Log($"Draw money changed to {money}");
     }
 
@@ -190,7 +235,7 @@ public class UserFigure : NetworkBehaviour
     }
 
     #region Current turn player handle
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdSetCurrentPlayerInd(int ind)
     {
         Debug.Log("To next user by command" + ind);
@@ -302,13 +347,6 @@ public class UserFigure : NetworkBehaviour
         Debug.Log("Loop pased, user money:" + userMoney);
     }
 
-    bool ShouldMoveToNext(Vector3 goal)
-    {
-        transform.position = Vector3.MoveTowards(transform.position, goal, Time.fixedDeltaTime * 5);
-
-        return goal != transform.position;
-    }
-
     /// <summary>
     /// Returns gameplayer object assigned to current figure
     /// </summary>
@@ -316,35 +354,22 @@ public class UserFigure : NetworkBehaviour
     /// Dont use on client Rpc
     /// </remarks>
     /// <returns></returns>
+    [Obsolete]
     public NetworkGamePlayerLobby GetUserInfo()
         => Room.GamePlayers.FirstOrDefault(x => x.connectionToClient == this.connectionToClient);
 
     #region Outline handle
-    private void SetFigureOutline()
+    private void InitOutlineColors()
     {
-        var color = GetUserInfo().DisplayColor;
-
-        CmdSetFigureOutline(color);
-    }
-
-    [Command]
-    private void CmdSetFigureOutline(Color color)
-    {
-        Debug.Log("setted outline by cmd");
-        SetOutline(color);
-        RpcSetFigureOutline(color);
-    }
-
-    [ClientRpc]
-    private void RpcSetFigureOutline(Color color)
-    {
-        Debug.Log("setted outline by rpc");
-        SetOutline(color);
+        foreach (var figure in Room.UserFigures)
+        {
+            figure.SetOutline(figure.UserInfo.DisplayColor);
+        }
     }
 
     private void SetOutline(Color color)
     {
-        UserOutline.OutlineColor = color;
-    } 
+        this.UserOutline.OutlineColor = color;
+    }
     #endregion
 }

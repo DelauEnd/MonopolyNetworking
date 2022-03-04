@@ -13,13 +13,7 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits
 
         public override void OnPlayerStop(UserFigure figure)
         {
-            ShowPayMenu(figure);
-        }
-
-        protected void ShowPayMenu(UserFigure figure)
-        {
-            figure.UIHandler.endTurnButton.interactable = false;
-            figure.UIHandler.payRentaButton.gameObject.SetActive(true);
+            figure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.ShowUI();
         }
 
         protected virtual int GetPayAmount()
@@ -34,7 +28,7 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits
                 return;
             }
             figure.CmdSetUserMoney(figure.userMoney - payAmount);
-            figure.UIHandler.payRentaButton.gameObject.SetActive(false);
+            figure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.HideUI();
         }
 
         protected void UserHasNoMoney()

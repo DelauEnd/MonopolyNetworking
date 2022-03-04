@@ -18,7 +18,7 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits
 
         protected virtual void Awake()
         {
-            Field = GetComponentInParent<GameField>();
+            Field = FindObjectOfType<GameField>();
             StopPoints = new List<Transform>(GetComponentsInChildren<Transform>()).Where(obj => obj != this.transform).ToList();
         }
 

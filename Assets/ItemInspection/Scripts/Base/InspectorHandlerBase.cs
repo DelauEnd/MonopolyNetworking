@@ -12,7 +12,7 @@ namespace Assets.ItemInspection.Scripts
     {
         public ItemInspector Inspection { get; private set;}
 
-        private void Awake()
+        protected virtual void Awake()
         {
             Inspection = GetComponent<ItemInspector>();
         }

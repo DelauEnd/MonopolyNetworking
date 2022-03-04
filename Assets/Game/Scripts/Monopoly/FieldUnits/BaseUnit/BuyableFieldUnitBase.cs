@@ -21,36 +21,30 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
     protected override void Awake()
     {
         base.Awake();
-        if (ownerCard!=null)
+        if (ownerCard != null)
             ownerCard.InitCard(this);
     }
 
     public abstract override void OnPlayerStop(UserFigure figure);
 
-    protected void ShowBuyMenu(UserFigure figure)
+    public void BuyField(UserFigure newOwner)
     {
-        figure.UIHandler.buyUnitButton.gameObject.SetActive(true);
+        CmdBuyCurrentField(newOwner);
     }
 
-    public void BuyByUser(UserFigure figure)
+    [Command(requiresAuthority = false)]
+    public void CmdBuyCurrentField(UserFigure figure)
     {
-        if (figure.userMoney<unitPrice)
+        if (figure.userMoney < unitPrice)
         {
             UserHasNoMoney();
             return;
         }
         figure.RpcSetUserMoney(figure.userMoney - unitPrice);
         owner = figure;
-    }
 
-    public void ChangeOwner(NetworkGamePlayerLobby newOwner, UserFigure newOwnerFigure)
-    {
-        owner = newOwnerFigure;
-        if (ownerCard != null)
-        {
-            ownerCard.SetVisible(true);
-            ownerCard.SetNewOwner(newOwnerFigure);
-        }
+        figure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.HideUI(); ;
+        RpcBuyCurrentField(figure.UserInfo, figure);
     }
 
     public override void PayByPlayer(UserFigure figure)
@@ -63,7 +57,20 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
         }
         figure.PayToUser(owner, payAmount);
 
-        figure.UIHandler.payRentaButton.gameObject.SetActive(false);
+        //figure.UIHandler.payRentaButton.gameObject.SetActive(false);
+    }
+
+    [ClientRpc]
+    private void RpcBuyCurrentField(NetworkGamePlayerLobby newOwner, UserFigure newOwnerFigure)
+    {
+        owner = newOwnerFigure;
+        if (ownerCard != null)
+        {
+            ownerCard.SetVisible(true);
+            ownerCard.SetNewOwner(newOwnerFigure);
+        }
+
+        newOwnerFigure.UIHandler.GameUnitsPlayerUI.EndTurn();
     }
 
     protected abstract override int GetPayAmount();

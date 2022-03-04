@@ -16,36 +16,18 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits
 
         public override void OnPlayerStop(UserFigure figure)
         {
-            GoToJail(figure);
+            figure.UIHandler.GameUnitsPlayerUI.ConfirmUI.ShowUI();
         }
 
-        public void GoToJail(UserFigure figure)
-        {
-            figure.CmdSetPlayerPrisonRemained(3);
-            figure.clientPosition = 10;
-
-            StartCoroutine(MoveToJail(figure));
-        }
-
-        IEnumerator MoveToJail(UserFigure figure)
+        public void MovePlayerToJail(UserFigure figure)
         {
             var usersInJailCount = figure.Room.UserFigures.Count(figure => figure.prisonRemained > 0);
-
             Transform jailPos = jailPositions[usersInJailCount - 1];
-
-            bool isMoving = false;
-            if (isMoving)
-            {
-                yield break;
-            }
-            isMoving = true;
-
-            while ((figure.transform.position = Vector3.MoveTowards(figure.transform.position, jailPos.position, Time.fixedDeltaTime*10)) != jailPos.position)
-            {
-                yield return null;
-            }
-
-            isMoving = false;
+            StartCoroutine(figure.Move(jailPos.position));
+    
+            figure.CmdSetPlayerPrisonRemained(3);
+            figure.clientPosition = 10;
+            figure.UIHandler.GameUnitsPlayerUI.EndTurn();
         }
     }
 }

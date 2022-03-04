@@ -1,31 +1,22 @@
 ﻿using Assets.Game.Scripts.Monopoly.FieldUnits.BaseUnit;
-using Mirror;
+using Assets.Game.Scripts.Utils.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Game.Scripts.Monopoly.FieldUnits
 {
-    public class DrawChanceCardFieldUnit : FieldUnitBase, IDrawCard
+    public class DrawChanceCardFieldUnit : DrawCardFieldBase
     {
-        public IEnumerable<IDrawableCard> DrawableCards => throw new NotImplementedException();
-
-        public IDrawableCard GetRandomCard()
+        protected override void Awake()
         {
-            throw new NotImplementedException();
-        }
-
-        public void InitCards()
-        {
-            throw new NotImplementedException();
+            base.Awake();
         }
 
         public override void OnPlayerStop(UserFigure figure)
         {
-
+            figure.UIHandler.GameUnitsPlayerUI.DrawCardUI.ShowUI();
         }
     }
 }

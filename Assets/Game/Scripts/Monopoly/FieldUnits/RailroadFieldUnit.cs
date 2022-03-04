@@ -11,9 +11,9 @@ public class RailroadFieldUnit : BuyableFieldUnitBase
     public override void OnPlayerStop(UserFigure figure)
     {
         if (AvailableToBuy)
-            figure.UIHandler.buyUnitButton.gameObject.SetActive(true);
+            figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.ShowUI();
         else
-            ShowPayMenu(figure);
+            figure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.ShowUI();
     }
 
     protected override int GetPayAmount()

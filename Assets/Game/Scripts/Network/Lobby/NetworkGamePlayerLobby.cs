@@ -21,6 +21,8 @@ namespace Assets.Game.Scripts.Network.Lobby
         [SerializeField]
         public Color DisplayColor = Color.white;
 
+        public UserFigure userFigure = null;
+
         private NetworkManagerLobby room;
         public NetworkManagerLobby Room
         {
@@ -51,7 +53,8 @@ namespace Assets.Game.Scripts.Network.Lobby
         /// Dont use on client Rpc
         /// </remarks>
         /// <returns></returns>
-        public UserFigure GetUserFugure()
+        [Obsolete]
+        public UserFigure GetUserFigure()
             => Room.UserFigures.FirstOrDefault(x => x.connectionToClient == this.connectionToClient);
 
         [Server]
