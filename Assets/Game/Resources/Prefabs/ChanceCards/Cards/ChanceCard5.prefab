@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 8836638674547144484}
   - component: {fileID: 9198078089864019605}
   m_Layer: 0
-  m_Name: ChanceCard2
+  m_Name: ChanceCard5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3377eea205132246afc3252fffe5a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goalUnit: 39
+  goalUnit: 5
 --- !u!1 &9000526912481187346
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 96a4b968400b3494db9ed0e03edc49f8, type: 3}
+  m_Texture: {fileID: 2800000, guid: f5c981792a209d848918c071c148d1e0, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0

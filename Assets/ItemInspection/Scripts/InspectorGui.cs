@@ -1,4 +1,5 @@
-﻿using Assets.ItemInspection.Scripts.Utils;
+﻿using Assets.ItemInspection.Scripts;
+using Assets.ItemInspection.Scripts.Utils;
 using Assets.ItemInspection.Scripts.Utils.Extensions;
 using System;
 using System.Collections.Generic;
@@ -50,7 +51,9 @@ namespace Assets.ItemInspection
         {
             item.transform.localPosition = ItemToInspect.transform.position;
             item.transform.rotation = ItemToInspect.transform.localRotation;
-            SetupInspectableItemScale(item);
+
+            if (!InspectableObject.GetComponents<ImmortalInspectorHandlerBase>().Any(handler => handler.OverrideScale))
+                SetupInspectableItemScale(item);
 
             item.transform.SetParent(ItemToInspect.transform);
 
@@ -74,7 +77,6 @@ namespace Assets.ItemInspection
             var multiplier = mults.Max(x => x)/2.5f;
 
             item.transform.localScale /= Math.Abs(multiplier);
-
         }
 
         public void SetGuiCamera(Camera camera)

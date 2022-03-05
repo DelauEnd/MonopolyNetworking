@@ -33,7 +33,7 @@ public class UserFigure : NetworkBehaviour
     public Outline UserOutline = null;
 
     [Header("User info")]
-    [SyncVar] public NetworkGamePlayerLobby UserInfo = null;
+    [SyncVar(hook = nameof(SyncUserInfo))] public NetworkGamePlayerLobby UserInfo = null;
     [SyncVar(hook = nameof(SyncCurrentPos))] public int currentPosition = 0;
     [SerializeField] public int clientPosition = 0;
 
@@ -64,19 +64,23 @@ public class UserFigure : NetworkBehaviour
         UIController.LockCursor();        
     }
 
-    #region UserInfoHandle
-    [Command]
+    #region UserInfoHandle  
+    public void SyncUserInfo(NetworkGamePlayerLobby oldValue, NetworkGamePlayerLobby newValue)
+    {
+        CmdInitUserInfo(newValue);
+    }
+
+    [Command(requiresAuthority = false)]
     private void CmdInitUserInfo(NetworkGamePlayerLobby userInfo)
     {
         UserInfo = userInfo;
-        RpcInitUserInfo(userInfo, this);
+        RpcInitUserInfo(userInfo);
     }
 
     [ClientRpc]
-    private void RpcInitUserInfo(NetworkGamePlayerLobby userInfo, UserFigure userFigure)
+    private void RpcInitUserInfo(NetworkGamePlayerLobby userInfo)
     {
         UserInfo = userInfo;
-        UserInfo.userFigure = userFigure;
     } 
     #endregion
 
@@ -87,6 +91,8 @@ public class UserFigure : NetworkBehaviour
         if (!hasAuthority)
             return;
 
+        var userInfo = Room.GamePlayers.FirstOrDefault(user => user.hasAuthority);
+        CmdInitUserInfo(userInfo);
         InitPlayer();
 
         if (frezeFigure)
@@ -107,7 +113,7 @@ public class UserFigure : NetworkBehaviour
             Game.CmdSetReadyToMove(false);
 
             moveEnded = false;
-            StartCoroutine(MoveAlongField(/*GameManager.LastRolledNumber*/7));
+            StartCoroutine(MoveAlongField(GameManager.LastRolledNumber));
             shouldMove = false;
             moveEnded = true;
         }
@@ -117,6 +123,8 @@ public class UserFigure : NetworkBehaviour
     {
         if (UserInfo == null || colored)
             return;
+
+        colored = true;
         UserOutline.OutlineColor = UserInfo.DisplayColor;
     }
 
@@ -126,9 +134,7 @@ public class UserFigure : NetworkBehaviour
             return;
         inited = true;
 
-        CmdSetUserMoney(1500);
-        var userInfo = Room.GamePlayers.FirstOrDefault(user => user.hasAuthority);
-        CmdInitUserInfo(userInfo);
+        CmdSetUserMoney(1500);    
     }
 
     public IEnumerator MoveAlongField(int unitCount)
@@ -137,6 +143,8 @@ public class UserFigure : NetworkBehaviour
         {
             clientPosition += unitCount / Math.Abs(unitCount);
             clientPosition %= Field.fieldUnits.Count;
+
+            OnMoveFigure();
 
             var nextPos = Field.GetAvailablePointForField(clientPosition);
             yield return Move(nextPos);
@@ -178,7 +186,8 @@ public class UserFigure : NetworkBehaviour
 
     public void OnMoveFigure()
     {
-
+        if (clientPosition == 0)
+            LoopPased();
     }
 
     public void AfterMoveFigure()

@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: -3268580632620473244}
   - component: {fileID: -507134079544005445}
   - component: {fileID: 607954852173322756}
+  - component: {fileID: 2541440803478778832}
   m_Layer: 0
   m_Name: WaterWorksOwnershipCard
   m_TagString: Untagged
@@ -192,8 +193,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df6ea60889e0d240be374916c469f99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InspectorGui: {fileID: 0}
   isInspecting: 0
   AdditionalInspectingGui: {fileID: 0}
+  inspectableInstance: {fileID: 0}
+  addGuiInstance: {fileID: 0}
 --- !u!114 &-507134079544005445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,6 +223,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closeKey: 27
+--- !u!114 &2541440803478778832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1318484513292046151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 992a5db564efbab43b3399684f1d401c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Position: {x: 0, y: 0, z: 0}
+  Scale: {x: 10, y: 10, z: 10}
+  Rotate: {x: 0, y: 0, z: 0, w: 1}
 --- !u!1 &1683427459031354565
 GameObject:
   m_ObjectHideFlags: 0

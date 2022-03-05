@@ -109,9 +109,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8836638674547144484}
-  - component: {fileID: 9198078089864019605}
+  - component: {fileID: 1170059141609646545}
   m_Layer: 0
-  m_Name: ChanceCard2
+  m_Name: ChanceCard12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,7 +133,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9198078089864019605
+--- !u!114 &1170059141609646545
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,10 +142,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5093398731157023062}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3377eea205132246afc3252fffe5a98, type: 3}
+  m_Script: {fileID: 11500000, guid: b593a679f148d7947988aedeb67ce10c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goalUnit: 39
+  changeMoneyAmount: 50
 --- !u!1 &9000526912481187346
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 96a4b968400b3494db9ed0e03edc49f8, type: 3}
+  m_Texture: {fileID: 2800000, guid: 99e65adec4cddb1429b0444b11acb076, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0

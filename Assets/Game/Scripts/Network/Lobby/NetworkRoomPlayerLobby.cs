@@ -94,11 +94,21 @@ namespace Assets.Game.Scripts.Network.Lobby
             {
                 playersNameTexts[i].text = Room.RoomPlayers[i].DisplayName;
                 playerReadyTexts[i].text = Room.RoomPlayers[i].IsReady ?
-                    "<color=green>Ready</color>" :
-                    "<color=red>Not ready</color>";
+                    "<color=green>READY</color>" :
+                    "<color=red>NOT READY</color>";
                 playerColorImages[i].gameObject.SetActive(true);
                 playerColorImages[i].color = Room.RoomPlayers[i].DisplayColor;
             }
+        }
+
+        public void ExitLobby()
+        {
+            OnStopAuthority();
+
+            if (isLeader)
+                Room.StopHost();
+            else
+                Room.StopClient();
         }
 
         internal void HandleReadyToStart(bool ready)

@@ -1,4 +1,5 @@
-﻿using Mirror;
+﻿using kcp2k;
+using Mirror;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,43 +16,38 @@ namespace Assets.Game.Scripts.Network.Lobby
         [SerializeField] private NetworkManagerLobby networkManager = null;
 
         [Header("UI")]
+        [SerializeField] private GameObject joinLobbyPagePanel = null;
         [SerializeField] private GameObject landingPagePanel = null;
+
         [SerializeField] private TMP_InputField ipAddressInputField = null;
+        [SerializeField] private TMP_InputField portInputField = null;
         [SerializeField] private Button joinButton = null;
 
-        private void OnEnable()
+        private void Awake()
         {
-            NetworkManagerLobby.OnClientConnected += HandleClientConnected;
-            NetworkManagerLobby.OnClientDisconnected += HandleClientDisconnected;
+            portInputField.text = networkManager.gameObject.GetComponent<KcpTransport>().Port.ToString();
         }
 
-        private void OnDisable()
+        public void HideMenu()
         {
-            NetworkManagerLobby.OnClientConnected -= HandleClientConnected;
-            NetworkManagerLobby.OnClientDisconnected -= HandleClientDisconnected;
+            ipAddressInputField.text = string.Empty;
+            joinLobbyPagePanel.gameObject.SetActive(false);
         }
 
         public void JoinLobby()
         {
-            string ipAddress = ipAddressInputField.text;
+            networkManager.networkAddress = ipAddressInputField.text;
+            networkManager.gameObject.GetComponent<KcpTransport>().Port = ushort.Parse(portInputField.text);
 
-            networkManager.networkAddress = ipAddress;
             networkManager.StartClient();
 
             joinButton.interactable = false;
         }
 
-        private void HandleClientDisconnected()
+        private void Update()
         {
-            joinButton.interactable = true;
-        }
-
-        private void HandleClientConnected()
-        {
-            joinButton.interactable = false;
-
-            gameObject.SetActive(false);
-            landingPagePanel.SetActive(false);
+            if (!networkManager.isNetworkActive)
+                joinButton.interactable = true;
         }
     }
 }

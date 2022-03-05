@@ -3737,8 +3737,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
-  outlineColor: {r: 1, g: 0.0990566, b: 0.0990566, a: 1}
-  outlineWidth: 7
+  outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  outlineWidth: 3
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -3757,6 +3757,8 @@ MonoBehaviour:
   InspectorGui: {fileID: 0}
   isInspecting: 0
   AdditionalInspectingGui: {fileID: 0}
+  inspectableInstance: {fileID: 0}
+  addGuiInstance: {fileID: 0}
 --- !u!114 &850562100117691632
 MonoBehaviour:
   m_ObjectHideFlags: 0
