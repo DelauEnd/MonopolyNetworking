@@ -50,6 +50,8 @@ public class UserFigure : NetworkBehaviour
 
     private bool colored = false;
 
+    public bool shouldUpdateSelfInfo;
+
     public override void OnStartClient()
     {
         Field = FindObjectOfType<GameField>();
@@ -91,8 +93,8 @@ public class UserFigure : NetworkBehaviour
         if (!hasAuthority)
             return;
 
-        var userInfo = Room.GamePlayers.FirstOrDefault(user => user.hasAuthority);
-        CmdInitUserInfo(userInfo);
+        CheckUserInfos();
+        UpdateSelfInfo();
         InitPlayer();
 
         if (frezeFigure)
@@ -117,6 +119,33 @@ public class UserFigure : NetworkBehaviour
             shouldMove = false;
             moveEnded = true;
         }
+    }
+
+    private void CheckUserInfos()
+    {
+        Room.UserFigures.Where(figure => figure.UserInfo == null).ForEach(figure => figure.CmdSetShouldUpdateInfo());
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdSetShouldUpdateInfo()
+    {
+        shouldUpdateSelfInfo = true;
+        RpcSetShouldUpdateInfo();
+    }
+
+    [ClientRpc]
+    private void RpcSetShouldUpdateInfo()
+    {
+        shouldUpdateSelfInfo = true;
+    }
+
+    private void UpdateSelfInfo()
+    {
+        if (!shouldUpdateSelfInfo)
+            return;
+
+        var userInfo = Room.GamePlayers.FirstOrDefault(user => user.hasAuthority);
+        CmdInitUserInfo(userInfo);
     }
 
     private void ColorFigure()
@@ -230,7 +259,7 @@ public class UserFigure : NetworkBehaviour
         Debug.Log($"Draw money changed to {money}");
     }
 
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdSetPlayerPrisonRemained(int remained)
     {
         prisonRemained = remained;

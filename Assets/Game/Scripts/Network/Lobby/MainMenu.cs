@@ -19,10 +19,17 @@ namespace Assets.Game.Scripts.Network.Lobby
             NetworkManagerLobby.OnClientConnected += HandleClientConnected;
             NetworkManagerLobby.OnClientDisconnected += HandleClientDisconnected;
         }
+
+        private void OnDestroy()
+        {
+            NetworkManagerLobby.OnClientConnected -= HandleClientConnected;
+            NetworkManagerLobby.OnClientDisconnected -= HandleClientDisconnected;
+        }
         private void HandleClientDisconnected()
         {
             gameObject.SetActive(true);
             landingPagePanel.SetActive(true);
+            networkManager.RoomPlayers.Clear();
         }
 
         private void HandleClientConnected()

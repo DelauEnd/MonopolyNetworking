@@ -63,6 +63,13 @@ namespace Assets.Game.Scripts.Network.Lobby
             UpdateDisplay();
         }
 
+        public override void OnStopClient()
+        {
+            Room.RoomPlayers.Remove(this);
+
+            UpdateDisplay();
+        }
+
         public override void OnStopAuthority()
         {
             Room.RoomPlayers.Remove(this);
@@ -103,10 +110,8 @@ namespace Assets.Game.Scripts.Network.Lobby
 
         public void ExitLobby()
         {
-            OnStopAuthority();
-
             if (isLeader)
-                Room.StopHost();
+                Room.StopHost();       
             else
                 Room.StopClient();
         }

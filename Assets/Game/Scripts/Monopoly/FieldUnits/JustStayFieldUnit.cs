@@ -12,6 +12,7 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits
     {
         public override void OnPlayerStop(UserFigure figure)
         {
+            figure.UIHandler.GameUnitsPlayerUI.JustStayUnitUI.BuildMessage($"You stay on free field, just CHILL");
             figure.UIHandler.GameUnitsPlayerUI.JustStayUnitUI.ShowUI();
         }
     }

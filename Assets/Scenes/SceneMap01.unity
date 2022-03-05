@@ -6176,6 +6176,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1678675194}
+  - component: {fileID: 1678675198}
+  - component: {fileID: 1678675197}
+  - component: {fileID: 1678675196}
+  - component: {fileID: 1678675195}
   m_Layer: 0
   m_Name: ChanceCards
   m_TagString: Untagged
@@ -6207,6 +6211,61 @@ Transform:
   m_Father: {fileID: 654536220}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
+--- !u!114 &1678675195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678675193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 992a5db564efbab43b3399684f1d401c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Scale: {x: 7, y: 7, z: 7}
+--- !u!114 &1678675196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678675193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e53c1f8abe99f094a8c35b2e5a96e77b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  closeKey: 27
+--- !u!114 &1678675197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678675193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8b62a077496d2941b527f682102d3c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1678675198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678675193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9df6ea60889e0d240be374916c469f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InspectorGui: {fileID: 0}
+  isInspecting: 0
+  AdditionalInspectingGui: {fileID: 0}
+  inspectableInstance: {fileID: 0}
+  addGuiInstance: {fileID: 0}
 --- !u!1001 &1699487138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6619,6 +6678,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1775411902}
+  - component: {fileID: 1775411906}
+  - component: {fileID: 1775411905}
+  - component: {fileID: 1775411904}
+  - component: {fileID: 1775411903}
   m_Layer: 0
   m_Name: ChestCards
   m_TagString: Untagged
@@ -6653,6 +6716,61 @@ Transform:
   m_Father: {fileID: 654536220}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1775411903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775411901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 992a5db564efbab43b3399684f1d401c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Scale: {x: 7, y: 7, z: 7}
+--- !u!114 &1775411904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775411901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e53c1f8abe99f094a8c35b2e5a96e77b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  closeKey: 27
+--- !u!114 &1775411905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775411901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8b62a077496d2941b527f682102d3c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1775411906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775411901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9df6ea60889e0d240be374916c469f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InspectorGui: {fileID: 0}
+  isInspecting: 0
+  AdditionalInspectingGui: {fileID: 0}
+  inspectableInstance: {fileID: 0}
+  addGuiInstance: {fileID: 0}
 --- !u!1001 &1786165249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16083,7 +16201,7 @@ MonoBehaviour:
   unitName: PENSILVANIA R.R.
   ownerCard: {fileID: 279518473}
   unitPrice: 200
-  mortgageValue: 0
+  mortgageValue: 100
 --- !u!114 &6455177293350313867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16251,13 +16369,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 0
+  basePayAmount: 25
   owner: {fileID: 0}
   color: 8
   unitName: SHORT LINE R.R.
   ownerCard: {fileID: 1749163631}
-  unitPrice: 0
-  mortgageValue: 0
+  unitPrice: 200
+  mortgageValue: 100
 --- !u!114 &6455177294266845102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16278,7 +16396,7 @@ MonoBehaviour:
   unitName: ELECTRIC COMPANY
   ownerCard: {fileID: 1332205275}
   unitPrice: 150
-  mortgageValue: 0
+  mortgageValue: 75
 --- !u!114 &6455177294348370434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16299,7 +16417,7 @@ MonoBehaviour:
   unitName: READING RAILROAD
   ownerCard: {fileID: 748054329}
   unitPrice: 200
-  mortgageValue: 0
+  mortgageValue: 100
 --- !u!114 &6455177294351665341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16481,13 +16599,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  basePayAmount: 0
+  basePayAmount: 25
   owner: {fileID: 0}
   color: 8
   unitName: B. & O. RAILROAD
   ownerCard: {fileID: 1463570074}
-  unitPrice: 0
-  mortgageValue: 0
+  unitPrice: 200
+  mortgageValue: 100
 --- !u!114 &6455177294773404223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16522,7 +16640,7 @@ MonoBehaviour:
   unitName: WATER WORKS
   ownerCard: {fileID: 1724533929}
   unitPrice: 150
-  mortgageValue: 0
+  mortgageValue: 75
 --- !u!114 &6455177294874714178
 MonoBehaviour:
   m_ObjectHideFlags: 0

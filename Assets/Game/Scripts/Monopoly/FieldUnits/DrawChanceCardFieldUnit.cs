@@ -16,6 +16,7 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits
 
         public override void OnPlayerStop(UserFigure figure)
         {
+            figure.UIHandler.GameUnitsPlayerUI.DrawCardUI.BuildMessage("You should draw \"CHANCE\" card");
             figure.UIHandler.GameUnitsPlayerUI.DrawCardUI.ShowUI();
         }
     }

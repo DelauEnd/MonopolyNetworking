@@ -21,6 +21,10 @@ namespace Assets.Game.Scripts.Network.Lobby
         [SerializeField]
         public Color DisplayColor = Color.white;
 
+        [SyncVar]
+        [SerializeField]
+        public int UserFigure = 0;
+
         public UserFigure userFigure = null;
 
         private NetworkManagerLobby room;

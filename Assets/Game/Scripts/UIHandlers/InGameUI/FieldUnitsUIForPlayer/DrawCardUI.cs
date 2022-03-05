@@ -1,6 +1,7 @@
 ﻿using Assets.Game.Scripts.Monopoly.Enums;
 using Assets.Game.Scripts.Monopoly.FieldUnits;
 using Assets.Game.Scripts.Monopoly.FieldUnits.BaseUnit;
+using Assets.ItemInspection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,11 +38,14 @@ namespace Assets.Game.Scripts.UIHandlers.InGameUI.FieldUnitsUIForPlayer
 
             ConfirmButton.gameObject.SetActive(true);
             DrawCardButton.gameObject.SetActive(false);
+            MessageText.text = string.Empty;
 
+            DrawableCard.transform.parent.GetComponent<ItemInspector>().SetEnableInspecting(true);
         }
 
         public void ConfirmCard()
         {
+            DrawableCard.transform.parent.GetComponent<ItemInspector>().SetEnableInspecting(false);
             Debug.Log($"Using card {DrawableCard.name}");
             DrawableCard.OnUserDrawCard(Figure);
             HideUI();

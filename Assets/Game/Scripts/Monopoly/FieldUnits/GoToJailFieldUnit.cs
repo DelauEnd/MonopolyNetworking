@@ -16,13 +16,14 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits
 
         public override void OnPlayerStop(UserFigure figure)
         {
+            figure.UIHandler.GameUnitsPlayerUI.ConfirmUI.BuildMessage("You should GO TO JAIL");
             figure.UIHandler.GameUnitsPlayerUI.ConfirmUI.ShowUI();
         }
 
         public void MovePlayerToJail(UserFigure figure)
         {
             var usersInJailCount = figure.Room.UserFigures.Count(figure => figure.prisonRemained > 0);
-            Transform jailPos = jailPositions[usersInJailCount - 1];
+            Transform jailPos = jailPositions[usersInJailCount];
             StartCoroutine(figure.Move(jailPos.position));
     
             figure.CmdSetPlayerPrisonRemained(3);

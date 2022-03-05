@@ -11,9 +11,15 @@ public class UtilityFieldUnit : BuyableFieldUnitBase
     public override void OnPlayerStop(UserFigure figure)
     {
         if (AvailableToBuy)
+        {
+            figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.BuildMessage($"{unitName}\nYou can buy this UTILITY for {unitPrice}$ ");
             figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.ShowUI();
+        }
         else
+        {
+            figure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.BuildMessage($"{unitName}\nOwner: {owner.UserInfo.DisplayName}.\nYou should pay Renta {GetPayAmount()}$ ");
             figure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.ShowUI();
+        }
     }
 
     protected override int GetPayAmount()
