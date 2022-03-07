@@ -15,6 +15,7 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits.OwnershipCards
         public override void InitCard(BuyableFieldUnitBase fieldUnit)
         {
             Field = fieldUnit;
+            mortgageCard.InitMortgageCard(fieldUnit);
         }
 
         public override void SetVisible(bool visible)

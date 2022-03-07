@@ -7,6 +7,7 @@ using Mirror;
 using System;
 using Assets.Game.Scripts.Network.Lobby;
 using Assets.Game.Scripts.Monopoly.FieldUnits;
+using Assets.ItemInspection.Scripts.Utils;
 
 namespace Assets.Game.Scripts.UIHandlers.InGameUI
 {
@@ -24,7 +25,12 @@ namespace Assets.Game.Scripts.UIHandlers.InGameUI
 
         public override void OnStartAuthority()
         {
-            this.enabled = true;
+            UserUI.gameObject.SetActive(true);
+
+            var camera = FindObjectOfType<InspectorCamera>().GetComponent<Camera>();
+            UserUI.worldCamera = camera;
+
+            this.enabled = true;    
         }
 
         [ClientCallback]

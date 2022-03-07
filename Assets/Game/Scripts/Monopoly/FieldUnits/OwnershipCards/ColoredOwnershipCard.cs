@@ -31,6 +31,8 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits.OwnershipCards
             valueTexts[7].text = $"Mortgage Value ${((ImproveableFieldUnit)fieldUnit).mortgageValue}.";
             valueTexts[8].text = $"Houses Cost ${((ImproveableFieldUnit)fieldUnit).improveCost}. each";
             valueTexts[9].text = $"Hotels, ${((ImproveableFieldUnit)fieldUnit).improveCost}. plus 4 houses";
+
+            mortgageCard.InitMortgageCard(fieldUnit);
         }
 
         public override void SetVisible(bool visible)

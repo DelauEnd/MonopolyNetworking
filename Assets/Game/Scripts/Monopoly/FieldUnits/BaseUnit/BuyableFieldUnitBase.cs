@@ -18,6 +18,8 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
     public bool AvailableToBuy
         => owner == null;
 
+    public bool mortgaged;
+
     protected override void Awake()
     {
         base.Awake();
@@ -56,8 +58,6 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
             return;
         }
         figure.PayToUser(owner, payAmount);
-
-        //figure.UIHandler.payRentaButton.gameObject.SetActive(false);
     }
 
     [ClientRpc]
@@ -74,6 +74,55 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
     }
 
     protected abstract override int GetPayAmount();
+
+    public abstract bool CanBeMortgaged();
+
+    public void MortgageField()
+    {
+        owner.CmdSetUserMoney(owner.userMoney + mortgageValue);
+
+        CmdMortgageField();
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdMortgageField()
+    {
+        mortgaged = true;
+        RpcMortgageField();
+    }
+
+    [ClientRpc]
+    public void RpcMortgageField()
+    {
+        ownerCard.transform.Rotate(180f, 0, 180f);
+        mortgaged = true;
+    }
+
+    public void BuyBackField()
+    {
+        if(owner.userMoney < (mortgageValue * 1.1) )
+        {
+            UserHasNoMoney();
+            return;
+        }
+        owner.CmdSetUserMoney(owner.userMoney - (int)(mortgageValue * 1.1));
+
+        CmdBuyBackField();
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdBuyBackField()
+    {
+        mortgaged = false;
+        RpcBuyBackField();
+    }
+
+    [ClientRpc]
+    public void RpcBuyBackField()
+    {
+        ownerCard.transform.Rotate(-180f, 0, -180f);
+        mortgaged = false;
+    }
 
     protected IEnumerable<IFieldUnit> GetUnitsWithSameColor()
         => Field.fieldUnits.Where(unit => unit is BuyableFieldUnitBase && ((BuyableFieldUnitBase) unit).color == this.color).ToList(); 

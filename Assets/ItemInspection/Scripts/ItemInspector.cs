@@ -14,18 +14,19 @@ namespace Assets.ItemInspection
     {
         public InspectorGui InspectorGui;
         [HideInInspector] public bool isInspecting;
-        [SerializeField] public AdditionalGuiBase AdditionalInspectingGui = null;
+        [SerializeField] public List<AdditionalGuiBase> AdditionalInspectingGuis = null;
 
         private bool inited = false;
-        [HideInInspector] public bool CanInspect
+        [HideInInspector]
+        public bool CanInspect
             => !InspectorGui.guiEnabled;
-
+        [Header("Instances")]
         public GameObject inspectableInstance = null;
-        public GameObject addGuiInstance = null;
+        public List<GameObject> addGuiInstances = new List<GameObject>();
 
         private void InitMainGui()
         {
-            var mainGui = FindObjectsOfType<InspectorGui>().FirstOrDefault(x=>x.gameObject.activeSelf);
+            var mainGui = FindObjectsOfType<InspectorGui>().FirstOrDefault(x => x.gameObject.activeSelf);
             if (mainGui != null)
             {
                 InspectorGui = mainGui;
@@ -36,19 +37,21 @@ namespace Assets.ItemInspection
         [Obsolete]
         private void InstantiateMainGui()
         {
-            var guiInstance = GameObject.Instantiate(Resources.Load("Prefabs/InspectorGui")) as GameObject;           
+            var guiInstance = GameObject.Instantiate(Resources.Load("Prefabs/InspectorGui")) as GameObject;
             InspectorGui = guiInstance.GetComponent<InspectorGui>();
             InspectorGui.SetEnabledGui(false);
         }
 
         private void InitAdditionalGui()
         {
-            if (AdditionalInspectingGui != null)
+            foreach (var gui in AdditionalInspectingGuis)
             {
-                addGuiInstance = GameObject.Instantiate(this.AdditionalInspectingGui.gameObject);
+                var instance = GameObject.Instantiate(gui.gameObject);
+                InspectorGui.SetAdditionalGui(instance);
 
-                InspectorGui.SetAdditionalGui(addGuiInstance);
-                addGuiInstance.SetActive(false);
+
+                addGuiInstances.Add(instance);
+                instance.SetActive(true);
             }
         }
 
@@ -81,15 +84,25 @@ namespace Assets.ItemInspection
             isInspecting = false;
             InspectorGui.InspectableObject = null;
 
-            if(addGuiInstance != null)
-                addGuiInstance.GetComponent<AdditionalGuiBase>().OnInspectionStop(this);
-          
-            Destroy(addGuiInstance);
+             foreach (var gui in addGuiInstances)
+             {
+                gui.GetComponent<AdditionalGuiBase>().OnInspectionStop(this);
+             }
+
+            foreach (var gui in addGuiInstances)
+            {
+                Destroy(gui);
+            }
+            addGuiInstances.Clear();
+
             Destroy(inspectableInstance);
             InspectorGui.SetEnabledGui(false);
-       
-            if (addGuiInstance != null)
-                addGuiInstance.gameObject.SetActive(false);
+
+            
+            foreach (var gui in addGuiInstances)
+            {
+                    gui.SetActive(false);
+            }
         }
 
         private void EnableInspecting()
@@ -100,13 +113,18 @@ namespace Assets.ItemInspection
             InitAdditionalGui();
             InitInspectedItem();
 
-            if (addGuiInstance != null)
-                addGuiInstance.GetComponent<AdditionalGuiBase>().OnInspectionStart(this);
+            foreach (var gui in addGuiInstances)
+            {
+                gui.GetComponent<AdditionalGuiBase>().OnInspectionStart(this);
+            }
 
             InspectorGui.SetEnabledGui(true);
 
-            if (addGuiInstance != null)
-                addGuiInstance.gameObject.SetActive(true);
+
+            foreach (var gui in addGuiInstances)
+            {
+                gui.SetActive(true);
+            }
         }
 
         private void Update()

@@ -28,6 +28,15 @@ public class UIController : NetworkBehaviour
         enabled = true;
     }
 
+    public override void OnStopAuthority()
+    {
+        Controls.Disable();
+        Controls.Player.UnlockCursor.started -= OnUnlockCursorHold;
+        Controls.Player.UnlockCursor.canceled -= OnUnlockCursorRelease;
+
+        enabled = false;
+    }
+
     public void OnUnlockCursorHold(CallbackContext obj)
     {
         UnlockCursor();

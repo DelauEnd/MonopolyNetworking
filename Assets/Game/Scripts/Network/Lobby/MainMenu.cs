@@ -9,13 +9,16 @@ namespace Assets.Game.Scripts.Network.Lobby
 {
     public class MainMenu : MonoBehaviour
     {
-        [SerializeField] private NetworkManagerLobby networkManager = null;
+        private NetworkManagerLobby networkManager = null;
 
         [Header("UI")]
         [SerializeField] private GameObject landingPagePanel = null;
 
         private void Awake()
         {
+            if (networkManager == null)
+                networkManager = FindObjectOfType<NetworkManagerLobby>();
+
             NetworkManagerLobby.OnClientConnected += HandleClientConnected;
             NetworkManagerLobby.OnClientDisconnected += HandleClientDisconnected;
         }
@@ -25,6 +28,7 @@ namespace Assets.Game.Scripts.Network.Lobby
             NetworkManagerLobby.OnClientConnected -= HandleClientConnected;
             NetworkManagerLobby.OnClientDisconnected -= HandleClientDisconnected;
         }
+
         private void HandleClientDisconnected()
         {
             gameObject.SetActive(true);

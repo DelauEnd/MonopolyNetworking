@@ -1,7 +1,9 @@
-﻿using Assets.Game.Scripts.Monopoly.Enums;
+﻿using Assets.Game.Scripts.Controls;
+using Assets.Game.Scripts.Monopoly.Enums;
 using Assets.Game.Scripts.Monopoly.FieldUnits;
 using Assets.Game.Scripts.Monopoly.FieldUnits.BaseUnit;
 using Assets.ItemInspection;
+using Cinemachine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,8 +52,11 @@ namespace Assets.Game.Scripts.UIHandlers.InGameUI.FieldUnitsUIForPlayer
             DrawableCard.OnUserDrawCard(Figure);
             HideUI();
 
-            if(DrawableCard.CardType != DrawableCardType.MovePlayer)
+            if (DrawableCard.CardType != DrawableCardType.MovePlayer)
                 EndTurn();
+            else
+                FindObjectsOfType<PlayerCameraController>().FirstOrDefault(controller => controller.hasAuthority).virtualCamera.gameObject.SetActive(true);
+
         }
 
         public override void HideUI()

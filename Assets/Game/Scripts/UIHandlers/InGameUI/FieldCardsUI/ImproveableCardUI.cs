@@ -16,13 +16,12 @@ namespace Assets.Game.Scripts.UIHandlers.InGameUI
         InspectorGui PlayerGui = null;
         ImproveableFieldUnit InspectableField = null;
         [SerializeField] UserFigure Figure = null;
-
         [SerializeField] Button[] buttons = new Button[2];
 
         public override void OnInspectionStart(ItemInspector inspector)
         {
             InitInspector();
-            if (InspectableField.owner == Figure)
+            if (InspectableField.owner.hasAuthority)
             {
                 buttons[0].gameObject.SetActive(true);
                 buttons[1].gameObject.SetActive(true);

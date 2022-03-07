@@ -28,17 +28,16 @@ public class ImproveableFieldUnit : BuyableFieldUnitBase
     {
         if (AvailableToBuy)
         {
-            figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.BuildMessage($"{unitName}\nYou can buy this field for {unitPrice}$ ");
+            figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.BuildMessage($"{unitName}\nYou can buy this field for ${unitPrice}.");
             figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.ShowUI();
         }
         else
         {
-            figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.BuildMessage($"{unitName}\nOwner: {owner.UserInfo.DisplayName}.\nYou should pay Renta {GetPayAmount()}$ ");
+            figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.BuildMessage($"{unitName}\nOwner: {owner.UserInfo.DisplayName}.\nYou should pay Renta ${GetPayAmount()}. ");
             figure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.ShowUI();
         }
 
     }
-
     protected override int GetPayAmount()
     {
         if (currentImproveLevel == 0)
@@ -71,4 +70,7 @@ public class ImproveableFieldUnit : BuyableFieldUnitBase
         currentImproveLevel--;
         buildings.UpdateBuildings(currentImproveLevel);
     }
+
+    public override bool CanBeMortgaged()
+        => currentImproveLevel == 0 && !mortgaged;
 }

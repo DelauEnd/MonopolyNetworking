@@ -13,7 +13,7 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits
 
         public override void OnPlayerStop(UserFigure figure)
         {
-            figure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.BuildMessage($"You should pay {GetPayAmount()} TAX");
+            figure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.BuildMessage($"You should pay ${GetPayAmount()}. TAX");
             figure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.ShowUI();
         }
 

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Game.Scripts.Network.Lobby
@@ -43,6 +44,22 @@ namespace Assets.Game.Scripts.Network.Lobby
             DontDestroyOnLoad(gameObject);
 
             Room.GamePlayers.Add(this);
+        }
+
+        public override void OnStartAuthority()
+        {
+            NetworkManagerLobby.OnClientDisconnected += DisconnectUser;
+        }
+
+        public override void OnStopAuthority()
+        {
+            NetworkManagerLobby.OnClientDisconnected -= DisconnectUser;
+        }
+
+        private void DisconnectUser()
+        {
+            SceneManager.LoadScene("Scene_MainMenu");
+            Cursor.lockState = CursorLockMode.None;
         }
 
         public override void OnStopClient()

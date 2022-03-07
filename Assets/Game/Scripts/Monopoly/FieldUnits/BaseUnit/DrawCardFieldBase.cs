@@ -19,6 +19,8 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits.BaseUnit
         public void ShowCard(DrawableCardBase card)
         {
             var cardInd = DrawableCards.FindIndex(cardToFind =>cardToFind.name == card.name);
+            DrawableCards.Where(card => card.gameObject.activeSelf).ForEach(card => card.gameObject.SetActive(false));
+            card.gameObject.SetActive(true);
             CmdShowCard(cardInd);
         }
 

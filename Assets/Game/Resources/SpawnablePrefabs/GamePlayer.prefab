@@ -2979,7 +2979,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   virtualCamera: {fileID: 8354604006530201474}
-  userUI: {fileID: 9106016533311405006}
+  figure: {fileID: 3804597568996716218}
+  center: {fileID: 380997883858117730}
 --- !u!114 &8948609257157988887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3565,9 +3566,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InspectorGui: {fileID: 0}
   isInspecting: 0
-  AdditionalInspectingGui: {fileID: 0}
+  AdditionalInspectingGuis: []
   inspectableInstance: {fileID: 0}
-  addGuiInstance: {fileID: 0}
+  addGuiInstances: []
 --- !u!114 &850562100117691632
 MonoBehaviour:
   m_ObjectHideFlags: 0

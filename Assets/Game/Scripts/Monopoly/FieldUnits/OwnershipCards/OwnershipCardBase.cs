@@ -13,6 +13,8 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits.OwnershipCards
         public Outline ownerColorOutline = null;
         public Canvas cardCanvas = null;
 
+        public MortgageCard mortgageCard = null;
+
         protected virtual void Awake()
         {
             cardCanvas.worldCamera = FindObjectOfType<Camera>();

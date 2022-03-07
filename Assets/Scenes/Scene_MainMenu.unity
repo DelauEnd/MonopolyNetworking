@@ -2929,7 +2929,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b93fd01a44aa3994699782772be80098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkManager: {fileID: 1588284488}
   joinLobbyPagePanel: {fileID: 759314931}
   landingPagePanel: {fileID: 127895227}
   ipAddressInputField: {fileID: 263712425}
@@ -8235,7 +8234,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffef90a2943a85c4bb923732442d653b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkManager: {fileID: 1588284488}
   landingPagePanel: {fileID: 127895227}
 --- !u!4 &2139770958
 Transform:

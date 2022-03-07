@@ -13,7 +13,7 @@ namespace Assets.Game.Scripts.Network.Lobby
 {
     public class JoinLobbyMenu : MonoBehaviour
     {
-        [SerializeField] private NetworkManagerLobby networkManager = null;
+        private NetworkManagerLobby networkManager = null;
 
         [Header("UI")]
         [SerializeField] private GameObject joinLobbyPagePanel = null;
@@ -25,7 +25,10 @@ namespace Assets.Game.Scripts.Network.Lobby
 
         private void Awake()
         {
-            portInputField.text = networkManager.gameObject.GetComponent<KcpTransport>().Port.ToString();
+            if (networkManager == null)
+                networkManager = FindObjectOfType<NetworkManagerLobby>();
+
+            portInputField.text = networkManager.gameObject.GetComponent<KcpTransport>().Port.ToString();           
         }
 
         public void HideMenu()

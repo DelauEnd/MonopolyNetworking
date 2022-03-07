@@ -6263,9 +6263,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InspectorGui: {fileID: 0}
   isInspecting: 0
-  AdditionalInspectingGui: {fileID: 0}
+  AdditionalInspectingGuis: []
   inspectableInstance: {fileID: 0}
-  addGuiInstance: {fileID: 0}
+  addGuiInstances: []
 --- !u!1001 &1699487138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6768,9 +6768,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InspectorGui: {fileID: 0}
   isInspecting: 0
-  AdditionalInspectingGui: {fileID: 0}
+  AdditionalInspectingGuis: []
   inspectableInstance: {fileID: 0}
-  addGuiInstance: {fileID: 0}
+  addGuiInstances: []
 --- !u!1001 &1786165249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13597,9 +13597,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InspectorGui: {fileID: 0}
   isInspecting: 0
-  AdditionalInspectingGui: {fileID: 0}
+  AdditionalInspectingGuis: []
   inspectableInstance: {fileID: 0}
-  addGuiInstance: {fileID: 0}
+  addGuiInstances: []
 --- !u!4 &4292002061773891944
 Transform:
   m_ObjectHideFlags: 0
@@ -14314,6 +14314,7 @@ MonoBehaviour:
   ownerCard: {fileID: 849622150}
   unitPrice: 160
   mortgageValue: 80
+  mortgaged: 0
   improveCost: 80
   improvedRentalPrices: 3c000000b4000000f4010000bc02000084030000
   currentImproveLevel: 0
@@ -14339,6 +14340,7 @@ MonoBehaviour:
   ownerCard: {fileID: 1786165250}
   unitPrice: 100
   mortgageValue: 50
+  mortgaged: 0
   improveCost: 50
   improvedRentalPrices: 1e0000005a0000000e0100009001000026020000
   currentImproveLevel: 0
@@ -14364,6 +14366,7 @@ MonoBehaviour:
   ownerCard: {fileID: 1088104701}
   unitPrice: 300
   mortgageValue: 150
+  mortgaged: 0
   improveCost: 200
   improvedRentalPrices: 8200000086010000840300004c040000fb040000
   currentImproveLevel: 0
@@ -14389,6 +14392,7 @@ MonoBehaviour:
   ownerCard: {fileID: 1295729120}
   unitPrice: 400
   mortgageValue: 200
+  mortgaged: 0
   improveCost: 200
   improvedRentalPrices: af000000f40100004c040000a4060000d0070000
   currentImproveLevel: 0
@@ -14414,6 +14418,7 @@ MonoBehaviour:
   ownerCard: {fileID: 80511435}
   unitPrice: 260
   mortgageValue: 130
+  mortgaged: 0
   improveCost: 150
   improvedRentalPrices: 6e0000004a01000020030000cf0300007e040000
   currentImproveLevel: 0
@@ -14439,6 +14444,7 @@ MonoBehaviour:
   ownerCard: {fileID: 915600899}
   unitPrice: 140
   mortgageValue: 70
+  mortgaged: 0
   improveCost: 100
   improvedRentalPrices: 3200000096000000c201000071020000bc020000
   currentImproveLevel: 0
@@ -14464,6 +14470,7 @@ MonoBehaviour:
   ownerCard: {fileID: 1936087608}
   unitPrice: 180
   mortgageValue: 90
+  mortgaged: 0
   improveCost: 100
   improvedRentalPrices: 46000000c800000026020000ee02000084030000
   currentImproveLevel: 0
@@ -14489,6 +14496,7 @@ MonoBehaviour:
   ownerCard: {fileID: 1648618504}
   unitPrice: 220
   mortgageValue: 110
+  mortgaged: 0
   improveCost: 150
   improvedRentalPrices: 5a000000fa000000bc0200006b0300001a040000
   currentImproveLevel: 0
@@ -14514,6 +14522,7 @@ MonoBehaviour:
   ownerCard: {fileID: 1427260632}
   unitPrice: 100
   mortgageValue: 50
+  mortgaged: 0
   improveCost: 50
   improvedRentalPrices: 1e0000005a0000000e0100009001000026020000
   currentImproveLevel: 0
@@ -14539,6 +14548,7 @@ MonoBehaviour:
   ownerCard: {fileID: 692489221}
   unitPrice: 240
   mortgageValue: 120
+  mortgaged: 0
   improveCost: 150
   improvedRentalPrices: 640000002c010000ee0200009d0300004c040000
   currentImproveLevel: 0
@@ -14564,6 +14574,7 @@ MonoBehaviour:
   ownerCard: {fileID: 1988325193}
   unitPrice: 280
   mortgageValue: 140
+  mortgaged: 0
   improveCost: 150
   improvedRentalPrices: 78000000680100005203000001040000b0040000
   currentImproveLevel: 0
@@ -14589,6 +14600,7 @@ MonoBehaviour:
   ownerCard: {fileID: 1609639795}
   unitPrice: 350
   mortgageValue: 175
+  mortgaged: 0
   improveCost: 200
   improvedRentalPrices: af000000f40100004c04000014050000dc050000
   currentImproveLevel: 0
@@ -14614,6 +14626,7 @@ MonoBehaviour:
   ownerCard: {fileID: 951272610}
   unitPrice: 200
   mortgageValue: 100
+  mortgaged: 0
   improveCost: 100
   improvedRentalPrices: 50000000dc0000005802000020030000e8030000
   currentImproveLevel: 0
@@ -14639,6 +14652,7 @@ MonoBehaviour:
   ownerCard: {fileID: 1224431216}
   unitPrice: 220
   mortgageValue: 110
+  mortgaged: 0
   improveCost: 150
   improvedRentalPrices: 5a000000fa000000bc0200006b0300001a040000
   currentImproveLevel: 0
@@ -14664,6 +14678,7 @@ MonoBehaviour:
   ownerCard: {fileID: 2034857430}
   unitPrice: 180
   mortgageValue: 90
+  mortgaged: 0
   improveCost: 100
   improvedRentalPrices: 46000000c800000026020000ee020000b6030000
   currentImproveLevel: 0
@@ -14689,6 +14704,7 @@ MonoBehaviour:
   ownerCard: {fileID: 934557883}
   unitPrice: 260
   mortgageValue: 130
+  mortgaged: 0
   improveCost: 150
   improvedRentalPrices: 6e0000004a01000020030000cf0300007e040000
   currentImproveLevel: 0
@@ -14714,6 +14730,7 @@ MonoBehaviour:
   ownerCard: {fileID: 764176528}
   unitPrice: 140
   mortgageValue: 70
+  mortgaged: 0
   improveCost: 100
   improvedRentalPrices: 3200000096000000c201000071020000ee020000
   currentImproveLevel: 0
@@ -14739,6 +14756,7 @@ MonoBehaviour:
   ownerCard: {fileID: 1531434211}
   unitPrice: 60
   mortgageValue: 30
+  mortgaged: 0
   improveCost: 50
   improvedRentalPrices: 140000003c000000b400000040010000c2010000
   currentImproveLevel: 0
@@ -14764,6 +14782,7 @@ MonoBehaviour:
   ownerCard: {fileID: 1137875289}
   unitPrice: 300
   mortgageValue: 150
+  mortgaged: 0
   improveCost: 200
   improvedRentalPrices: 8200000086010000840300004c040000fb040000
   currentImproveLevel: 0
@@ -14789,6 +14808,7 @@ MonoBehaviour:
   ownerCard: {fileID: 1582358127}
   unitPrice: 120
   mortgageValue: 60
+  mortgaged: 0
   improveCost: 50
   improvedRentalPrices: 28000000640000002c010000c201000058020000
   currentImproveLevel: 0
@@ -14814,6 +14834,7 @@ MonoBehaviour:
   ownerCard: {fileID: 1547533454}
   unitPrice: 320
   mortgageValue: 160
+  mortgaged: 0
   improveCost: 200
   improvedRentalPrices: 960000008601000084030000b004000078050000
   currentImproveLevel: 0
@@ -16202,6 +16223,7 @@ MonoBehaviour:
   ownerCard: {fileID: 279518473}
   unitPrice: 200
   mortgageValue: 100
+  mortgaged: 0
 --- !u!114 &6455177293350313867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16376,6 +16398,7 @@ MonoBehaviour:
   ownerCard: {fileID: 1749163631}
   unitPrice: 200
   mortgageValue: 100
+  mortgaged: 0
 --- !u!114 &6455177294266845102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16397,6 +16420,7 @@ MonoBehaviour:
   ownerCard: {fileID: 1332205275}
   unitPrice: 150
   mortgageValue: 75
+  mortgaged: 0
 --- !u!114 &6455177294348370434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16418,6 +16442,7 @@ MonoBehaviour:
   ownerCard: {fileID: 748054329}
   unitPrice: 200
   mortgageValue: 100
+  mortgaged: 0
 --- !u!114 &6455177294351665341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16606,6 +16631,7 @@ MonoBehaviour:
   ownerCard: {fileID: 1463570074}
   unitPrice: 200
   mortgageValue: 100
+  mortgaged: 0
 --- !u!114 &6455177294773404223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16641,6 +16667,7 @@ MonoBehaviour:
   ownerCard: {fileID: 1724533929}
   unitPrice: 150
   mortgageValue: 75
+  mortgaged: 0
 --- !u!114 &6455177294874714178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17265,6 +17292,7 @@ MonoBehaviour:
   ownerCard: {fileID: 453095535}
   unitPrice: 60
   mortgageValue: 30
+  mortgaged: 0
   improveCost: 50
   improvedRentalPrices: 0a0000001e0000005a000000a0000000fa000000
   currentImproveLevel: 0
