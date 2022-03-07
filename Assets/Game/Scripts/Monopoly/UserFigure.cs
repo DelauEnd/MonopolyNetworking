@@ -76,6 +76,13 @@ public class UserFigure : NetworkBehaviour
         UIController.LockCursor();        
     }
 
+    public override void OnStopAuthority()
+    {
+        Room.GamePlayers.Clear();
+        Room.RoomPlayers.Clear();
+        Room.UserFigures.Clear();
+    }
+
     #region UserInfoHandle  
     public void SyncUserInfo(NetworkGamePlayerLobby oldValue, NetworkGamePlayerLobby newValue)
     {
@@ -93,8 +100,8 @@ public class UserFigure : NetworkBehaviour
     private void RpcInitUserInfo(NetworkGamePlayerLobby userInfo)
     {
         UserInfo = userInfo;
-    } 
-    #endregion
+    }
+    #endregion  
 
     private void Update()
     {
@@ -121,6 +128,7 @@ public class UserFigure : NetworkBehaviour
         if (Room.CurrentPlayer == this && Game.readyToMove && shouldMove)
         {
             GameManager.LastRolledNumber = Game.rolledNumber;
+
             Game.CmdSetRolledNumber(0);
             Game.CmdSetReadyToMove(false);
 
@@ -291,11 +299,6 @@ public class UserFigure : NetworkBehaviour
     {
         Debug.Log("To next user by command" + ind);
 
-        if(ind == 0)
-        {
-            HandleLapPassed();
-        }
-
         Room.CurrentUserInd = ind;
         RpcSetCurrentPlayerInd(ind);
     }
@@ -325,6 +328,9 @@ public class UserFigure : NetworkBehaviour
         {
             ind++;
             ind %= Room.UserFigures.Count;
+
+            if(ind == 0)
+                HandleLapPassed();
         }
         while (Room.UserFigures[ind].prisonRemained != 0);
         
