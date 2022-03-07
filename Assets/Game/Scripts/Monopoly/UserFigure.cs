@@ -257,6 +257,9 @@ public class UserFigure : NetworkBehaviour
 
         UIHandler.PlayerInfoUI.DrawUserMoney(money);
         Debug.Log($"Draw money changed to {money}");
+
+        if (UIHandler.TabMenuUI.gameObject.activeSelf)
+            UIHandler.TabMenuUI.ShowTabMenu(Room.UserFigures);
     }
 
     [Command(requiresAuthority = false)]

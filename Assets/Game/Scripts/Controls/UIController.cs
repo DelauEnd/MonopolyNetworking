@@ -1,7 +1,10 @@
+using Assets.Game.Scripts.UIHandlers.InGameUI;
+using Assets.Game.Scripts.UIHandlers.InGameUI.PlayerUI;
 using Cinemachine;
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
 
@@ -9,6 +12,8 @@ public class UIController : NetworkBehaviour
 {
     [Header("User camera")]
     [SerializeField] private CinemachineFreeLook virtualCamera = null;
+    [HideInInspector] UserFigure figure;
+    [SerializeField] PlayerUIHandler PlayerUI;
 
     private Controllers controls;
     public Controllers Controls
@@ -22,8 +27,15 @@ public class UIController : NetworkBehaviour
     public override void OnStartAuthority()
     {
         Controls.Enable();
+
+        figure = FindObjectsOfType<UserFigure>().FirstOrDefault(user=>user.hasAuthority);
+        PlayerUI = GetComponent<PlayerUIHandler>();
+
         Controls.Player.UnlockCursor.started += OnUnlockCursorHold;
         Controls.Player.UnlockCursor.canceled += OnUnlockCursorRelease;
+
+        Controls.Player.ShowTabMenu.started += ShowTabMenuHold;
+        Controls.Player.ShowTabMenu.canceled += ShowTabMenuRelease; ;
 
         enabled = true;
     }
@@ -31,10 +43,24 @@ public class UIController : NetworkBehaviour
     public override void OnStopAuthority()
     {
         Controls.Disable();
+
         Controls.Player.UnlockCursor.started -= OnUnlockCursorHold;
         Controls.Player.UnlockCursor.canceled -= OnUnlockCursorRelease;
 
+        Controls.Player.ShowTabMenu.started -= ShowTabMenuHold;
+        Controls.Player.ShowTabMenu.canceled -= ShowTabMenuRelease; ;
+
         enabled = false;
+    }
+
+    private void ShowTabMenuHold(CallbackContext obj)
+    {
+        PlayerUI.TabMenuUI.ShowTabMenu(figure.Room.UserFigures);
+    }
+
+    private void ShowTabMenuRelease(CallbackContext obj)
+    {
+        PlayerUI.TabMenuUI.HideTabMenu();
     }
 
     public void OnUnlockCursorHold(CallbackContext obj)
@@ -49,7 +75,6 @@ public class UIController : NetworkBehaviour
 
     public void UnlockCursor()
     {
-        Debug.Log("performed");
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
@@ -59,11 +84,10 @@ public class UIController : NetworkBehaviour
 
     public void LockCursor()
     {
-        Debug.Log("canceled");
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        if(hasAuthority)
+        if (hasAuthority)
             virtualCamera.gameObject.SetActive(true);
     }
 }

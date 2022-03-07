@@ -22,6 +22,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ShowTabMenu",
+                    "type": "Button",
+                    "id": "22c28413-de2c-4bf0-ac43-360e57988ec9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -44,6 +53,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "InspectItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f0c1ae65-1364-464c-b25d-388f01a9076a",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "Hold(duration=0.1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShowTabMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

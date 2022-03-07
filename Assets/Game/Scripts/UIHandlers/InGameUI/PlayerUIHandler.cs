@@ -8,15 +8,17 @@ using System;
 using Assets.Game.Scripts.Network.Lobby;
 using Assets.Game.Scripts.Monopoly.FieldUnits;
 using Assets.ItemInspection.Scripts.Utils;
+using Assets.Game.Scripts.UIHandlers.InGameUI.PlayerUI;
 
 namespace Assets.Game.Scripts.UIHandlers.InGameUI
 {
     public class PlayerUIHandler : NetworkBehaviour
     {
         public Canvas UserUI = null;
-        [HideInInspector] public PlayerInfoUI PlayerInfoUI = null;
-        [HideInInspector] public GameUnitsPlayerUI GameUnitsPlayerUI = null;
-
+        [Header("UI")]
+        public PlayerInfoUI PlayerInfoUI = null;
+        public GameUnitsPlayerUI GameUnitsPlayerUI = null;
+        public TabMenuUI TabMenuUI = null;
         private void Awake()
         {
             PlayerInfoUI = UserUI.GetComponent<PlayerInfoUI>();
