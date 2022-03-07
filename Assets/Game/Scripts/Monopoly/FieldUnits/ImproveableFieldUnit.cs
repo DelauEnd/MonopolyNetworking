@@ -1,4 +1,5 @@
 ﻿using Assets.Game.Scripts.Monopoly.FieldUnits;
+using Mirror;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -57,8 +58,8 @@ public class ImproveableFieldUnit : BuyableFieldUnitBase
             return;
 
         user.CmdSetUserMoney(user.userMoney - improveCost);
-        currentImproveLevel++;
-        buildings.UpdateBuildings(currentImproveLevel);
+        CmdChangeImproveLevel(currentImproveLevel + 1);
+        CmdUpdateBuildings(currentImproveLevel + 1);
     }
 
     public void SoldBuilding(UserFigure user)
@@ -67,10 +68,46 @@ public class ImproveableFieldUnit : BuyableFieldUnitBase
             return;
 
         user.CmdSetUserMoney(user.userMoney + improveCost / 2);
-        currentImproveLevel--;
-        buildings.UpdateBuildings(currentImproveLevel);
+        CmdChangeImproveLevel(currentImproveLevel - 1);
+        CmdUpdateBuildings(currentImproveLevel - 1);
+    }
+
+    [Command(requiresAuthority = false)]
+    void CmdChangeImproveLevel(int newLevel)
+    {
+        RpcChangeImproveLevel(newLevel);
+        currentImproveLevel = newLevel;
+    }
+
+    [ClientRpc]
+    void RpcChangeImproveLevel(int newLevel)
+    {
+        currentImproveLevel = newLevel;
+    }
+
+    [Command(requiresAuthority = false)]
+    void CmdUpdateBuildings(int improveLevel)
+    {
+        RpcUpdateBuildings(improveLevel);
+        buildings.UpdateBuildings(improveLevel);
+    }
+
+    [ClientRpc]
+    private void RpcUpdateBuildings(int improveLevel)
+    {
+        buildings.UpdateBuildings(improveLevel);
     }
 
     public override bool CanBeMortgaged()
         => currentImproveLevel == 0 && !mortgaged;
+
+    [ClientRpc]
+    protected override void RpcBackFieldToBank()
+    {
+        CmdChangeImproveLevel(0);
+        CmdUpdateBuildings(0);
+
+        owner = null;
+        ownerCard.gameObject.SetActive(false);
+    }
 }

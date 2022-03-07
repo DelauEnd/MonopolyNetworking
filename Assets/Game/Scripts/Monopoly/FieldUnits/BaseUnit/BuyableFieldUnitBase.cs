@@ -49,15 +49,17 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
         RpcBuyCurrentField(figure.UserInfo, figure);
     }
 
-    public override void PayByPlayer(UserFigure figure)
+    [Command(requiresAuthority = false)]
+    public virtual void CmdBackFieldToBank()
     {
-        var payAmount = GetPayAmount();
-        if (figure.userMoney < payAmount)
-        {
-            UserHasNoMoney();
-            return;
-        }
-        figure.PayToUser(owner, payAmount);
+        RpcBackFieldToBank();
+    }
+
+    [ClientRpc]
+    protected virtual void RpcBackFieldToBank()
+    {
+        owner = null;
+        ownerCard.gameObject.SetActive(false);
     }
 
     [ClientRpc]
@@ -71,6 +73,17 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
         }
 
         newOwnerFigure.UIHandler.GameUnitsPlayerUI.EndTurn();
+    }
+
+    public override void PayByPlayer(UserFigure figure)
+    {
+        var payAmount = GetPayAmount();
+        if (figure.userMoney < payAmount)
+        {
+            UserHasNoMoney();
+            return;
+        }
+        figure.PayToUser(owner, payAmount);
     }
 
     protected abstract override int GetPayAmount();

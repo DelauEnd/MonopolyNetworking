@@ -32,4 +32,10 @@ public class RailroadFieldUnit : BuyableFieldUnitBase
 
         return basePayAmount * priceMultiplayer;
     }
+
+    [ClientRpc]
+    protected override void RpcBackFieldToBank()
+    {
+        owner = null;
+    }
 }

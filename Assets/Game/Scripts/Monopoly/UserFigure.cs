@@ -61,6 +61,11 @@ public class UserFigure : NetworkBehaviour
         Room.PlayersCount++;
     }
 
+    public override void OnStopClient()
+    {
+        
+    }
+
     public override void OnStartAuthority()
     {
         UIController.LockCursor();        
