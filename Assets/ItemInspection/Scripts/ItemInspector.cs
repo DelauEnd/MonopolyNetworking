@@ -20,6 +20,7 @@ namespace Assets.ItemInspection
         [HideInInspector]
         public bool CanInspect
             => !InspectorGui.guiEnabled;
+
         [Header("Instances")]
         public GameObject inspectableInstance = null;
         public List<GameObject> addGuiInstances = new List<GameObject>();

@@ -8,15 +8,17 @@ using UnityEngine;
 
 public class RailroadFieldUnit : BuyableFieldUnitBase
 {
-    public override bool CanBeMortgaged()
-        => !mortgaged;
-
     public override void OnPlayerStop(UserFigure figure)
     {
         if (AvailableToBuy)
         {
             figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.BuildMessage($"{unitName}\nYou can buy this RAILROAD for ${unitPrice}. ");
             figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.ShowUI();
+        }
+        else if(owner == figure)
+        {
+            figure.UIHandler.GameUnitsPlayerUI.JustStayUnitUI.BuildMessage($"{unitName}\nThis field owned by YOU, stay for free");
+            figure.UIHandler.GameUnitsPlayerUI.JustStayUnitUI.ShowUI();
         }
         else
         {
@@ -31,11 +33,5 @@ public class RailroadFieldUnit : BuyableFieldUnitBase
         var priceMultiplayer = (int)Math.Pow(2, ownedCount - 1);
 
         return basePayAmount * priceMultiplayer;
-    }
-
-    [ClientRpc]
-    protected override void RpcBackFieldToBank()
-    {
-        owner = null;
     }
 }

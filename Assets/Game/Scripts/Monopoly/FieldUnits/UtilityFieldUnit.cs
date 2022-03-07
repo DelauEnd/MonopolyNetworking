@@ -8,15 +8,17 @@ using UnityEngine;
 
 public class UtilityFieldUnit : BuyableFieldUnitBase
 {
-    public override bool CanBeMortgaged()
-        => !mortgaged;
-
     public override void OnPlayerStop(UserFigure figure)
     {
         if (AvailableToBuy)
         {
             figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.BuildMessage($"{unitName}\nYou can buy this UTILITY for ${unitPrice}.");
             figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.ShowUI();
+        }
+        else if (owner == figure)
+        {
+            figure.UIHandler.GameUnitsPlayerUI.JustStayUnitUI.BuildMessage($"{unitName}\nThis field owned by YOU, stay for free");
+            figure.UIHandler.GameUnitsPlayerUI.JustStayUnitUI.ShowUI();
         }
         else
         {

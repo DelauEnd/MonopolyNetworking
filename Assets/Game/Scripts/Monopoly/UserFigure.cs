@@ -32,6 +32,11 @@ public class UserFigure : NetworkBehaviour
     public UIController UIController = null;
     public Outline UserOutline = null;
 
+
+    [SerializeField]
+    public List<BuyableFieldUnitBase> OwnedFields
+        => Field.fieldUnits.OfType<BuyableFieldUnitBase>().Where(unit => unit.owner != null && unit.owner == this).ToList();
+
     [Header("User info")]
     [SyncVar(hook = nameof(SyncUserInfo))] public NetworkGamePlayerLobby UserInfo = null;
     [SyncVar(hook = nameof(SyncCurrentPos))] public int currentPosition = 0;

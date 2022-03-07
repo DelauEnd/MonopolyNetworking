@@ -88,7 +88,13 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
 
     protected abstract override int GetPayAmount();
 
-    public abstract bool CanBeMortgaged();
+    public virtual bool CanBeMortgaged()
+        => !mortgaged;
+
+    public virtual bool CanBeTransfered()
+    {
+        return true;
+    }    
 
     public void MortgageField()
     {
@@ -138,5 +144,5 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
     }
 
     protected IEnumerable<IFieldUnit> GetUnitsWithSameColor()
-        => Field.fieldUnits.Where(unit => unit is BuyableFieldUnitBase && ((BuyableFieldUnitBase) unit).color == this.color).ToList(); 
+        => Field.fieldUnits.OfType<BuyableFieldUnitBase>().Where(unit =>  unit.color == this.color).ToList(); 
 }

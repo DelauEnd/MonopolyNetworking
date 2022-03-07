@@ -28,9 +28,12 @@ namespace Assets.Game.Scripts.UIHandlers.InGameUI
         public override void OnStartAuthority()
         {
             UserUI.gameObject.SetActive(true);
+            TabMenuUI.transform.parent.GetComponent<Canvas>().gameObject.SetActive(true);
 
             var camera = FindObjectOfType<InspectorCamera>().GetComponent<Camera>();
+
             UserUI.worldCamera = camera;
+            TabMenuUI.transform.parent.GetComponent<Canvas>().worldCamera = camera;
 
             this.enabled = true;    
         }

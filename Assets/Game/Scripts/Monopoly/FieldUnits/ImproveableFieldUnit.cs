@@ -32,6 +32,11 @@ public class ImproveableFieldUnit : BuyableFieldUnitBase
             figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.BuildMessage($"{unitName}\nYou can buy this field for ${unitPrice}.");
             figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.ShowUI();
         }
+        else if (owner == figure)
+        {
+            figure.UIHandler.GameUnitsPlayerUI.JustStayUnitUI.BuildMessage($"{unitName}\nThis field owned by YOU, stay for free");
+            figure.UIHandler.GameUnitsPlayerUI.JustStayUnitUI.ShowUI();
+        }
         else
         {
             figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.BuildMessage($"{unitName}\nOwner: {owner.UserInfo.DisplayName}.\nYou should pay Renta ${GetPayAmount()}. ");
@@ -50,6 +55,11 @@ public class ImproveableFieldUnit : BuyableFieldUnitBase
         }
         else
             return improvedRentalPrices[currentImproveLevel - 1];
+    }
+
+    public override bool CanBeTransfered()
+    {
+        return currentImproveLevel == 0;
     }
 
     public void ImproveUnit(UserFigure user)
