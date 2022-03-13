@@ -9,12 +9,12 @@ namespace Assets.ItemInspection.Scripts
 {
     public class EndInspectionByKey : InspectorHandlerBase
     {
-        public KeyCode closeKey;
-
         private void Update()
         {
-            if(Input.GetKeyDown(closeKey))
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
                 Inspection.SetEnableInspecting(false);
+            }
         }
     }
 }

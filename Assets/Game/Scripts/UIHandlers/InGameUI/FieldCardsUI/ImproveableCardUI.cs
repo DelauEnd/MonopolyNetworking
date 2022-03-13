@@ -15,6 +15,7 @@ namespace Assets.Game.Scripts.UIHandlers.InGameUI
     {
         InspectorGui PlayerGui = null;
         ImproveableFieldUnit InspectableField = null;
+        [SerializeField] GameObject ParentPanel = null;
         [SerializeField] UserFigure Figure = null;
         [SerializeField] Button[] buttons = new Button[2];
 
@@ -23,6 +24,7 @@ namespace Assets.Game.Scripts.UIHandlers.InGameUI
             InitInspector();
             if (InspectableField.owner.hasAuthority)
             {
+                ParentPanel.SetActive(true);
                 buttons[0].gameObject.SetActive(true);
                 buttons[1].gameObject.SetActive(true);
             }
@@ -54,7 +56,7 @@ namespace Assets.Game.Scripts.UIHandlers.InGameUI
         {
             buttons[0].gameObject.SetActive(false);
             buttons[1].gameObject.SetActive(false);
-
+            ParentPanel.SetActive(false);
             buttons[0].interactable = false;
             buttons[1].interactable = false;
         }
@@ -66,7 +68,7 @@ namespace Assets.Game.Scripts.UIHandlers.InGameUI
 
         public void SoldHouseClick()
         {
-            InspectableField.SoldBuilding(Figure);
+            InspectableField.DowngradeUnit(Figure);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Assets.Game.Scripts.Controls
 {
     public class PlayerInspectionController : NetworkBehaviour
     {
-        [SerializeField] InspectorGui inspectorGui = null;
+        [SerializeField] public InspectorGui inspectorGui = null;
 
         public override void OnStartAuthority()
         {

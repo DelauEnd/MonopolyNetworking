@@ -32,7 +32,6 @@ public class UserFigure : NetworkBehaviour
     public UIController UIController = null;
     public Outline UserOutline = null;
 
-
     [SerializeField]
     public List<BuyableFieldUnitBase> OwnedFields
         => Field.fieldUnits.OfType<BuyableFieldUnitBase>().Where(unit => unit.owner != null && unit.owner == this).ToList();
@@ -46,6 +45,10 @@ public class UserFigure : NetworkBehaviour
     [SyncVar] public bool shouldMove;
     [SyncVar] public bool playerThrowDice = false;
     [SyncVar] public int prisonRemained = 0;
+
+    bool endgame = false;
+
+    public event Action<int> OnUserMoneyChanged;
 
     public bool isMoving;
     public bool moveEnded;
@@ -68,7 +71,10 @@ public class UserFigure : NetworkBehaviour
 
     public override void OnStopClient()
     {
-        
+        Room.UserFigures.Remove(this);
+        Room.leavedPlayers++; 
+            if (connectionToClient != null)
+        OwnedFields.ForEach(field => field.CmdBackFieldToBank());          
     }
 
     public override void OnStartAuthority()
@@ -93,6 +99,7 @@ public class UserFigure : NetworkBehaviour
     private void CmdInitUserInfo(NetworkGamePlayerLobby userInfo)
     {
         UserInfo = userInfo;
+        userInfo.userFigure = this;
         RpcInitUserInfo(userInfo);
     }
 
@@ -100,15 +107,27 @@ public class UserFigure : NetworkBehaviour
     private void RpcInitUserInfo(NetworkGamePlayerLobby userInfo)
     {
         UserInfo = userInfo;
+        userInfo.userFigure = this;
     }
     #endregion  
 
     private void Update()
     {
+        
+
         ColorFigure();
 
         if (!hasAuthority)
             return;
+
+        if (Room.leavedPlayers == Room.GamePlayers.Count - 1 && !endgame)
+        {
+            endgame = true;
+            Debug.Log("endgame");
+        }
+
+        if(room.CurrentPlayer == this)
+
 
         CheckUserInfos();
         UpdateSelfInfo();
@@ -141,7 +160,11 @@ public class UserFigure : NetworkBehaviour
 
     private void CheckUserInfos()
     {
-        Room.UserFigures.Where(figure => figure.UserInfo == null).ForEach(figure => figure.CmdSetShouldUpdateInfo());
+        Room.UserFigures.Where(figure => figure.UserInfo == null).ForEach(figure =>
+        {
+            if (figure.gameObject != null)
+                figure.CmdSetShouldUpdateInfo();
+        });
     }
 
     [Command(requiresAuthority = false)]
@@ -278,6 +301,8 @@ public class UserFigure : NetworkBehaviour
 
         if (UIHandler.TabMenuUI.gameObject.activeSelf)
             UIHandler.TabMenuUI.ShowTabMenu(Room.UserFigures);
+
+        OnUserMoneyChanged?.Invoke(userMoney);
     }
 
     [Command(requiresAuthority = false)]

@@ -23,11 +23,15 @@ namespace Assets.Game.Scripts.Network.Lobby
         [SerializeField] public int PlayersCount = 0;
         [SerializeField] public int CurrentUserInd = 0;
 
+        public int leavedPlayers = 0;
+
         public List<UserFigure> UserFigures
             = new List<UserFigure>();
 
         public UserFigure CurrentPlayer 
-            => UserFigures[CurrentUserInd];
+            => CurrentUserInd >= UserFigures.Count ?
+            UserFigures[0]:
+            UserFigures[CurrentUserInd];
 
         public static event Action OnClientConnected;
         public static event Action OnClientDisconnected;

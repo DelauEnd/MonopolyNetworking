@@ -15,7 +15,7 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits.OwnershipCards
         public void InitMortgageCard(BuyableFieldUnitBase baseUnit)
         {
             texts[0].text = baseUnit.unitName;
-            texts[1].text = $"MORTGAGED\nfor ${baseUnit.mortgageValue}.";
+            texts[1].text = $"MORTGAGED\nfor <sprite index= 0>{baseUnit.mortgageValue}.";
         }
     }
 }

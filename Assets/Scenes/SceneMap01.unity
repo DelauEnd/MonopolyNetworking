@@ -381,6 +381,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def3dbeebcaedee4a9f61c395a87e73a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dices:
+  - {fileID: 707909610}
+  - {fileID: 4253404319105418465}
   dicesRolled: 0
 --- !u!1001 &58705942
 PrefabInstance:
@@ -2157,6 +2160,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &707909610 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7102535530131029190, guid: d8bc6c73c4ac69b4d91ddcef5edcad55, type: 3}
+  m_PrefabInstance: {fileID: 635693424}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ee398e1ff90341b962da146463e35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &709725379
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3160,7 +3174,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.8679245, g: 0.8023405, b: 0.47899607, a: 1}
+  m_BackGroundColor: {r: 0.8, g: 0.90588236, b: 0.80784315, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -6178,7 +6192,7 @@ GameObject:
   - component: {fileID: 1678675194}
   - component: {fileID: 1678675198}
   - component: {fileID: 1678675197}
-  - component: {fileID: 1678675196}
+  - component: {fileID: 1678675199}
   - component: {fileID: 1678675195}
   m_Layer: 0
   m_Name: ChanceCards
@@ -6224,19 +6238,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Scale: {x: 7, y: 7, z: 7}
---- !u!114 &1678675196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1678675193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e53c1f8abe99f094a8c35b2e5a96e77b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  closeKey: 27
 --- !u!114 &1678675197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6266,6 +6267,18 @@ MonoBehaviour:
   AdditionalInspectingGuis: []
   inspectableInstance: {fileID: 0}
   addGuiInstances: []
+--- !u!114 &1678675199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678675193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e53c1f8abe99f094a8c35b2e5a96e77b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1699487138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6741,7 +6754,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e53c1f8abe99f094a8c35b2e5a96e77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closeKey: 27
 --- !u!114 &1775411905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13600,6 +13612,17 @@ MonoBehaviour:
   AdditionalInspectingGuis: []
   inspectableInstance: {fileID: 0}
   addGuiInstances: []
+--- !u!114 &4253404319105418465 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7102535530131029190, guid: d8bc6c73c4ac69b4d91ddcef5edcad55, type: 3}
+  m_PrefabInstance: {fileID: 4253404319105418460}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4253404319105418461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828ee398e1ff90341b962da146463e35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4292002061773891944
 Transform:
   m_ObjectHideFlags: 0

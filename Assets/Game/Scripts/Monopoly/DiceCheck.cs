@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DiceCheck : MonoBehaviour
 {
-    List<Dice> dices;
+    [SerializeField] List<Dice> dices = null;
     List<Vector3> diceVelosities;
     public bool dicesRolled;
     public bool IsNumbersCalculated
@@ -16,7 +16,7 @@ public class DiceCheck : MonoBehaviour
 
     private void Awake()
     {
-        dices = new List<Dice>(FindObjectsOfType<Dice>());
+        //dices = new List<Dice>(FindObjectsOfType<Dice>());
     }
 
     private void FixedUpdate()
@@ -56,7 +56,6 @@ public class DiceCheck : MonoBehaviour
     public bool IsDicesRolled()
          => diceVelosities.All(vector => vector == Vector3.zero);
     
-
     public void RollAllDices()
     {
         dicesRolled = true;
@@ -73,6 +72,4 @@ public class DiceCheck : MonoBehaviour
             dice.rolledNumber = 0;
         }
     }
-
-
 }

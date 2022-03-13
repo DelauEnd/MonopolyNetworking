@@ -29,7 +29,7 @@ public class ImproveableFieldUnit : BuyableFieldUnitBase
     {
         if (AvailableToBuy)
         {
-            figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.BuildMessage($"{unitName}\nYou can buy this field for ${unitPrice}.");
+            figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.BuildMessage($"{unitName}\nYou can buy this field for <sprite index= 0>{unitPrice}.");
             figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.ShowUI();
         }
         else if (owner == figure)
@@ -39,7 +39,7 @@ public class ImproveableFieldUnit : BuyableFieldUnitBase
         }
         else
         {
-            figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.BuildMessage($"{unitName}\nOwner: {owner.UserInfo.DisplayName}.\nYou should pay Renta ${GetPayAmount()}. ");
+            figure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.BuildMessage($"{unitName}\nOwner: {owner.UserInfo.DisplayName}.\nYou should pay Renta <sprite index= 0>{GetPayAmount()}. ");
             figure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.ShowUI();
         }
 
@@ -72,7 +72,7 @@ public class ImproveableFieldUnit : BuyableFieldUnitBase
         CmdUpdateBuildings(currentImproveLevel + 1);
     }
 
-    public void SoldBuilding(UserFigure user)
+    public void DowngradeUnit(UserFigure user)
     {
         if (owner != user || currentImproveLevel == 0)
             return;

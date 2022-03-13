@@ -62,7 +62,7 @@ public class GameManager : NetworkBehaviour
     }
 
     private void Update()
-    {     
+    {
         if (Room.CurrentPlayer.playerThrowDice && !dices.dicesRolled /*&& !currentUser.Value.isMoving && !previousUser.Value.isMoving*/)
         {
             Debug.Log($"Dices rolled by user on field");

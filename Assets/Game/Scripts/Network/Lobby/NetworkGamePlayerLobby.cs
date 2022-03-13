@@ -45,6 +45,9 @@ namespace Assets.Game.Scripts.Network.Lobby
 
             Room.GamePlayers.Add(this);
         }
+        public override void OnStopClient()
+        {
+        }
 
         public override void OnStartAuthority()
         {
@@ -62,10 +65,7 @@ namespace Assets.Game.Scripts.Network.Lobby
             Cursor.lockState = CursorLockMode.None;
         }
 
-        public override void OnStopClient()
-        {
-            Room.GamePlayers.Remove(this);
-        }
+        
 
         /// <summary>
         /// Returns user figure object assigned to current player

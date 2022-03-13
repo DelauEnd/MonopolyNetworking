@@ -8,12 +8,13 @@ using TMPro;
 
 namespace Assets.Game.Scripts.UIHandlers.InGameUI.PlayerUI.ScrolbarList
 {
-    public class OwnershipListItem : MonoBehaviour
+    public class OwnershipListItem : FieldListItemBase
     {
         [SerializeField] TMP_Text fieldName = null;
 
-        public void InitOwnedField(BuyableFieldUnitBase fieldUnit)
+        public override void InitOwnedField(BuyableFieldUnitBase fieldUnit)
         {
+            UnitField = fieldUnit;
             fieldName.text = fieldUnit.unitName;
         }
     }

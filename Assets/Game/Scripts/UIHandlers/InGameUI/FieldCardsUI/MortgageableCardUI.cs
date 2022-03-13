@@ -43,8 +43,8 @@ namespace Assets.Game.Scripts.UIHandlers.InGameUI
 
         private void InitPanelTexts()
         {
-            texts[0].text = ($"You can mortgage this field for ${InspectableField.mortgageValue}.\nYou can buy back field later for ${InspectableField.mortgageValue * 1.1}.");
-            texts[1].text = ($"You can buy back field this for ${InspectableField.mortgageValue * 1.1}.");
+            texts[0].text = ($"You can mortgage this field for <sprite index= 0>{InspectableField.mortgageValue}.\nYou can buy back field later for <sprite index= 0>{InspectableField.mortgageValue * 1.1}.");
+            texts[1].text = ($"You can buy back field this for <sprite index= 0>{InspectableField.mortgageValue * 1.1}.");
         }
 
         private void InitInspector()
@@ -73,23 +73,16 @@ namespace Assets.Game.Scripts.UIHandlers.InGameUI
         {
             InspectableField.MortgageField();
 
-            if (InspectableField.mortgaged)
-            {
-                guiPanels[0].gameObject.SetActive(false);
-
-                guiPanels[1].gameObject.SetActive(true);
-            }
+            guiPanels[0].gameObject.SetActive(false);
+            guiPanels[1].gameObject.SetActive(true);
         }
 
         public void BuyBackField()
         {
             InspectableField.BuyBackField();
-            if (!InspectableField.mortgaged)
-            {
-                guiPanels[0].gameObject.SetActive(true);
 
-                guiPanels[1].gameObject.SetActive(false);
-            }
+            guiPanels[0].gameObject.SetActive(true);
+            guiPanels[1].gameObject.SetActive(false);
         }
     }
 }

@@ -317,8 +317,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: sdadfhdfhfg
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: add19b1419e8f6c4aba59a0ba5600c29, type: 2}
+  m_sharedMaterial: {fileID: -5254378251556958744, guid: add19b1419e8f6c4aba59a0ba5600c29, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -488,10 +488,10 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'MORTGAGED
 
-    for $999.'
+    for <sprite index= 0>999.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0671446c558156a44b992196ab68ce76, type: 2}
+  m_sharedMaterial: {fileID: 2142292596032763475, guid: 0671446c558156a44b992196ab68ce76, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -507,7 +507,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 025302cbc83d77a46bcf9ebc2d96b66b, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -624,8 +624,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: card must be turned this side up if property is mortgaged
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0671446c558156a44b992196ab68ce76, type: 2}
+  m_sharedMaterial: {fileID: 2142292596032763475, guid: 0671446c558156a44b992196ab68ce76, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

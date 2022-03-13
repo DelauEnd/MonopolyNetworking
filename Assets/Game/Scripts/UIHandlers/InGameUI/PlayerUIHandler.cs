@@ -19,6 +19,8 @@ namespace Assets.Game.Scripts.UIHandlers.InGameUI
         public PlayerInfoUI PlayerInfoUI = null;
         public GameUnitsPlayerUI GameUnitsPlayerUI = null;
         public TabMenuUI TabMenuUI = null;
+        public EscMenu EscMenu = null;
+
         private void Awake()
         {
             PlayerInfoUI = UserUI.GetComponent<PlayerInfoUI>();
@@ -36,6 +38,22 @@ namespace Assets.Game.Scripts.UIHandlers.InGameUI
             TabMenuUI.transform.parent.GetComponent<Canvas>().worldCamera = camera;
 
             this.enabled = true;    
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (TabMenuUI.ownershipGUI.gameObject.activeSelf)
+                {
+                    TabMenuUI.ownershipGUI.HideOwnershipList();
+                }
+                else
+                {
+                    EscMenu.showControls = !EscMenu.showControls;
+                    EscMenu.EscMenuPanel.gameObject.SetActive(EscMenu.showControls);
+                }
+            }
         }
 
         [ClientCallback]

@@ -12,7 +12,7 @@ public class UtilityFieldUnit : BuyableFieldUnitBase
     {
         if (AvailableToBuy)
         {
-            figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.BuildMessage($"{unitName}\nYou can buy this UTILITY for ${unitPrice}.");
+            figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.BuildMessage($"{unitName}\nYou can buy this UTILITY for <sprite index= 0>{unitPrice}.");
             figure.UIHandler.GameUnitsPlayerUI.BuyableUnitUI.ShowUI();
         }
         else if (owner == figure)
@@ -22,7 +22,7 @@ public class UtilityFieldUnit : BuyableFieldUnitBase
         }
         else
         {
-            figure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.BuildMessage($"{unitName}\nOwner: {owner.UserInfo.DisplayName}.\nYou should pay Renta ${GetPayAmount()}. ");
+            figure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.BuildMessage($"{unitName}\nOwner: {owner.UserInfo.DisplayName}.\nYou should pay Renta <sprite index= 0>{GetPayAmount()}. ");
             figure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.ShowUI();
         }
     }

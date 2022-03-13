@@ -21,7 +21,7 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits
             Field = FindObjectOfType<GameField>();
             StopPoints = new List<Transform>(GetComponentsInChildren<Transform>()).Where(obj => obj != this.transform).ToList();
         }
-
+        
         abstract public void OnPlayerStop(UserFigure figure);
 
         public Vector3 GetAvailablePoint()

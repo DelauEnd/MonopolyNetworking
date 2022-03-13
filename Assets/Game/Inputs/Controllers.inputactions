@@ -1,5 +1,5 @@
 {
-    "name": "Controls",
+    "name": "Controllers",
     "maps": [
         {
             "name": "Player",
@@ -37,7 +37,7 @@
                 {
                     "name": "",
                     "id": "e75c0fb7-6767-4bb3-ad46-c1473af32860",
-                    "path": "<Keyboard>/alt",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "Hold(duration=0.1,pressPoint=1.401298E-45)",
                     "processors": "",
                     "groups": "Keyboard and mouse",

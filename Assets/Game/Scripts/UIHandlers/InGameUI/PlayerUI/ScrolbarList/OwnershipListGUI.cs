@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using TMPro;
+using Assets.Game.Scripts.Monopoly.TradeBetweenUsers;
 
 namespace Assets.Game.Scripts.UIHandlers.InGameUI.PlayerUI.ScrolbarList
 {
@@ -18,9 +19,7 @@ namespace Assets.Game.Scripts.UIHandlers.InGameUI.PlayerUI.ScrolbarList
 
         public void ShowOwnersipList(UserFigure figure)
         {
-            ClearInstances();
-
-            gameObject.SetActive(true);
+            PreInit();
 
             HeaderText.text = $"{figure.UserInfo.DisplayName}'s OWNED FIELDS";
 
@@ -28,14 +27,47 @@ namespace Assets.Game.Scripts.UIHandlers.InGameUI.PlayerUI.ScrolbarList
             foreach (var item in ownedFields)
             {
                 var recordInstance = GameObject.Instantiate(Resources.Load("Prefabs/Scrolbar/ScrolbarItem")) as GameObject;
-                recordInstance.GetComponent<OwnershipListItem>().InitOwnedField(item);
-                recordInstance.transform.SetParent(contentPanel.transform);
-
-                recordInstance.transform.localScale = Vector3.one;
-                recordInstance.transform.localPosition = recordInstance.transform.position;
-
-                recordInstances.Add(recordInstance);
+                
+                
+                InitInstance(item, recordInstance);
             }
+        }
+
+        public void ShowAddableOwnersipList(UserFigure figure, UserOfferPanel userOfferPanel)
+        {
+            PreInit();
+
+            HeaderText.text = $"{figure.UserInfo.DisplayName}'s TRADEABLE FIELDS";
+
+            var ownedFields = figure.OwnedFields.Except(userOfferPanel.SelectedFields);
+
+            ownedFields.Where(x => x.AvailableToBuy);
+
+            foreach (var item in ownedFields)
+            {
+                var recordInstance = GameObject.Instantiate(Resources.Load("Prefabs/Scrolbar/TradeFieldItem")) as GameObject;
+
+                recordInstance.GetComponent<AddableListItem>().Container = this;
+                recordInstance.GetComponent<AddableListItem>().userOfferPanel = userOfferPanel;
+                InitInstance(item, recordInstance);
+            }
+        }
+
+        private void PreInit()
+        {
+            ClearInstances();
+            gameObject.SetActive(true);
+        }
+
+        private void InitInstance(BuyableFieldUnitBase field, GameObject recordInstance)
+        {
+            recordInstance.GetComponent<FieldListItemBase>().InitOwnedField(field);
+            recordInstance.transform.SetParent(contentPanel.transform);
+
+            recordInstance.transform.localScale = Vector3.one;
+            recordInstance.transform.localPosition = recordInstance.transform.position;
+
+            recordInstances.Add(recordInstance);
         }
 
         public void HideOwnershipList()
