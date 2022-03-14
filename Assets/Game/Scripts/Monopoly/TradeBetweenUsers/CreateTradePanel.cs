@@ -1,4 +1,5 @@
-﻿using Assets.Game.Scripts.UIHandlers.InGameUI.PlayerUI.ScrolbarList;
+﻿using Assets.Game.Scripts.UIHandlers.InGameUI.PlayerUI;
+using Assets.Game.Scripts.UIHandlers.InGameUI.PlayerUI.ScrolbarList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,19 +11,21 @@ namespace Assets.Game.Scripts.Monopoly.TradeBetweenUsers
 {
     public class CreateTradePanel : MonoBehaviour
     {
-        public UserOfferPanel YouGivePanel;
-        public UserOfferPanel YouRecievePanel;
+        public UserOfferPanel RecieverOfferPanel;
+        public UserOfferPanel SenderOfferPanel;
 
         public UserFigure offerSender;
         public UserFigure offerReciever;
+
+        [SerializeField] TradeHandler Handler = null;
 
         public void ShowTradePanel(UserFigure offerReciever)
         {
             this.offerReciever = offerReciever;
             ClearOffer();
             gameObject.SetActive(true);
-            YouGivePanel.InitOfferPanel(offerSender);
-            YouRecievePanel.InitOfferPanel(this.offerReciever);
+            SenderOfferPanel.InitOfferPanel(offerSender);
+            RecieverOfferPanel.InitOfferPanel(this.offerReciever);
         }
 
         public void HideTradePanel()
@@ -33,8 +36,33 @@ namespace Assets.Game.Scripts.Monopoly.TradeBetweenUsers
 
         private void ClearOffer()
         {
-            YouGivePanel.ClearOffer();
-            YouRecievePanel.ClearOffer();
+            SenderOfferPanel.ClearOffer();
+            RecieverOfferPanel.ClearOffer();
+        }
+
+
+        public void SendOffer()
+        {
+            var offer = BuildOffer();
+            Handler.SendOffer(offer);
+        }
+
+        public TradeOfferToSend BuildOffer()
+        {
+            var recieverOffer = RecieverOfferPanel.BuildOffer();
+            var senderOffer = SenderOfferPanel.BuildOffer();
+
+            return new TradeOfferToSend
+            {
+                recieverPlayerId = offerReciever.UserInfo.UserId,
+                senderPlayerId = offerSender.UserInfo.UserId,
+
+                recieverOfferMoney = recieverOffer.MoneyAmount,
+                recieverOfferUnitsInds = recieverOffer.FieldUnitIndexes,
+
+                senderOfferMoney = senderOffer.MoneyAmount,
+                senderOfferUnitsInds = senderOffer.FieldUnitIndexes,
+            };
         }
     }
 }

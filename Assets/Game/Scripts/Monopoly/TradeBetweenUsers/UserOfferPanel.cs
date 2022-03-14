@@ -77,7 +77,7 @@ namespace Assets.Game.Scripts.Monopoly.TradeBetweenUsers
             => new TradeOffer
             {
                 MoneyAmount = (int)MoneySlide.value,
-                FieldUnitIndexes = GetSelectedFieldsIndexes().ToList()
+                FieldUnitIndexes = GetSelectedFieldsIndexes()
             };
 
         public int[] GetSelectedFieldsIndexes()

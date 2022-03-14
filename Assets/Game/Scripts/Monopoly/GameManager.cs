@@ -63,11 +63,12 @@ public class GameManager : NetworkBehaviour
 
     private void Update()
     {
-        if (Room.CurrentPlayer.playerThrowDice && !dices.dicesRolled /*&& !currentUser.Value.isMoving && !previousUser.Value.isMoving*/)
+        if (Room.CurrentPlayer.playerThrowDice && Room.CurrentPlayer.playerCanThrowDice && !dices.dicesRolled /*&& !currentUser.Value.isMoving && !previousUser.Value.isMoving*/)
         {
             Debug.Log($"Dices rolled by user on field");
             dices.ClearRolledNumbers();
             dices.RollAllDices();
+            Room.CurrentPlayer.playerCanThrowDice = false;
         }
 
         if (dices.IsNumbersCalculated && dices.dicesRolled)

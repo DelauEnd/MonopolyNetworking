@@ -9,6 +9,6 @@ namespace Assets.Game.Scripts.Monopoly.TradeBetweenUsers
     public class TradeOffer
     {
         public int MoneyAmount = 0;
-        public List<int> FieldUnitIndexes = new List<int>();
+        public int[] FieldUnitIndexes;
     }
 }

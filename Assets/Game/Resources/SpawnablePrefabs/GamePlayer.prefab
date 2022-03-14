@@ -2135,6 +2135,8 @@ GameObject:
   - component: {fileID: 5106277123913572809}
   - component: {fileID: 1845207025958911221}
   - component: {fileID: 21748894556234247}
+  - component: {fileID: 7949524276629500885}
+  - component: {fileID: 1796159856616665273}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -2243,7 +2245,46 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1845207025958911221}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4295324624860908939}
+        m_TargetAssemblyTypeName: Assets.Game.Scripts.Monopoly.TradeBetweenUsers.CreateTradePanel,
+          Assembly-CSharp
+        m_MethodName: SendOffer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7949524276629500885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205484415466252392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+--- !u!114 &1796159856616665273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205484415466252392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa055549e40cf6d46946007f6ab24827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextToHandle: {fileID: 408457097254362695}
 --- !u!1 &1406505193872257557
 GameObject:
   m_ObjectHideFlags: 0
@@ -9834,6 +9875,7 @@ GameObject:
   - component: {fileID: 6606686321850607438}
   - component: {fileID: 6298418325442884664}
   - component: {fileID: 4098408162586667291}
+  - component: {fileID: 808156200827011644}
   m_Layer: 0
   m_Name: GamePlayer
   m_TagString: Player
@@ -10010,6 +10052,20 @@ MonoBehaviour:
   GameUnitsPlayerUI: {fileID: 6847082912952810587}
   TabMenuUI: {fileID: 193351107022517065}
   EscMenu: {fileID: 8524267506633220837}
+--- !u!114 &808156200827011644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5313374078119318432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c3d1278bb78fce44866bac04ea34cac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!1 &5328745828562315023
 GameObject:
   m_ObjectHideFlags: 0
@@ -10181,10 +10237,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e431b7e1a32869344937755e264baffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  YouGivePanel: {fileID: 3509102897607783531}
-  YouRecievePanel: {fileID: 1694673932968647000}
+  RecieverOfferPanel: {fileID: 1694673932968647000}
+  SenderOfferPanel: {fileID: 3509102897607783531}
   offerSender: {fileID: 8948609257157988887}
   offerReciever: {fileID: 0}
+  Handler: {fileID: 808156200827011644}
 --- !u!1 &5479673242333781466
 GameObject:
   m_ObjectHideFlags: 0
@@ -15963,8 +16020,6 @@ GameObject:
   - component: {fileID: 8979374975941061398}
   - component: {fileID: 4154125453780166733}
   - component: {fileID: 408457097254362695}
-  - component: {fileID: 598513991610098004}
-  - component: {fileID: 8951812874714161875}
   m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
@@ -16033,32 +16088,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: SEND REQUEST
---- !u!114 &598513991610098004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8400494250024478303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates: []
---- !u!114 &8951812874714161875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8400494250024478303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa055549e40cf6d46946007f6ab24827, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TextToHandle: {fileID: 408457097254362695}
 --- !u!1 &8464996859001215341
 GameObject:
   m_ObjectHideFlags: 0

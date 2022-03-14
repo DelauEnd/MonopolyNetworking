@@ -24,6 +24,10 @@ namespace Assets.Game.Scripts.Network.Lobby
 
         [SyncVar]
         [SerializeField]
+        public string UserId;
+
+        [SyncVar]
+        [SerializeField]
         public int UserFigure = 0;
 
         public UserFigure userFigure = null;
@@ -82,6 +86,12 @@ namespace Assets.Game.Scripts.Network.Lobby
         public void SetDisplayName(string name)
         {
             this.DisplayName = name;
+        }
+
+        [Server]
+        public void SetUserId(string Id)
+        {
+            this.UserId = Id;
         }
 
         [Server]

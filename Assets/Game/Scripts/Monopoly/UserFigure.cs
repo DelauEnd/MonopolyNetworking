@@ -55,6 +55,7 @@ public class UserFigure : NetworkBehaviour
     public bool frezeFigure;
     private bool inited;
     public int lastThrowedDiceNumber;
+    public bool playerCanThrowDice = false;
 
     private bool colored = false;
 
@@ -67,6 +68,8 @@ public class UserFigure : NetworkBehaviour
 
         Room.UserFigures.Add(this);
         Room.PlayersCount++;
+
+        Room.CurrentPlayer.playerCanThrowDice = true;
     }
 
     public override void OnStopClient()
@@ -79,7 +82,7 @@ public class UserFigure : NetworkBehaviour
 
     public override void OnStartAuthority()
     {
-        UIController.LockCursor();        
+        UIController.LockCursor();
     }
 
     public override void OnStopAuthority()
@@ -338,6 +341,7 @@ public class UserFigure : NetworkBehaviour
     {
         Debug.Log("To next user by rpc" + ind);
         Room.CurrentUserInd = ind;
+        Room.CurrentPlayer.playerCanThrowDice = true;
     }
 
     public int GetNextPlayerIndex()

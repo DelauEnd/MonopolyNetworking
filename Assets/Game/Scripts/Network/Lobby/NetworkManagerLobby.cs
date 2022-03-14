@@ -150,6 +150,9 @@ namespace Assets.Game.Scripts.Network.Lobby
             {
                 var conn = RoomPlayers[i].connectionToClient;
                 var gameplayerInstance = Instantiate(gamePlayerPrefab);
+                Guid userId = Guid.NewGuid();
+
+                gameplayerInstance.SetUserId(userId.ToString());
                 gameplayerInstance.SetDisplayColor(RoomPlayers[i].DisplayColor);
                 gameplayerInstance.SetDisplayName(RoomPlayers[i].DisplayName);
                 NetworkServer.Destroy(conn.identity.gameObject);
