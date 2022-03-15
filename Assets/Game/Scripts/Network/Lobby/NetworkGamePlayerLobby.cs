@@ -67,6 +67,7 @@ namespace Assets.Game.Scripts.Network.Lobby
         {
             SceneManager.LoadScene("Scene_MainMenu");
             Cursor.lockState = CursorLockMode.None;
+            Destroy(Room);
         }
 
         

@@ -8,7 +8,8 @@ namespace Assets.Game.Scripts.Monopoly.TradeBetweenUsers
 {
     public class TradeOffer
     {
-        public int MoneyAmount = 0;
-        public int[] FieldUnitIndexes;
+        public string senderPlayerId;
+        public int moneyAmount = 0;
+        public int[] fieldUnitIndexes;
     }
 }

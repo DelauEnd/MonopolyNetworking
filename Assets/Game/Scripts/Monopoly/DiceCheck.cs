@@ -49,6 +49,9 @@ public class DiceCheck : MonoBehaviour
                 case "side6":
                     dice.rolledNumber = 1;
                     break;
+                case "edge":
+                    dice.GetComponent<Rigidbody>().AddForce(Vector3.up);
+                    break;
             }
         }
     }

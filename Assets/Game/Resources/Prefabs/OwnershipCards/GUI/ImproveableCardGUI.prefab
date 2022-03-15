@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2044450141126645754}
   - component: {fileID: 3343046510044839660}
   - component: {fileID: 8159640045982774797}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 2479015662774826515}
   - component: {fileID: 7778061678787456280}
   - component: {fileID: 1489465536864421129}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ImproveableCardGUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 30
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 1206785055156989112}
   - component: {fileID: 7687579916066972948}
   - component: {fileID: 7555184479825269193}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -453,7 +453,7 @@ GameObject:
   - component: {fileID: 4499528488724275242}
   - component: {fileID: 4991334463427435220}
   - component: {fileID: 2658236814430824329}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -529,7 +529,7 @@ GameObject:
   - component: {fileID: 7100903759924855198}
   - component: {fileID: 6324594881858643152}
   - component: {fileID: 5889534274366169836}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -606,7 +606,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7043482355676254802}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -645,7 +645,7 @@ GameObject:
   - component: {fileID: 6593984613590032540}
   - component: {fileID: 6209519025918531832}
   - component: {fileID: 6519693110881479044}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}

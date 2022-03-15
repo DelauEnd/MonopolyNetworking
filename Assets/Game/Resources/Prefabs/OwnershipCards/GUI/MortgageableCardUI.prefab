@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6871736515631609513}
   - component: {fileID: 2825783330696479397}
   - component: {fileID: 9086952112130857171}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 4570394240709850580}
   - component: {fileID: 1012925933880120880}
   - component: {fileID: 2513978265932345}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 8410443543935599848}
   - component: {fileID: 4808813935019142406}
   - component: {fileID: 396185325501705853}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 8084283324626204841}
   - component: {fileID: 4098477893643830889}
   - component: {fileID: 3674100888821955753}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +518,7 @@ GameObject:
   - component: {fileID: 6845455039649920059}
   - component: {fileID: 2723182967442984645}
   - component: {fileID: 4930751135881851800}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -595,7 +595,7 @@ GameObject:
   - component: {fileID: 145524882872604047}
   - component: {fileID: 3984280279184617665}
   - component: {fileID: 3545929892535334653}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -676,7 +676,7 @@ GameObject:
   - component: {fileID: 4821459474076541442}
   - component: {fileID: 828453045634398473}
   - component: {fileID: 8832395634013979301}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MortgageableCardUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -715,7 +715,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 30
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -798,7 +798,7 @@ GameObject:
   - component: {fileID: 8200082974963287723}
   - component: {fileID: 8525144763255285904}
   - component: {fileID: 2450371195010092995}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -957,7 +957,7 @@ GameObject:
   - component: {fileID: 981259207572328054}
   - component: {fileID: 697945798114659336}
   - component: {fileID: 4628682932680926505}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -45,6 +45,7 @@ namespace Assets.Game.Scripts.Monopoly.TradeBetweenUsers
         {
             var offer = BuildOffer();
             Handler.SendOffer(offer);
+            HideTradePanel();
         }
 
         public TradeOfferToSend BuildOffer()
@@ -57,11 +58,11 @@ namespace Assets.Game.Scripts.Monopoly.TradeBetweenUsers
                 recieverPlayerId = offerReciever.UserInfo.UserId,
                 senderPlayerId = offerSender.UserInfo.UserId,
 
-                recieverOfferMoney = recieverOffer.MoneyAmount,
-                recieverOfferUnitsInds = recieverOffer.FieldUnitIndexes,
+                recieverOfferMoney = recieverOffer.moneyAmount,
+                recieverOfferUnitsInds = recieverOffer.fieldUnitIndexes,
 
-                senderOfferMoney = senderOffer.MoneyAmount,
-                senderOfferUnitsInds = senderOffer.FieldUnitIndexes,
+                senderOfferMoney = senderOffer.moneyAmount,
+                senderOfferUnitsInds = senderOffer.fieldUnitIndexes,
             };
         }
     }

@@ -35,6 +35,23 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
     }
 
     [Command(requiresAuthority = false)]
+    public void CmdChangeOwner(UserFigure newOwner)
+    {
+        RpcChangeOwner(newOwner);
+    } 
+    
+    [ClientRpc]
+    public void RpcChangeOwner(UserFigure newOwner)
+    {
+        owner = newOwner;
+        if (ownerCard != null)
+        {
+            ownerCard.SetVisible(true);
+            ownerCard.SetNewOwner(newOwner);
+        }
+    }    
+
+    [Command(requiresAuthority = false)]
     public void CmdBuyCurrentField(UserFigure figure)
     {
         if (figure.userMoney < unitPrice)
@@ -46,7 +63,7 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
         owner = figure;
 
         figure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.HideUI(); ;
-        RpcBuyCurrentField(figure.UserInfo, figure);
+        RpcBuyCurrentField(figure);
     }
 
     [Command(requiresAuthority = false)]
@@ -63,7 +80,7 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
     }
 
     [ClientRpc]
-    private void RpcBuyCurrentField(NetworkGamePlayerLobby newOwner, UserFigure newOwnerFigure)
+    private void RpcBuyCurrentField(UserFigure newOwnerFigure)
     {
         owner = newOwnerFigure;
         if (ownerCard != null)

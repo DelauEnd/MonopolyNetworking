@@ -64,20 +64,11 @@ namespace Assets.Game.Scripts.Monopoly.TradeBetweenUsers
             MoneyText.text = newMoneyValue.ToString();
         }
 
-        private void ValidateUserMoney()
-        {
-            if (MoneySlide.maxValue != player.userMoney)
-            {
-                MoneySlide.maxValue = player.userMoney;
-                MaxMoney.text = player.userMoney.ToString();
-            }
-        }
-
         public TradeOffer BuildOffer()
             => new TradeOffer
             {
-                MoneyAmount = (int)MoneySlide.value,
-                FieldUnitIndexes = GetSelectedFieldsIndexes()
+                moneyAmount = (int)MoneySlide.value,
+                fieldUnitIndexes = GetSelectedFieldsIndexes()
             };
 
         public int[] GetSelectedFieldsIndexes()
@@ -86,7 +77,7 @@ namespace Assets.Game.Scripts.Monopoly.TradeBetweenUsers
 
             for (int i = 0; i < indexes.Length; i++)
             {
-                indexes[i] = player.Field.fieldUnits.FindIndex(field => SelectedFields[i]);
+                indexes[i] = player.Field.fieldUnits.FindIndex(field => field == SelectedFields[i]);
             }
 
             return indexes;
