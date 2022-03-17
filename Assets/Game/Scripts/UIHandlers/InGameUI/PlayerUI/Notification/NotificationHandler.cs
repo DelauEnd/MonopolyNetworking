@@ -9,13 +9,13 @@ namespace Assets.Game.Scripts.UIHandlers.InGameUI.PlayerUI.Notification
 {
     public class NotificationHandler : MonoBehaviour
     {
-        public GameObject basePanel = null;
+        public GameObject[] basePanel = null;
 
-        public NotificationUI InstantiateNotification()
+        public NotificationUI InstantiateNotification(int basePanelInd = 0)
         {
             var notificationInstance = GameObject.Instantiate(Resources.Load("Prefabs/Notification")) as GameObject;
 
-            notificationInstance.transform.SetParent(basePanel.transform);
+            notificationInstance.transform.SetParent(basePanel[basePanelInd].transform);
 
             notificationInstance.transform.localScale = Vector3.one;
             notificationInstance.transform.localPosition = notificationInstance.transform.position;

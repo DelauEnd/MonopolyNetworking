@@ -1,6 +1,7 @@
 using Assets.Game.Scripts.Monopoly.FieldUnits;
 using Assets.Game.Scripts.Network.Lobby;
 using Assets.Game.Scripts.UIHandlers.InGameUI;
+using Assets.Game.Scripts.UIHandlers.InGameUI.PlayerUI.Notification;
 using Assets.Game.Scripts.Utils;
 using Assets.Game.Scripts.Utils.Extensions;
 using Mirror;
@@ -116,9 +117,10 @@ public class UserFigure : NetworkBehaviour
 
     private void Update()
     {
-        
-
         ColorFigure();
+        
+        if(!UIHandler.PlayerInfoUI.Inited)
+            ChangeCurrentTurnText();
 
         if (!hasAuthority)
             return;
@@ -207,7 +209,7 @@ public class UserFigure : NetworkBehaviour
             return;
         inited = true;
 
-        CmdSetUserMoney(1500);    
+        CmdSetUserMoney(000);    
     }
 
     public IEnumerator MoveAlongField(int unitCount)
@@ -306,6 +308,9 @@ public class UserFigure : NetworkBehaviour
             UIHandler.TabMenuUI.ShowTabMenu(Room.UserFigures);
 
         OnUserMoneyChanged?.Invoke(userMoney);
+
+        if (!hasAuthority)
+            return;       
     }
 
     [Command(requiresAuthority = false)]
@@ -331,6 +336,39 @@ public class UserFigure : NetworkBehaviour
         RpcSetCurrentPlayerInd(ind);
     }
 
+    private void ChangeCurrentTurnText()
+    {
+        if (!hasAuthority || Room.CurrentPlayer.UserInfo == null)
+            return;
+
+        if (Room.CurrentPlayer == this)
+            UIHandler.PlayerInfoUI.ShowYourTurnPanel();
+        else
+            UIHandler.PlayerInfoUI.ShowOtherTurnPanel(Room.CurrentPlayer.UserInfo.DisplayName);
+    }
+
+    public void NotificateUser(string message, string button)
+    {
+        CmdNotificateUser(message, button);
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdNotificateUser(string message, string button)
+    {
+        RpcNotificateUser(message, button);
+    }
+
+    [ClientRpc]
+    private void RpcNotificateUser(string message, string button)
+    {
+        if (!hasAuthority)
+            return;
+
+        var notification = GetComponent<NotificationHandler>().InstantiateNotification();
+        
+        notification.ShowOneButtonNotification(message, button);
+    }
+
     private void HandleLapPassed()
     {
         Room.UserFigures.Where(figure => figure.prisonRemained > 0).ForEach(figure => figure.CmdSetPlayerPrisonRemained(figure.prisonRemained - 1));
@@ -342,6 +380,9 @@ public class UserFigure : NetworkBehaviour
         Debug.Log("To next user by rpc" + ind);
         Room.CurrentUserInd = ind;
         Room.CurrentPlayer.playerCanThrowDice = true;
+
+        foreach (var figure in Room.UserFigures)
+            figure.ChangeCurrentTurnText();
     }
 
     public int GetNextPlayerIndex()

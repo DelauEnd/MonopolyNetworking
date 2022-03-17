@@ -39,7 +39,6 @@ namespace Assets.Game.Scripts.UIHandlers.InGameUI.FieldUnitsUIForPlayer
         public void BuyCurrentUnit()
         {
             ((BuyableFieldUnitBase)Figure.GetCurrentUnit()).BuyField(Figure);
-            EndTurn();
             HideUI();
         }
 

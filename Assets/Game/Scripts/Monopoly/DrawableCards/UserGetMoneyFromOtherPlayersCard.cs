@@ -25,10 +25,12 @@ namespace Assets.Game.Scripts.Monopoly.DrawableCards
                     continue;
 
                 user.CmdSetUserMoney(user.userMoney - changeMoneyAmount);
+                user.NotificateUser($"You should pay <sprite index= 0>{changeMoneyAmount}. to {figure.UserInfo.DisplayName}", "Confirm");
                 finalSum += changeMoneyAmount;
             }
 
             figure.CmdSetUserMoney(figure.userMoney + finalSum);
+            figure.NotificateUser($"You recieve <sprite index= 0>{finalSum}. from other players", "Confirm");
         }
     }
 }

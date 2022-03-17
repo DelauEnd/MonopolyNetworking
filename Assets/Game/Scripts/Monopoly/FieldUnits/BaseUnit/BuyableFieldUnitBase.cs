@@ -54,16 +54,7 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
     [Command(requiresAuthority = false)]
     public void CmdBuyCurrentField(UserFigure figure)
     {
-        if (figure.userMoney < unitPrice)
-        {
-            UserHasNoMoney();
-            return;
-        }
-        figure.RpcSetUserMoney(figure.userMoney - unitPrice);
-        owner = figure;
-
-        figure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.HideUI(); ;
-        RpcBuyCurrentField(figure);
+        RpcBuyCurrentField(figure);       
     }
 
     [Command(requiresAuthority = false)]
@@ -82,25 +73,38 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
     [ClientRpc]
     private void RpcBuyCurrentField(UserFigure newOwnerFigure)
     {
+        if (!hasAuthority)
+            return;
+
         owner = newOwnerFigure;
+
+        if (newOwnerFigure.userMoney < unitPrice)
+        {
+            UserHasNoMoney(newOwnerFigure, unitPrice, new Action(() => { CmdBuyCurrentField(newOwnerFigure); }));
+            return;
+        }
+
         if (ownerCard != null)
         {
             ownerCard.SetVisible(true);
             ownerCard.SetNewOwner(newOwnerFigure);
         }
 
-        newOwnerFigure.UIHandler.GameUnitsPlayerUI.EndTurn();
+        newOwnerFigure.CmdSetUserMoney(newOwnerFigure.userMoney - unitPrice);
+        newOwnerFigure.UIHandler.GameUnitsPlayerUI.EndTurn(); ;
+        newOwnerFigure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.HideUI(); ;
     }
 
-    public override void PayByPlayer(UserFigure figure)
+    public override bool PayByPlayer(UserFigure figure)
     {
         var payAmount = GetPayAmount();
         if (figure.userMoney < payAmount)
         {
-            UserHasNoMoney();
-            return;
+            UserHasNoMoney(figure, payAmount, new Action(() => { PayByPlayer(figure); }));
+            return false;
         }
         figure.PayToUser(owner, payAmount);
+        return true;
     }
 
     protected abstract override int GetPayAmount();
@@ -138,7 +142,7 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
     {
         if(owner.userMoney < (mortgageValue * 1.1) )
         {
-            UserHasNoMoney();
+            UserHasNoMoney(owner, (int)(mortgageValue * 1.1), new Action(() => { BuyBackField(); }));
             return;
         }
         owner.CmdSetUserMoney(owner.userMoney - (int)(mortgageValue * 1.1));

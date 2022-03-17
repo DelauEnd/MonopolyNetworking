@@ -26,7 +26,7 @@ namespace Assets.Game.Scripts.Monopoly.FieldUnits
             Transform jailPos = jailPositions[usersInJailCount];
             StartCoroutine(figure.Move(jailPos.position));
     
-            figure.CmdSetPlayerPrisonRemained(3);
+            figure.CmdSetPlayerPrisonRemained(2);
             figure.clientPosition = 10;
             figure.UIHandler.GameUnitsPlayerUI.EndTurn();
         }

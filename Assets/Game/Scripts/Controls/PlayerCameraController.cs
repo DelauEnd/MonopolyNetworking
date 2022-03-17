@@ -21,7 +21,12 @@ namespace Assets.Game.Scripts.Controls
 
         CameraFollowType CameraView
             => (CameraFollowType)cameraViewInd;
-        int cameraViewInd = 1;
+        int cameraViewInd = 2;
+
+        private void Awake()
+        {
+            BuildCameraView();
+        }
 
         public override void OnStartAuthority()
         {
@@ -30,10 +35,20 @@ namespace Assets.Game.Scripts.Controls
             enabled = true;
         }
 
-        private void ChangeCameraView()
+        private void NextCameraView()
         {
             cameraViewInd++;
             cameraViewInd %= 4;
+
+            BuildCameraView();
+        }
+        
+        private void PrevCameraView()
+        {
+            if (cameraViewInd == 0)
+                cameraViewInd = 3;
+            else
+                cameraViewInd--;
 
             BuildCameraView();
         }
@@ -112,8 +127,11 @@ namespace Assets.Game.Scripts.Controls
             if (!hasAuthority)
                 return;
 
-            if (Input.GetKeyDown(KeyCode.Q))
-                ChangeCameraView();
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+                PrevCameraView();
+
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+                NextCameraView();
         }
     }
 }

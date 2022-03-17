@@ -25,9 +25,9 @@ namespace Assets.Game.Scripts.UIHandlers.InGameUI.FieldUnitsUIForPlayer
 
         public void PayRenta()
         {
-            ((PlayerShouldPayIfStayUnit)Figure.GetCurrentUnit()).PayByPlayer(Figure);
+            if (((PlayerShouldPayIfStayUnit)Figure.GetCurrentUnit()).PayByPlayer(Figure))           
+                EndTurn();
             HideUI();
-            EndTurn();
         }
 
         public override void BuildMessage(string message, string buttonText1 = null, string buttonText2 = null)

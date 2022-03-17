@@ -69,7 +69,7 @@ public class ImproveableFieldUnit : BuyableFieldUnitBase
 
         user.CmdSetUserMoney(user.userMoney - improveCost);
         CmdChangeImproveLevel(currentImproveLevel + 1);
-        CmdUpdateBuildings(currentImproveLevel + 1);
+        CmdUpdateBuildings(currentImproveLevel);
     }
 
     public void DowngradeUnit(UserFigure user)
