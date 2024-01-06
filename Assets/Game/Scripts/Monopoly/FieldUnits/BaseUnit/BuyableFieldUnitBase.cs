@@ -1,6 +1,7 @@
 ﻿using Assets.Game.Scripts.Monopoly.FieldUnits;
 using Assets.Game.Scripts.Monopoly.FieldUnits.OwnershipCards;
 using Assets.Game.Scripts.Network.Lobby;
+using Assets.Game.Scripts.UIHandlers.InGameUI.PlayerUI.Notification;
 using Mirror;
 using System;
 using System.Collections.Generic;
@@ -73,16 +74,13 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
     [ClientRpc]
     private void RpcBuyCurrentField(UserFigure newOwnerFigure)
     {
-        if (!hasAuthority)
-            return;
-
-        owner = newOwnerFigure;
-
         if (newOwnerFigure.userMoney < unitPrice)
         {
-            UserHasNoMoney(newOwnerFigure, unitPrice, new Action(() => { CmdBuyCurrentField(newOwnerFigure); }));
+            NotEnoughtMoneyToBuy(newOwnerFigure, unitPrice, new Action(() => { OnPlayerStop(newOwnerFigure); }));
             return;
         }
+
+        owner = newOwnerFigure;
 
         if (ownerCard != null)
         {
@@ -93,6 +91,15 @@ public abstract class BuyableFieldUnitBase : PlayerShouldPayIfStayUnit
         newOwnerFigure.CmdSetUserMoney(newOwnerFigure.userMoney - unitPrice);
         newOwnerFigure.UIHandler.GameUnitsPlayerUI.EndTurn(); ;
         newOwnerFigure.UIHandler.GameUnitsPlayerUI.payIfStayUnitUI.HideUI(); ;
+    }
+
+
+
+    protected void NotEnoughtMoneyToBuy(UserFigure figure, int requiredMoney, Action action)
+    {
+        var notif = figure.gameObject.GetComponent<NotificationHandler>().InstantiateNotification(1);
+        notif.GetComponent<RectTransform>().sizeDelta = new Vector2(550, 300);
+        notif.ShowOneButtonNotification("You have not enought money to pay. You can offer exchange to other players or mortgate your fields", "confirm", action);
     }
 
     public override bool PayByPlayer(UserFigure figure)
